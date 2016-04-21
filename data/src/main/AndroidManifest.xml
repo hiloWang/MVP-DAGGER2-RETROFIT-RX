@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.github.hilo.data">
+
+    <!-- true：adb 可以backup和resore该应用的数据，存在敏感信息泄露隐患 -->
+    <application android:allowBackup="true" />
+</manifest>

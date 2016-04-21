@@ -1,34 +1,48 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0'
 
-        // devmetrics 监测oncrete onstart onresume运行时间
-        classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.3.1'
-
-        // lambda
-        classpath 'me.tatarka:gradle-retrolambda:3.1.0'
-
         // dagger2
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        // devmetrics 监测oncrete onstart onresume运行时间
+        classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.3.1'
     }
 }
 
 allprojects {
-    repositories {
-        jcenter()
-        // compile 'com.commonsware.cwac:camera:0.7.+'
-        maven { url 'https://s3.amazonaws.com/repo.commonsware.com' }
+    ext {
+        androidApplicationId = 'com.github.hilo.presentation'
+        androidVersionCode = 1
+        androidVersionName = "1.0"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId = 'com.github.hilo.presentation.test'
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task wrapper(type: Wrapper) {
+    description 'Creates the gradle wrapper.'
+    gradleVersion '2.10'
+}
+
+task runDomainUnitTests(dependsOn: [':domain:test']) {
+    description 'Run unit tests for the domain layer.'
+}
+
+task runDataUnitTests(dependsOn: [':data:cleanTestDebugUnitTest', ':data:testDebugUnitTest']) {
+    description 'Run unit tests for the data layer.'
+}
+
+task runUnitTests(dependsOn: ['runDomainUnitTests', 'runDataUnitTests']) {
+    description 'Run unit tests for both domain and data layers.'
+}
+
+task runAcceptanceTests(dependsOn: [':presentation:connectedAndroidTest']) {
+    description 'Run application acceptance tests.'
 }
