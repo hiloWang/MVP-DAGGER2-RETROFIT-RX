@@ -38,6 +38,9 @@ public abstract class UseCase {
   private final ThreadExecutor threadExecutor;
   private final PostExecutionThread postExecutionThread;
 
+  /**
+   * not a Subscriber like UseCaseSubscriber
+   */
   private Subscription subscription = Subscriptions.empty();
 
   protected UseCase(ThreadExecutor threadExecutor,

@@ -44,4 +44,5 @@ public class GetUserList extends UseCase {
     // 当调用父类UseCase.execute()方法时，触发本方法，并指向子类的实现；
     return userRepository.user(); // UserRepository是数据层实现的，当调用users()方法时，会调用data层的实现，并返回给调用该方法的人，主要用于获取data层数据并转换成User类型
   }
+
 }
