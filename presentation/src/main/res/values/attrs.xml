@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PullRefreshLayout">
+        <attr name="type" format="enum">
+            <enum name="material" value="0" />
+            <enum name="circles" value="1" />
+            <enum name="water_drop" value="2" />
+            <enum name="ring" value="3" />
+        </attr>
+        <attr name="duration" format="reference"/>
+        <attr name="colors" format="reference"/>
+    </declare-styleable>
+    <!-- pullToRefresh colors -->
+    <integer-array name="google_colors">
+        <item>@color/pulltorefresh_yellow</item>
+        <!--  <item>@color/pulltorefresh_red</item>
+          <item>@color/pulltorefresh_blue</item>
+          <item>@color/pulltorefresh_green</item>-->
+    </integer-array>
+</resources>

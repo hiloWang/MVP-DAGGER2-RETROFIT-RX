@@ -51,7 +51,6 @@ ext {
             rxAndroid:          "io.reactivex:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
-            reservoir:          "com.anupcowkur:reservoir:${reservoirVersion}",
             cardview:           "com.android.support:cardview-v7:${cardviewVersion}",
             design:             "com.android.support:design:${designVersion}",
             appcompat:          "com.android.support:appcompat-v7:${appcompatVersion}",
@@ -89,6 +88,8 @@ ext {
             retrofit2:          "com.squareup.retrofit2:retrofit:${retrofit2Version}",
             retrofitGson:       "com.squareup.retrofit:converter-gson:${retrofitGsonVersion}",
             retrofitAdapter:     "com.squareup.retrofit:adapter-rxjava:${retrofitAdapterVersion}",
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
+            reservoir:          "com.anupcowkur:reservoir:${reservoirVersion}",
     ]
 
     dataTestDependencies = [

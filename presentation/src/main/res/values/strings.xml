@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">MVP-DAGGER2-RETROFIT-RX</string>
+    <!-- {ViewGroup}.getResources().getQuantityString(
+                    R.plurals.likes_count, data.likesCount, data.likesCount-->
+    <plurals name="likes_count">
+        <!-- one 语言需要对类似1的数字进行特殊处理。（比如英语和其它大多数语言里的1；在俄语里，任何以1结尾但不以11结尾的数也属于此类型。）-->
+        <item quantity="one">%d like</item>
+        <!-- 语言不需要对数字进行特殊处理 -->
+        <item quantity="other">%d likes</item>
+    </plurals>
+
+    <!-- Navigation Toolbar -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- LoginActivity -->
+    <string name="user_name">用户名</string>
+    <string name="password">密码</string>
+    <string name="username_error">用户名不能为空</string>
+    <string name="password_error">密码不能为空</string>
+
+    <!-- toolbar title -->
+    <string name="slidelist_toolbar_title">视频专区</string>
+    <string name="main_toolbar_title">@string/app_name</string>
+    <string name="login_toolbar_title">登录界面</string>
+    <string name="daily_android_tag_tv">Android</string>
+    <string name="daily_ios_tag_tv">iOS</string>
 </resources>

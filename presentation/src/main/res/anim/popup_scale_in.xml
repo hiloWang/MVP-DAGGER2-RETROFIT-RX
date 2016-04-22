@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 右上角扩大-->
+<scale   xmlns:android="http://schemas.android.com/apk/res/android"
+         android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+         android:fromXScale="0.1"
+         android:toXScale="1.0"
+         android:fromYScale="0.1"
+         android:toYScale="1.0"
+         android:pivotX="85%"
+         android:pivotY="0%"
+         android:duration="0" />
+
+<!--pivot 动画初始坐标位置, 代表X,Y. 从哪个位置开始弹出. fromXScale代表弹出的动画线条(例如0.1到1.0就是斜线)-->
+   

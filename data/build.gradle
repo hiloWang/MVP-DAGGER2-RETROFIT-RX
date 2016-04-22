@@ -54,12 +54,17 @@ android {
 
         compile project(':domain')
         apt dataDependencies.daggerCompiler
-        provided dataDependencies.javaxAnnotation
         compile dataDependencies.dagger
+        provided dataDependencies.javaxAnnotation
         compile dataDependencies.okHttp
         compile dataDependencies.gson
         compile dataDependencies.rxJava
         compile dataDependencies.rxAndroid
+        compile dataDependencies.retrofit2
+        compile dataDependencies.retrofitGson
+        compile dataDependencies.retrofitAdapter
+        compile dataDependencies.androidAnnotations
+        compile dataDependencies.reservoir
 
         testCompile testDependencies.junit
         testCompile testDependencies.assertj

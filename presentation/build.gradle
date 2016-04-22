@@ -101,7 +101,6 @@ dependencies {
     compile presentationDependencies.rxAndroid
     provided presentationDependencies.javaxAnnotation
     compile presentationDependencies.picasso
-    compile presentationDependencies.reservoir
     compile presentationDependencies.cardview
     compile presentationDependencies.design
     compile presentationDependencies.appcompat

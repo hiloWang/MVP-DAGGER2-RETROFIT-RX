@@ -1,6 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#F50057</color>
+    <color name="colorPrimaryDark">#FF80AB</color>
+    <color name="colorAccent">#FF80AB</color>
+
+    <!-- Dialogs -->
+    <color name="material_indigo_500">#3F51B5</color>
+    <color name="material_indigo_600">#3949AB</color>
+    <color name="material_teal_a400">#1DE9B6</color>
+    <color name="material_red_400">#EF5350</color>
+
+    <!-- FeedAdapter -->
+    <color name="style_color_primary">#2d5d82</color>
+    <color name="style_color_primary_dark">#21425d</color>
+    <color name="style_color_accent">#01bcd5</color>
+    <color name="fab_color_pressed">#007787</color>
+    <color name="fab_color_shadow">#44000000</color>
+    <color name="text_like_counter">#2b5a83</color>
+
+    <!-- DrawerArrowDrawable -->
+    <color name="ldrawer_color">#FFFFFF</color>
+
+    <!-- MultiSwipeRefreshLayout -->
+    <color name="refresh_progress_1">#00b0ff</color>
+    <color name="refresh_progress_2">#e91e63</color>
+    <color name="refresh_progress_3">#3f51b5</color>
+
+    <!-- pulltorefresh -->
+    <color name="pulltorefresh_red">#FFC93437</color>
+    <color name="pulltorefresh_blue">#00B0FF</color>
+    <color name="pulltorefresh_yellow">#FFF7D23E</color>
+    <color name="pulltorefresh_green">#FF34A350</color>
+
+    <!-- PorgressButton -->
+    <color name="cpb_grey">#ffdedede</color>
+    <color name="cpb_blue">#ff0099cc</color>
+    <color name="cpb_blue_dark">#ff00719b</color>
+    <color name="cpb_red">#ffff4444</color>
+    <color name="cpb_red_dark">#ffcd3a3a</color>
+    <color name="cpb_green">#ff99cc00</color>
+    <color name="cpb_green_dark">#ff6d9b00</color>
+    <color name="cpb_white">@android:color/white</color>
+
+    <!-- FloatingActionButton -->
+    <color name="material_blue_500">#5677fc</color>
+    <color name="ripple">#F06292</color>
+    <color name="accent">#E91E63</color>
+    <color name="accent_pressed">#C2185B</color>
+
+    <!-- Custom Color -->
+    <color name="line">#bfbfbf</color>
+    <color name="background">#f0eff5</color>
+    <color name="lightblue">#ADD8E6</color>
+    <!-- 亮蓝色 -->
+    <color name="blueviolet">#8A2BE2</color>
+    <!-- 紫罗兰蓝色 -->
+    <color name="lightskyblue">#87CEFA</color>
+    <!-- 亮天蓝色 -->
+    <color name="bule_title">#10B8F6</color>
+
+    <color name="md_btn_selected">#33969696</color>
+    <color name="md_btn_selected_dark">#40CBCBCB</color>
+
+    <color name="md_divider_black">#10000000</color>
+    <color name="md_divider_white">#10FFFFFF</color>
+
+    <color name="md_material_blue_600">#1E88E5</color>
+    <color name="md_material_blue_800">#1565C0</color>
+
+    <color name="md_edittext_error">#DD2C00</color>
+
+    <color name="btn_send_normal">@color/md_material_blue_600</color>
+    <color name="btn_send_pressed">@color/design_write_secondary</color>
+    <color name="btn_default_light_pressed">#40ffffff</color>
+    <color name="btn_default_light_normal">#00000000</color>
+
+    <!-- Material Design-->
+
+    <!-- 普通文字-->
+    <color name="design_black_text">#87000000</color>
+    <!-- 减淡文字-->
+    <color name="design_black_secondary">#54000000</color>
+    <!-- 禁用文字/提示文字-->
+    <color name="design_black_disable">#26000000</color>
+    <!-- 分割线-->
+    <color name="design_black_dividers">#12000000</color>
+
+    <color name="design_popup_title">#2d5d82</color>
+
+    <!-- 普通文字-->
+    <color name="design_write_text">#FFFFFF</color>
+    <!-- 减淡文字-->
+    <color name="design_write_secondary">#70FFFFFF</color>
+    <!-- 禁用文字/提示文字-->
+    <color name="design_write_disable">#30FFFFFF</color>
+    <!-- 分割线-->
+    <color name="design_write_dividers">#12FFFFFF</color>
+
+    <color name="design_bgcolor">#efefef</color>
+
+    <color name="design_text_bgcolor">#f8f9fa</color>
+    <color name="btn_context_menu_normal">#ffffff</color>
+    <color name="btn_context_menu_pressed">#40000000</color>
+    <color name="btn_context_menu_text_red">#ffff0000</color>
+
+    <!-- cardview -->
+    <color name="item_card_background">#ffF6F6EF</color>
+    <color name="item_selectable_pressed">#8810B8F6</color>
+    <color name="cardview_bg_color">#FAFAFA</color>
+
+    <!-- item -->
+    <color name="item_date">#ffA8A8A8</color>
+    <color name="item_title_tv">#ff000000</color>
+    <color name="item_tag_tv">#ffFFFFFF</color>
+
+    <color name="common_android_tag_bg">#ff388E3C</color>
+    <color name="common_ios_tag_bg">#ff0377BC</color>
+
 </resources>

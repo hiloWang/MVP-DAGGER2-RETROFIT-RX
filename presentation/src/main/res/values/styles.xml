@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -7,5 +7,72 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!-- CusomLight 使用material主题的时候，必须设定targetSdkVersion = 21，否则界面看起来是模糊的 -->
+    <style name="CusomLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Actionbar color -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--Status bar color-->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Status bar color API 21 -->
+        <!--<item name="android:statusBarColor">#FF80AB</item>-->
+        <!--Window color-->
+        <!--<item name="android:windowBackground">@color/dim_foreground_material_dark</item>-->
+        <!-- colorAccent: 各控制元件(如：check box、switch 或是 radoi) 被勾选 (checked) 或是选定 (selected) 的颜色。-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Remove the change account button 注释后则开启 navigation账号 button 按钮, 点击切换账号 -->
+        <!--<item name="singleAccount">true</item>-->
+        <!-- colorControlNormal: 各控制元件的预设颜色。-->
+        <!--<item name="android:colorControlNormal"></item>-->
+        <!-- navigationBarColor: 导航栏的背景色，但只能用在 API Level 21 (Android 5) 以上的版本-->
+        <!--<item name="android:navigationBarColor"></item>-->
+        <!--正常状态下字体颜色和icon颜色-->
+        <item name="android:textColorPrimary">@color/cpb_white</item>
+        <item name="colorControlHighlight">@color/design_write_disable</item>
+        <!-- Activity 自定义过渡动画-->
+        <!--<item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>-->
+        <!--<item name="android:windowEnterTransition" tools:targetApi="lollipop">@android:transition/explode</item>-->
+        <!--<item name="android:windowExitTransition" tools:targetApi="lollipop">@android:transition/fade</item>-->
+        <!-- 指定shared element transitions -->
+        <!--<item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">@android:transition/slide_left</item>-->
+        <!--<item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/slide_bottom</item>-->
+    </style>
+
+    <style name="CusomTranspatentLight" parent="CusomLight">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <!-- toolbar标题样式 -->
+    <style name="toolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!-- toolbar菜单样式 -->
+    <style name="toolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="actionMenuTextAppearance">@style/ToolbarMenuTextSize</item>
+    </style>
+    <!-- toolbar菜单文字尺寸 -->
+    <style name="ToolbarMenuTextSize" parent="@style/TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="ContextMenuButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/btn_context_menu</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/design_popup_title</item>
+    </style>
+    <style name="AppTheme.TransparentActivity">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>
