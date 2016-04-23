@@ -45,31 +45,31 @@ android {
         abortOnError false
         ignoreWarnings true
         disable 'InvalidPackage'  // Some libraries have issues with this
-        disable 'OldTargetApi'    // Due to Robolectric that modifies the manifest when running tests
+        disable 'OldTargetApi'
+        // Due to Robolectric that modifies the manifest when running tests
     }
+}
 
-    dependencies {
-        def dataDependencies = rootProject.ext.dataDependencies
-        def testDependencies = rootProject.ext.dataTestDependencies
+dependencies {
+    def dataDependencies = rootProject.ext.dataDependencies
+    def testDependencies = rootProject.ext.dataTestDependencies
 
-        compile project(':domain')
-        apt dataDependencies.daggerCompiler
-        compile dataDependencies.dagger
-        provided dataDependencies.javaxAnnotation
-        compile dataDependencies.okHttp
-        compile dataDependencies.gson
-        compile dataDependencies.rxJava
-        compile dataDependencies.rxAndroid
-        compile dataDependencies.retrofit2
-        compile dataDependencies.retrofitGson
-        compile dataDependencies.retrofitAdapter
-        compile dataDependencies.androidAnnotations
-        compile dataDependencies.reservoir
+    compile project(':domain')
+    apt dataDependencies.daggerCompiler
+    compile dataDependencies.dagger
+    provided dataDependencies.javaxAnnotation
+    compile dataDependencies.okHttp
+    compile dataDependencies.gson
+    compile dataDependencies.rxJava
+    compile dataDependencies.rxAndroid
+    compile dataDependencies.retrofit2
+    compile dataDependencies.retrofitGson
+    compile dataDependencies.retrofitAdapter
+    compile dataDependencies.androidAnnotations
+    compile dataDependencies.reservoir
 
-        testCompile testDependencies.junit
-        testCompile testDependencies.assertj
-        testCompile testDependencies.mockito
-        testCompile testDependencies.robolectric
-    }
-
+    testCompile testDependencies.junit
+    testCompile testDependencies.assertj
+    testCompile testDependencies.mockito
+    testCompile testDependencies.robolectric
 }
