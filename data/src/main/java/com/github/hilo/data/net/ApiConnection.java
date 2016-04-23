@@ -1,15 +1,11 @@
 package com.github.hilo.data.net;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Response;
 
 import java.net.MalformedURLException;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -51,33 +47,33 @@ public class ApiConnection implements Callable<RestApi> {
     }
 
     private RestApi connectToApi() {
-        OkHttpClient okHttpClient = this.setupOkHttp3();
-        return setupRetrofit(okHttpClient);
+        return setupRetrofit();
     }
 
-    private RestApi setupRetrofit(OkHttpClient okHttpClient) {
+    private RestApi setupRetrofit() {
+        // setup Retrofit
         Retrofit retrofit = new Retrofit.Builder().baseUrl(this.url)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(this.gson))
                 .build();
+
+        // setup square okHttpClient
+//        OkHttpClient okHttpClient = retrofit.client();
+//        okHttpClient.setReadTimeout(10000, TimeUnit.MILLISECONDS);
+//        okHttpClient.setConnectTimeout(15000, TimeUnit.MILLISECONDS);
+//
+//        // Interceptor是拦截器, 在发送之前, 添加一些参数, 或者获取一些信息. loggingInterceptor是打印参数.
+//        okHttpClient.interceptors().add(chain -> {
+//            Response res = chain.proceed(chain.request());
+//            this.response = res.body().string();
+//            Log.i(TAG, chain.request().urlString() + "_" + res.body().string());
+//            return res;
+//        });
+
+        // REST Api
         RestApi restApi = retrofit.create(RestApi.class);
+
         return restApi;
-    }
-
-    private OkHttpClient setupOkHttp3() {
-        final OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.setReadTimeout(10000, TimeUnit.MILLISECONDS);
-        okHttpClient.setConnectTimeout(15000, TimeUnit.MILLISECONDS);
-
-        // Interceptor是拦截器, 在发送之前, 添加一些参数, 或者获取一些信息. loggingInterceptor是打印参数.
-        okHttpClient.interceptors().add(chain -> {
-            Response res = chain.proceed(chain.request());
-            this.response = res.body().string();
-            Log.i(TAG, chain.request().urlString() + "_" + res.body().string());
-            return res;
-        });
-
-        return okHttpClient;
     }
 
 }
