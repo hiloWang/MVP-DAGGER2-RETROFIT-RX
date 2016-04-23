@@ -8,6 +8,9 @@ import java.util.List;
  */
 public class User implements Serializable {
 
+    public User(){}
+    public User(boolean error){this.error = error;}
+
     private boolean error;
     private List<String> results;
 
