@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F50057</color>
-    <color name="colorPrimaryDark">#FF80AB</color>
-    <color name="colorAccent">#FF80AB</color>
+    <color name="colorPrimary">#0077D9</color>
+    <color name="colorPrimaryDark">#0091EA</color>
+    <color name="colorAccent">@color/colorPrimary</color>
 
     <!-- Dialogs -->
     <color name="material_indigo_500">#3F51B5</color>
@@ -49,9 +49,10 @@
     <color name="accent_pressed">#C2185B</color>
 
     <!-- Custom Color -->
-    <color name="line">#bfbfbf</color>
+    <color name="line">#DCDCDC</color>
     <color name="background">#f0eff5</color>
     <color name="lightblue">#ADD8E6</color>
+
     <!-- 亮蓝色 -->
     <color name="blueviolet">#8A2BE2</color>
     <!-- 紫罗兰蓝色 -->
@@ -77,12 +78,28 @@
 
     <!-- Material Design-->
 
+    <color name="item_black_test">#202020</color>
+    <color name="item_select_test">@color/colorPrimary</color>
+    <color name="item_selected">#D3E5F5</color>
+    <color name="background_layout">#FAFAFA</color>
+    <color name="background_layout_disable">#FEFEFE</color>
+
+    <!-- 蓝色姓名颜色-->
+    <color name="design_blue_name">#75B6FF</color>
+    <!-- 深度蓝色提示，配合背景-->
+    <color name="design_blue_hint">#0077d9</color>
+    <color name="design_blue_hint_background">#eff6fa</color>
+
+    <!-- 加粗标题 -->
+    <color name="design_black_bold">#202020</color>
     <!-- 普通文字-->
-    <color name="design_black_text">#87000000</color>
+    <color name="design_black_text">#323232</color>
+    <!-- 普通文字（特殊场景）-->
+    <color name="design_black_text_real">#212121</color>
     <!-- 减淡文字-->
-    <color name="design_black_secondary">#54000000</color>
+    <color name="design_black_secondary">#737373</color>
     <!-- 禁用文字/提示文字-->
-    <color name="design_black_disable">#26000000</color>
+    <color name="design_black_disable">#FAFAFA</color>
     <!-- 分割线-->
     <color name="design_black_dividers">#12000000</color>
 

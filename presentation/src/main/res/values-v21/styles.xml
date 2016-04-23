@@ -7,7 +7,7 @@
         </style>
     <style name="CusomLight" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Actionbar color -->
-        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <!--Status bar color-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- Status bar color API 21 -->
