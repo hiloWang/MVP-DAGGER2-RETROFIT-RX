@@ -76,5 +76,4 @@ public class ApplicationModule {
     public ApiConnection provideApiConnection(ApiConnectionImpl apiConnection) {
         return apiConnection;
     }
-
 }
