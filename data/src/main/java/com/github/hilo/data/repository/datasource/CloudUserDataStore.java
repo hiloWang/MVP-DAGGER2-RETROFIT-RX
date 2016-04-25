@@ -4,10 +4,7 @@ import com.github.hilo.data.cache.UserCache;
 import com.github.hilo.data.cache.UserCacheImpl;
 import com.github.hilo.data.entity.UserEntity;
 import com.github.hilo.data.net.ApiConnection;
-import com.github.hilo.data.net.RestApi;
-import com.google.gson.Gson;
 
-import java.net.MalformedURLException;
 import java.util.List;
 
 import rx.Observable;
@@ -21,7 +18,7 @@ import rx.schedulers.Schedulers;
 public class CloudUserDataStore implements UserDataStore {
 
     private final UserCache userCache;
-    private final Gson gson;
+    private final ApiConnection apiConnection;
 
     private final Action1<UserEntity> saveToCacheAction = userEntity -> {
         if (userEntity != null) {
@@ -29,9 +26,9 @@ public class CloudUserDataStore implements UserDataStore {
         }
     };
 
-    public CloudUserDataStore(UserCache userCache, Gson gson) {
+    public CloudUserDataStore(UserCache userCache, ApiConnection apiConnection) {
         this.userCache = userCache;
-        this.gson = gson;
+        this.apiConnection = apiConnection;
     }
 
     @Override
@@ -46,14 +43,9 @@ public class CloudUserDataStore implements UserDataStore {
 
     @Override
     public Observable<UserEntity> userEntity() {
-        try {
-            return ApiConnection.createGET(RestApi.API_BASE_URL, gson).requestSyncCall().requestUserEntityFromApi()
-                    .subscribeOn(Schedulers.io())
-                    .unsubscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return apiConnection.requestSyncCall().requestUserEntityFromApi()
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

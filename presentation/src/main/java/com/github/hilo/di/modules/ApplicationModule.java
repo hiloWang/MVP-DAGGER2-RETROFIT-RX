@@ -5,6 +5,8 @@ import android.content.Context;
 import com.github.hilo.data.cache.UserCache;
 import com.github.hilo.data.cache.UserCacheImpl;
 import com.github.hilo.data.executor.JobExecutor;
+import com.github.hilo.data.net.ApiConnection;
+import com.github.hilo.data.net.ApiConnectionImpl;
 import com.github.hilo.data.repository.UserDataRepository;
 import com.github.hilo.domain.executor.PostExecutionThread;
 import com.github.hilo.domain.executor.ThreadExecutor;
@@ -68,4 +70,11 @@ public class ApplicationModule {
     public RxUtils provideRxUtils() {
         return new RxUtils();
     }
+
+    @Provides
+    @Singleton
+    public ApiConnection provideApiConnection(ApiConnectionImpl apiConnection) {
+        return apiConnection;
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.github.hilo.data.repository.datasource;
 
 import com.github.hilo.data.cache.UserCache;
-import com.github.hilo.data.entity.mapper.UserEntityGsonMapper;
+import com.github.hilo.data.net.ApiConnection;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -13,15 +13,15 @@ import javax.inject.Singleton;
 public class UserDataStoreFactory {
 
     private final UserCache userCache;
-    private final UserEntityGsonMapper userEntityGsonMapper;
+    private final ApiConnection apiConnection;
 
     @Inject
-    public UserDataStoreFactory(UserCache userCache, UserEntityGsonMapper userEntityGsonMapper) {
-        if (userCache == null || userEntityGsonMapper == null) {
+    public UserDataStoreFactory(UserCache userCache, ApiConnection apiConnection) {
+        if (userCache == null || apiConnection == null) {
             throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
         }
         this.userCache = userCache;
-        this.userEntityGsonMapper = userEntityGsonMapper;
+        this.apiConnection = apiConnection;
     }
 
 //  /**
@@ -43,6 +43,6 @@ public class UserDataStoreFactory {
      * Create {@link UserDataStore} to retrieve data from the Cloud.
      */
     public UserDataStore createCloudDataStore() {
-        return new CloudUserDataStore(userCache, userEntityGsonMapper.getGson());
+        return new CloudUserDataStore(userCache, apiConnection);
     }
 }

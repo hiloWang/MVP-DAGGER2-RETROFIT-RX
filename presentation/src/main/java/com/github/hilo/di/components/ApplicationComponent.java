@@ -19,8 +19,12 @@ public interface ApplicationComponent {
     void inject(BaseAppCompatActivity baseAppCompatActivity);
 
     ToastUtils toast();
+
     RxUtils rx();
+
     ThreadExecutor threadExecutor();
+
     PostExecutionThread postExecutionThread();
+
     UserRepository userRepository();
 }
