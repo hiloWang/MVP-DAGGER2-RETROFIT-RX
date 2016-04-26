@@ -7,7 +7,7 @@
         </style>
     <style name="CusomLight" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Actionbar color -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/cpb_white</item>
         <!--Status bar color-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- Status bar color API 21 -->
@@ -25,6 +25,9 @@
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <!--正常状态下字体颜色和icon颜色-->
         <item name="android:textColorPrimary">@color/cpb_white</item>
+        <!-- nav bar 悬浮在status bar 上面, 加入下面这俩行代码即可 -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="CusomTranspatentLight" parent="CusomLight">

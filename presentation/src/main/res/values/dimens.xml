@@ -10,6 +10,22 @@
     <dimen name="status_bar_height">56dp</dimen>
     <dimen name="default_elevation">8dp</dimen>
 
+    <!-- recyclerview item data -->
+    <dimen name="data_type_tv">12sp</dimen>
+    <dimen name="data_border_padding_infra_spans">8dp</dimen>
+    <dimen name="data_border_divider_height">8dp</dimen>
+
+    <!-- cardview -->
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="card_elevation">3dp</dimen>
+
+    <!-- item -->
+    <dimen name="item_title_tv">15sp</dimen>
+    <dimen name="item_date_tv">12sp</dimen>
+    <dimen name="item_tag_tv">12sp</dimen>
+    <dimen name="item_content_padding">9dp</dimen>
+    <dimen name="item_via_tv">12sp</dimen>
+
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_11">11sp</dimen>
     <dimen name="text_size_12">12sp</dimen>

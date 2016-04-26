@@ -1,11 +1,12 @@
 package com.github.hilo.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Class that represents a user in the presentation layer.
  */
-public class UserModel {
+public class UserModel implements Serializable {
 
     private boolean error;
     private List<String> results;

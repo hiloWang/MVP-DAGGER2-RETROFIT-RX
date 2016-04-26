@@ -32,7 +32,7 @@ public abstract class BaseToolbarActivity extends BaseAppCompatActivity {
      * @param savedInstanceState savedInstanceState
      */
     @Override
-    protected void initToolbar(Bundle savedInstanceState) {
+    protected void initToolbarOnCreate(Bundle savedInstanceState) {
         this.initToolbarHelper();
     }
 

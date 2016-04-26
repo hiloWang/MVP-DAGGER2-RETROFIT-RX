@@ -24,12 +24,12 @@ ext {
     retrofitAdapterVersion = '2.0.0-beta2'
     okHttpVersion = '3.2.0'
     androidAnnotationsVersion = '21.0.3'
-    picassoVersion = '2.5.2'
     cardviewVersion = '23.+'
     designVersion = '23.2.1'
     appcompatVersion = '23.2.1'
     reservoirVersion = '2.1'
     gsonVersion = '2.3'
+    glideVersion = '3.7.0'
 
     //Testing
     robolectricVersion = '3.0'
@@ -50,11 +50,11 @@ ext {
             rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
             rxAndroid:          "io.reactivex:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
             cardview:           "com.android.support:cardview-v7:${cardviewVersion}",
             design:             "com.android.support:design:${designVersion}",
             appcompat:          "com.android.support:appcompat-v7:${appcompatVersion}",
             recyclerAnimation:   "jp.wasabeef:recyclerview-animators:${recyclerAnimatorsVersion}",
+            glide:              "com.github.bumptech.glide:glide:${glideVersion}"
     ]
 
     presentationTestDependencies = [

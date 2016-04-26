@@ -33,4 +33,6 @@ public interface Presenter<V extends MvpView> {
      * (Activity or Fragment) onDestroy() method.
      */
     void destroy();
+
+    void initialize();
 }

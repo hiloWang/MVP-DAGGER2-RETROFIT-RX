@@ -2,8 +2,6 @@ package com.github.hilo.view.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,15 +20,23 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            this.onCreateRestoryState(savedInstanceState);
+        }
+
         this.setContentView(this.getLayoutId());
         ButterKnife.bind(this);
 
         this.getApplicationComponent().inject(this);
-        this.initToolbar(savedInstanceState);
+        this.initToolbarOnCreate(savedInstanceState);
         this.initInjector();
         this.initViews(savedInstanceState);
-        this.initData();
         this.initListeners();
+        this.initData();
+    }
+
+    protected void onCreateRestoryState(Bundle savedInstanceState) {
     }
 
     /**
@@ -53,6 +59,13 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
     /**
+     * Initialize the toolbar in the layout
+     *
+     * @param savedInstanceState savedInstanceState
+     */
+    protected abstract void initToolbarOnCreate(Bundle savedInstanceState);
+
+    /**
      * Initialize the Injector to Activity
      */
     protected abstract void initInjector();
@@ -65,70 +78,14 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     protected abstract void initViews(Bundle savedInstanceState);
 
     /**
-     * Initialize the toolbar in the layout
-     *
-     * @param savedInstanceState savedInstanceState
-     */
-    protected abstract void initToolbar(Bundle savedInstanceState);
-
-    /**
-     * Initialize the View of the listener
-     */
-    protected abstract void initListeners();
-
-    /**
      * Initialize the Activity data
      */
     protected abstract void initData();
 
     /**
-     * @param intent The intent to start.
-     * @throws ActivityNotFoundException
-     * @see {@link #startActivity(Intent, Bundle)}
-     * @see #startActivityForResult
+     * Initialize the View of the listener
      */
-    @Override
-    public void startActivity(Intent intent) {
-        super.startActivity(intent);
-    }
-
-    /**
-     * @param intent  The intent to start.
-     * @param options Additional options for how the Activity should be started.
-     *                See {@link Context#startActivity(Intent, Bundle)
-     *                Context.startActivity(Intent, Bundle)} for more details.
-     * @throws ActivityNotFoundException
-     * @see {@link #startActivity(Intent)}
-     * @see #startActivityForResult
-     */
-    @Override
-    public void startActivity(Intent intent, Bundle options) {
-        super.startActivity(intent, options);
-    }
-
-    /**
-     * @param intent      The intent to start.
-     * @param requestCode If >= 0, this code will be returned in
-     *                    onActivityResult() when the activity exits.
-     * @param options     Additional options for how the Activity should be started.
-     *                    See {@link Context#startActivity(Intent, Bundle)
-     *                    Context.startActivity(Intent, Bundle)} for more details.
-     * @throws ActivityNotFoundException
-     * @see #startActivity
-     */
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
-    }
-
-    /**
-     * @param intent      intent
-     * @param requestCode requestCode
-     */
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
-        super.startActivityForResult(intent, requestCode);
-    }
+    protected abstract void initListeners();
 
     /**
      * Call this when your activity is done and should be closed.  The
@@ -162,7 +119,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      * Adds a {@link Fragment} to this activity's layout.
      *
      * @param containerViewId The container view to where add the fragment.
-     * @param fragment The fragment to be added.
+     * @param fragment        The fragment to be added.
      */
     protected void addFragment(int containerViewId, Fragment fragment) {
         FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
@@ -175,8 +132,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      *
      * @return
      */
-    protected ApplicationComponent getApplicationComponent() {
-        return ((App)getApplication()).getApplicationComponent();
+    public ApplicationComponent getApplicationComponent() {
+        return ((App) getApplication()).getApplicationComponent();
     }
 
     /**
@@ -193,5 +150,17 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             overridePendingTransition(0, R.anim.activity_swipeback_ac_right_out);
         else
             overridePendingTransition(R.anim.activity_swipeback_ac_right_in, R.anim.activity_swipeback_ac_right_remain);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(true);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(false);
     }
 }

@@ -1,6 +1,7 @@
 package com.github.hilo.data.net;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.github.hilo.data.entity.mapper.UserEntityGsonMapper;
 
@@ -10,6 +11,8 @@ import javax.inject.Singleton;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
+import rx.plugins.RxJavaErrorHandler;
+import rx.plugins.RxJavaPlugins;
 
 @Singleton
 public class ApiConnectionImpl implements ApiConnection {
@@ -32,6 +35,13 @@ public class ApiConnectionImpl implements ApiConnection {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(userEntityGsonMapper.getGson()))
                 .build();
+
+        RxJavaPlugins.getInstance().registerErrorHandler(new RxJavaErrorHandler() {
+            @Override
+            public void handleError(Throwable e) {
+                Log.w("Error",e);
+            }
+        });
 
         // setup square okHttpClient
 //        OkHttpClient okHttpClient = retrofit.client();
