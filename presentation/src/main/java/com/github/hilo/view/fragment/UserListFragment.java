@@ -27,29 +27,27 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder.OnItemClickListener, BaseRecyclerViewHolder
-				.OnItemLongClickListener {
+public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder
+				.OnItemClickListener, BaseRecyclerViewHolder.OnItemLongClickListener {
 
-	private static final String FRAGMENT_SAVED_STATE_KEY = UserListFragment.class.getSimpleName();
 	@Bind(R.id.recyclerView) RecyclerView recyclerView;
 	@Bind(R.id.swipe_refresh_layout) PullRefreshLayout swipeRefreshLayout;
-
-	@Inject UserListPresenter presenter;
 	@Bind(R.id.progressBar) RelativeLayout progressBar;
+	@Inject UserListPresenter presenter;
 
+	private static final String FRAGMENT_SAVED_STATE_KEY = UserListFragment.class.getSimpleName();
 	private BorderDividerItemDecration dataDecration;
 	private LinearLayoutManager linearLayoutManager;
 	private boolean loadingMoreData;
 	private UserListAdapter adapter;
 	private ArrayList<UserModel> usersLists;
-	/** 屏幕旋转,或者其他事件,导致fragment重走生命周期方法,那么recycler的decration将会变形,要重新设置; */
+	/** 屏幕旋转,或者其他事件,导致fragment重走生命周期方法,那么recycler的decration将会变形,要重新设置 BorderDividerItemDecration; */
 	private boolean resestTheLifeCycle;
 
 	public UserListFragment() {
 		setRetainInstance(true);
 	}
 
-	/** 是吗 */
 	@Override protected void initInjector() {
 		getComponent(UserComponent.class).inject(this);
 	}
@@ -61,24 +59,6 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Override protected void initViews(View rootView,Bundle savedInstanceState) {
 		setAdapter();
 		setSwipeRefreshLayout();
-	}
-
-	private void setAdapter() {
-		if (adapter == null) {
-			adapter = new UserListAdapter(getActivity());
-			recyclerView.setAdapter(adapter);
-			adapter.setOnItemClickListener(this);
-			adapter.setOnItemLongClickListener(this);
-		}
-	}
-
-	private void setSwipeRefreshLayout() {
-		dataDecration = new BorderDividerItemDecration(getResources().getDimensionPixelOffset(R.dimen.data_border_divider_height),
-																									 getResources().getDimensionPixelOffset(R.dimen.data_border_padding_infra_spans));
-		recyclerView.addItemDecoration(dataDecration);
-		linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-
-		recyclerView.setLayoutManager(linearLayoutManager);
 	}
 
 	@Override protected void initListeners() {
@@ -122,10 +102,6 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		loadUserList();
 	}
 
-	private void loadUserList() {
-		presenter.initialize();
-	}
-
 	@Override protected void afterOnDetach() {
 		presenter.detachView();
 	}
@@ -165,6 +141,34 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override public void onFailure(Throwable e) {}
+
+	@Override public void onItemClick(View convertView,int position) {
+		showToast(position + "");
+	}
+
+	@Override public void onItemLongClick(View convertView,int position) {}
+
+	private void loadUserList() {
+		presenter.initialize();
+	}
+
+	private void setAdapter() {
+		if (adapter == null) {
+			adapter = new UserListAdapter(getActivity());
+			recyclerView.setAdapter(adapter);
+			adapter.setOnItemClickListener(this);
+			adapter.setOnItemLongClickListener(this);
+		}
+	}
+
+	private void setSwipeRefreshLayout() {
+		dataDecration = new BorderDividerItemDecration(
+						getResources().getDimensionPixelOffset(R.dimen.data_border_divider_height),
+						getResources().getDimensionPixelOffset(R.dimen.data_border_padding_infra_spans));
+		recyclerView.addItemDecoration(dataDecration);
+		linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+		recyclerView.setLayoutManager(linearLayoutManager);
+	}
 
 	private void feedAdapter(Collection<UserModel> usersCollection) {
 		this.validateIfNullThrowsException(usersCollection,adapter);
@@ -209,10 +213,4 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 			throw new IllegalArgumentException("The adapter cannot be null");
 		}
 	}
-
-	@Override public void onItemClick(View convertView,int position) {
-		showToast(position + "");
-	}
-
-	@Override public void onItemLongClick(View convertView,int position) {}
 }

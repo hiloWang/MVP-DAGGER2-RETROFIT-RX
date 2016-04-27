@@ -17,7 +17,8 @@ import com.github.hilo.widget.FeedContextMenuManager;
 
 import butterknife.OnClick;
 
-public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent>, BaseFragment.Callbacks {
+public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent>, BaseFragment
+				.Callbacks {
 
 	private UserComponent userComponent;
 
@@ -26,7 +27,10 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	@Override protected void initInjector() {
-		userComponent = DaggerUserComponent.builder().activityModule(getActivityModule()).applicationComponent(getApplicationComponent()).build();
+		userComponent = DaggerUserComponent.builder()
+																			 .activityModule(getActivityModule())
+																			 .applicationComponent(getApplicationComponent())
+																			 .build();
 	}
 
 	@Override protected void initViews(Bundle savedInstanceState) {
@@ -110,26 +114,27 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	@Override protected void onSaveInstanceState(Bundle outState) {}
 
 	@OnClick(R.id.fab) public void onClick(View view) {
-		FeedContextMenuManager.getInstance().toggleContextMenuFromView(view,-1,new FeedContextMenu.OnFeedContextMenuClickListener() {
-			@Override public void onReportClick(int position) {
-				showToast("Report");
-				FeedContextMenuManager.getInstance().hideContextMenu();
-			}
+		FeedContextMenuManager.getInstance()
+													.toggleContextMenuFromView(view,-1,new FeedContextMenu.OnFeedContextMenuClickListener() {
+														@Override public void onReportClick(int position) {
+															showToast("Report");
+															FeedContextMenuManager.getInstance().hideContextMenu();
+														}
 
-			@Override public void onSharePhotoClick(int position) {
-				showToast("Share");
-				FeedContextMenuManager.getInstance().hideContextMenu();
-			}
+														@Override public void onSharePhotoClick(int position) {
+															showToast("Share");
+															FeedContextMenuManager.getInstance().hideContextMenu();
+														}
 
-			@Override public void onCopyShareUrlClick(int position) {
-				showToast("CopyShareUrl");
-				FeedContextMenuManager.getInstance().hideContextMenu();
-			}
+														@Override public void onCopyShareUrlClick(int position) {
+															showToast("CopyShareUrl");
+															FeedContextMenuManager.getInstance().hideContextMenu();
+														}
 
-			@Override public void onCancelClick(int position) {
-				showToast("nCancel");
-				FeedContextMenuManager.getInstance().hideContextMenu();
-			}
-		});
+														@Override public void onCancelClick(int position) {
+															showToast("nCancel");
+															FeedContextMenuManager.getInstance().hideContextMenu();
+														}
+													});
 	}
 }

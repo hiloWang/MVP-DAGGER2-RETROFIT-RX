@@ -1,5 +1,6 @@
 package com.github.hilo.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -22,8 +23,8 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	public static final int VIEW_TYPE_DEFAULT = 1;
 	private Context context;
-	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable.center_4,R.drawable
-					.center_5};
+	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R
+					.drawable.center_4,R.drawable.center_5};
 	@Inject ToastUtils toastUtils;
 
 	public UserListAdapter(Context context) {
@@ -48,7 +49,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		return VIEW_TYPE_DEFAULT;
 	}
 
-	private void bindDefaultView(BaseRecyclerViewHolder viewHolder,int position) {
+	@SuppressLint("SetTextI18n") private void bindDefaultView(BaseRecyclerViewHolder viewHolder,int position) {
 		UserModel data = getItemByPosition(position);
 		if (data == null) return;
 		TextView mDailyTitleTv = viewHolder.findViewById(R.id.daily_title_tv);
