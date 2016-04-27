@@ -4,9 +4,8 @@ import java.util.concurrent.Callable;
 
 public interface ApiConnection extends Callable<RestApi> {
 
-    @Override
-    RestApi call() throws Exception;
+	@Override RestApi call() throws Exception;
 
-    RestApi requestSyncCall();
+	RestApi requestSyncCall();
 
 }

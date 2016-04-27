@@ -11,10 +11,10 @@ package com.github.hilo.view;
  * Time：2016-01-04 11:31
  */
 public interface MvpView {
-    /**
-     * 发生错误
-     *
-     * @param e e
-     */
-    void onFailure(Throwable e);
+	/**
+	 * 发生错误
+	 *
+	 * @param e e
+	 */
+	void onFailure(Throwable e);
 }

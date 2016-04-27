@@ -12,29 +12,28 @@ import javax.inject.Singleton;
 @Singleton
 public class JsonSerializer {
 
-    private final Gson gson = new Gson();
+	private final Gson gson = new Gson();
 
-    @Inject
-    public JsonSerializer() {
-    }
+	@Inject public JsonSerializer() {
+	}
 
-    /**
-     * Serialize an object to Json.
-     *
-     * @param entity a object to Serialize
-     */
-    public String serialize(Object entity) {
-        String jsonString = gson.toJson(entity, entity.getClass());
-        return jsonString;
-    }
+	/**
+	 * Serialize an object to Json.
+	 *
+	 * @param entity a object to Serialize
+	 */
+	public String serialize(Object entity) {
+		String jsonString = gson.toJson(entity,entity.getClass());
+		return jsonString;
+	}
 
-    /**
-     * Deserialize a json representation of an object.
-     *
-     * @param jsonString A json string to deserialize.
-     */
-    public Object deserialize(String jsonString, Class clazz) {
-        Object entity = gson.fromJson(jsonString, clazz);
-        return entity;
-    }
+	/**
+	 * Deserialize a json representation of an object.
+	 *
+	 * @param jsonString A json string to deserialize.
+	 */
+	public Object deserialize(String jsonString,Class clazz) {
+		Object entity = gson.fromJson(jsonString,clazz);
+		return entity;
+	}
 }

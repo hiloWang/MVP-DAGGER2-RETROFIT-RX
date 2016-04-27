@@ -9,125 +9,128 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-public class FeedContextMenuManager extends RecyclerView.OnScrollListener implements View.OnAttachStateChangeListener {
+public class FeedContextMenuManager extends RecyclerView.OnScrollListener implements View
+				.OnAttachStateChangeListener {
 
-    private FeedContextMenu mFeedContextMenu;
-    private static FeedContextMenuManager instance;
+	private FeedContextMenu mFeedContextMenu;
+	private static FeedContextMenuManager instance;
 
-    private FeedContextMenuManager() {
-    }
+	private FeedContextMenuManager() {
+	}
 
-    private boolean isContextMenuShowing;
-    private boolean isContextMenuDismissing;
+	private boolean isContextMenuShowing;
+	private boolean isContextMenuDismissing;
 
-    public static FeedContextMenuManager getInstance() {
-        if (instance == null) {
-            synchronized (FeedContextMenuManager.class) {
-                if (instance == null) {
-                    instance = new FeedContextMenuManager();
-                }
-            }
-        }
-        return instance;
-    }
+	public static FeedContextMenuManager getInstance() {
+		if (instance == null) {
+			synchronized (FeedContextMenuManager.class) {
+				if (instance == null) {
+					instance = new FeedContextMenuManager();
+				}
+			}
+		}
+		return instance;
+	}
 
-    public void toggleContextMenuFromView(View openingView, int position, FeedContextMenu.OnFeedContextMenuClickListener listener) {
-        if (mFeedContextMenu == null) {
-            showContextMenuFromView(openingView, position, listener);
-        } else {
-            hideContextMenu();
-        }
-    }
-
-
-    private void showContextMenuFromView(final View openingView, int position, FeedContextMenu.OnFeedContextMenuClickListener listener) {
-        if (!isContextMenuShowing) {
-            isContextMenuShowing = true;
-            mFeedContextMenu = new FeedContextMenu(openingView.getContext());
-            mFeedContextMenu.bindToItem(position);
-            mFeedContextMenu.addOnAttachStateChangeListener(this);
-            mFeedContextMenu.setOnFeedContextMenuClickListener(listener);
-
-            ((ViewGroup) openingView.getRootView().findViewById(android.R.id.content)).addView(mFeedContextMenu);
-            // 当一个视图树将要绘制时，所要调用的回调函数的接口类
-            mFeedContextMenu.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    mFeedContextMenu.getViewTreeObserver().removeOnPreDrawListener(this);
-                    setupContextMenuInitalPostion(openingView);
-                    perforShowAnimation();
-                    return false;
-                }
-            });
-        }
-    }
-
-    private void setupContextMenuInitalPostion(View openingView) {
-        final int[] openingViewLocation = new int[2];
-        openingView.getLocationOnScreen(openingViewLocation);
-//        int additionalBottomMargin = UIUtils.dpToPx(16);
-        mFeedContextMenu.setTranslationX((float) (openingViewLocation[0] - mFeedContextMenu.getWidth() / 1.6));
-        mFeedContextMenu.setTranslationY(openingViewLocation[1] - mFeedContextMenu.getHeight());
-    }
-
-    private void perforShowAnimation() {
-        mFeedContextMenu.setPivotX(mFeedContextMenu.getWidth() / 2);
-        mFeedContextMenu.setPivotY(mFeedContextMenu.getHeight());
-        mFeedContextMenu.setScaleX(0.5f);
-        mFeedContextMenu.setScaleY(0.5f);
-        mFeedContextMenu.animate()
-                .scaleX(1.0f).scaleY(1.0f)
-                .setDuration(150)
-                .setInterpolator(new OvershootInterpolator())
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        isContextMenuShowing = false;
-                    }
-                });
-    }
+	public void toggleContextMenuFromView(View openingView,int position,
+					FeedContextMenu.OnFeedContextMenuClickListener listener) {
+		if (mFeedContextMenu == null) {
+			showContextMenuFromView(openingView,position,listener);
+		} else {
+			hideContextMenu();
+		}
+	}
 
 
-    private void perforDismissAnimation() {
-        mFeedContextMenu.setPivotX(mFeedContextMenu.getWidth() / 2);
-        mFeedContextMenu.setPivotY(mFeedContextMenu.getHeight());
-        mFeedContextMenu.animate()
-                .scaleX(0.1f).scaleY(0.1f)
-                .setDuration(150)
-                .setInterpolator(new AccelerateInterpolator())
-                .setStartDelay(100)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        if (mFeedContextMenu != null) {
-                            mFeedContextMenu.dismiss();
-                        }
-                        isContextMenuDismissing = false;
-                    }
-                });
-    }
+	private void showContextMenuFromView(final View openingView,int position,
+					FeedContextMenu.OnFeedContextMenuClickListener listener) {
+		if (!isContextMenuShowing) {
+			isContextMenuShowing = true;
+			mFeedContextMenu = new FeedContextMenu(openingView.getContext());
+			mFeedContextMenu.bindToItem(position);
+			mFeedContextMenu.addOnAttachStateChangeListener(this);
+			mFeedContextMenu.setOnFeedContextMenuClickListener(listener);
 
-    public void hideContextMenu() {
-        if (!isContextMenuDismissing && !isContextMenuShowing && mFeedContextMenu != null) {
-            isContextMenuDismissing = true;
-            perforDismissAnimation();
-        }
-    }
+			((ViewGroup)openingView.getRootView().findViewById(android.R.id.content)).addView(
+							mFeedContextMenu);
+			// 当一个视图树将要绘制时，所要调用的回调函数的接口类
+			mFeedContextMenu.getViewTreeObserver()
+											.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+												@Override public boolean onPreDraw() {
+													mFeedContextMenu.getViewTreeObserver().removeOnPreDrawListener(this);
+													setupContextMenuInitalPostion(openingView);
+													perforShowAnimation();
+													return false;
+												}
+											});
+		}
+	}
 
-    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        if (mFeedContextMenu != null) {
-            hideContextMenu();
-            mFeedContextMenu.setTranslationY(mFeedContextMenu.getTranslationY() - dy);
-        }
-    }
+	private void setupContextMenuInitalPostion(View openingView) {
+		final int[] openingViewLocation = new int[2];
+		openingView.getLocationOnScreen(openingViewLocation);
+		//        int additionalBottomMargin = UIUtils.dpToPx(16);
+		mFeedContextMenu.setTranslationX(
+						(float)(openingViewLocation[0] - mFeedContextMenu.getWidth() / 1.6));
+		mFeedContextMenu.setTranslationY(openingViewLocation[1] - mFeedContextMenu.getHeight());
+	}
 
-    @Override
-    public void onViewAttachedToWindow(View v) {
+	private void perforShowAnimation() {
+		mFeedContextMenu.setPivotX(mFeedContextMenu.getWidth() / 2);
+		mFeedContextMenu.setPivotY(mFeedContextMenu.getHeight());
+		mFeedContextMenu.setScaleX(0.5f);
+		mFeedContextMenu.setScaleY(0.5f);
+		mFeedContextMenu.animate()
+										.scaleX(1.0f)
+										.scaleY(1.0f)
+										.setDuration(150)
+										.setInterpolator(new OvershootInterpolator())
+										.setListener(new AnimatorListenerAdapter() {
+											@Override public void onAnimationEnd(Animator animation) {
+												isContextMenuShowing = false;
+											}
+										});
+	}
 
-    }
 
-    @Override
-    public void onViewDetachedFromWindow(View v) {
-        mFeedContextMenu = null;
-    }
+	private void perforDismissAnimation() {
+		mFeedContextMenu.setPivotX(mFeedContextMenu.getWidth() / 2);
+		mFeedContextMenu.setPivotY(mFeedContextMenu.getHeight());
+		mFeedContextMenu.animate()
+										.scaleX(0.1f)
+										.scaleY(0.1f)
+										.setDuration(150)
+										.setInterpolator(new AccelerateInterpolator())
+										.setStartDelay(100)
+										.setListener(new AnimatorListenerAdapter() {
+											@Override public void onAnimationEnd(Animator animation) {
+												if (mFeedContextMenu != null) {
+													mFeedContextMenu.dismiss();
+												}
+												isContextMenuDismissing = false;
+											}
+										});
+	}
+
+	public void hideContextMenu() {
+		if (!isContextMenuDismissing && !isContextMenuShowing && mFeedContextMenu != null) {
+			isContextMenuDismissing = true;
+			perforDismissAnimation();
+		}
+	}
+
+	public void onScrolled(RecyclerView recyclerView,int dx,int dy) {
+		if (mFeedContextMenu != null) {
+			hideContextMenu();
+			mFeedContextMenu.setTranslationY(mFeedContextMenu.getTranslationY() - dy);
+		}
+	}
+
+	@Override public void onViewAttachedToWindow(View v) {
+
+	}
+
+	@Override public void onViewDetachedFromWindow(View v) {
+		mFeedContextMenu = null;
+	}
 }

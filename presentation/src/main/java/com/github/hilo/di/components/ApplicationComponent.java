@@ -16,15 +16,15 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
-    void inject(BaseAppCompatActivity baseAppCompatActivity);
+	void inject(BaseAppCompatActivity baseAppCompatActivity);
 
-    ToastUtils toast();
+	ToastUtils toast();
 
-    RxUtils rx();
+	RxUtils rx();
 
-    ThreadExecutor threadExecutor();
+	ThreadExecutor threadExecutor();
 
-    PostExecutionThread postExecutionThread();
+	PostExecutionThread postExecutionThread();
 
-    UserRepository userRepository();
+	UserRepository userRepository();
 }

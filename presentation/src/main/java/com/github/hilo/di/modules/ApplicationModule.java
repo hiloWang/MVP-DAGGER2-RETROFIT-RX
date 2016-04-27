@@ -23,57 +23,42 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
-    Context context;
+	Context context;
 
-    public ApplicationModule(Context context) {
-        this.context = context;
-    }
+	public ApplicationModule(Context context) {
+		this.context = context;
+	}
 
-    @Provides
-    @Singleton
-    public Context provideContext() {
-        return context;
-    }
+	@Provides @Singleton public Context provideContext() {
+		return context;
+	}
 
-    @Provides
-    @Singleton
-    public UserCache provideUserCache(UserCacheImpl userCache) {
-        return userCache;
-    }
+	@Provides @Singleton public UserCache provideUserCache(UserCacheImpl userCache) {
+		return userCache;
+	}
 
-    @Provides
-    @Singleton
-    public ToastUtils provideToastUtils() {
-        return new ToastUtils(context);
-    }
+	@Provides @Singleton public ToastUtils provideToastUtils() {
+		return new ToastUtils(context);
+	}
 
-    @Provides
-    @Singleton
-    ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
-        return jobExecutor;
-    }
+	@Provides @Singleton ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+		return jobExecutor;
+	}
 
-    @Provides
-    @Singleton
-    PostExecutionThread providePostExecutionThread(UIThread uiThread) {
-        return uiThread;
-    }
+	@Provides @Singleton PostExecutionThread providePostExecutionThread(UIThread uiThread) {
+		return uiThread;
+	}
 
-    @Provides
-    @Singleton
-    UserRepository provideUserRepository(UserDataRepository userDataRepository) {
-        return userDataRepository;
-    }
+	@Provides @Singleton UserRepository provideUserRepository(UserDataRepository
+					userDataRepository) {
+		return userDataRepository;
+	}
 
-    @Provides
-    @Singleton
-    public RxUtils provideRxUtils() {
-        return new RxUtils();
-    }
+	@Provides @Singleton public RxUtils provideRxUtils() {
+		return new RxUtils();
+	}
 
-    @Provides
-    @Singleton
-    public ApiConnection provideApiConnection(ApiConnectionImpl apiConnection) {
-        return apiConnection;
-    }
+	@Provides @Singleton public ApiConnection provideApiConnection(ApiConnectionImpl apiConnection) {
+		return apiConnection;
+	}
 }

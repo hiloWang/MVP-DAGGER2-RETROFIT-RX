@@ -8,24 +8,24 @@ import java.util.List;
  */
 public class UserModel implements Serializable {
 
-    private boolean error;
-    private List<String> results;
+	private boolean error;
+	private List<String> results;
 
-    public boolean isError() {
-        return error;
-    }
+	public boolean isError() {
+		return error;
+	}
 
-    public void setError(boolean error) {
-        this.error = error;
-    }
+	public void setError(boolean error) {
+		this.error = error;
+	}
 
-    public List<String> getResults() {
-        return results;
-    }
+	public List<String> getResults() {
+		return results;
+	}
 
-    public void setResults(List<String> results) {
-        this.results = results;
-    }
+	public void setResults(List<String> results) {
+		this.results = results;
+	}
 
    /* private int userId;
 

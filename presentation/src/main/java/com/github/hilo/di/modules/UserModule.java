@@ -11,10 +11,10 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class UserModule  {
+public class UserModule {
 
-    @Provides @PerActivity @Named("userList")
-    public UseCase provideGetUserList(GetUserList getUserList) {
-        return getUserList;
-    }
+	@Provides @PerActivity @Named("userList") public UseCase provideGetUserList(
+					GetUserList getUserList) {
+		return getUserList;
+	}
 }

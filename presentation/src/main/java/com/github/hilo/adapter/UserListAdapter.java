@@ -20,68 +20,62 @@ import javax.inject.Inject;
 
 public class UserListAdapter extends BaseRecyclerViewAdapter {
 
-    public static final int VIEW_TYPE_DEFAULT = 1;
-    private Context context;
-    private final int[] drawableIcons = new int[]{R.drawable.center_1, R.drawable.center_2, R.drawable.center_3, R.drawable.center_4, R.drawable.center_5};
-    @Inject
-    ToastUtils toastUtils;
+	public static final int VIEW_TYPE_DEFAULT = 1;
+	private Context context;
+	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable.center_4,R.drawable.center_5};
+	@Inject ToastUtils toastUtils;
 
-    public UserListAdapter(Context context) {
-        super();
-        this.context = context;
-    }
+	public UserListAdapter(Context context) {
+		super();
+		this.context = context;
+	}
 
-    @Override
-    public int[] getItemLayouts() {
-        return new int[] {
-                R.layout.item_userlist_fragment
-        };
-    }
+	@Override public int[] getItemLayouts() {
+		return new int[] {R.layout.item_userlist_fragment};
+	}
 
-    @Override
-    public void onBindRecycleViewHolder(BaseRecyclerViewHolder viewHolder, int position) {
-        int itemViewType = getRecycleViewItemType(position);
-        switch (itemViewType) {
-            case VIEW_TYPE_DEFAULT:
-                bindDefaultView(viewHolder, position);
-                break;
-        }
-    }
+	@Override public void onBindRecycleViewHolder(BaseRecyclerViewHolder viewHolder,int position) {
+		int itemViewType = getRecycleViewItemType(position);
+		switch (itemViewType) {
+		case VIEW_TYPE_DEFAULT:
+			bindDefaultView(viewHolder,position);
+			break;
+		}
+	}
 
-    @Override
-    public int getRecycleViewItemType(int position) {
-        return VIEW_TYPE_DEFAULT;
-    }
+	@Override public int getRecycleViewItemType(int position) {
+		return VIEW_TYPE_DEFAULT;
+	}
 
-    private void bindDefaultView(BaseRecyclerViewHolder viewHolder, int position) {
-        UserModel data = getItemByPosition(position);
-        if (data == null) return;
-        TextView mDailyTitleTv = viewHolder.findViewById(R.id.daily_title_tv);
-        TextView mDailyDateTv = viewHolder.findViewById(R.id.daily_date_tv);
-        ImageView mDailyIv = viewHolder.findViewById(R.id.daily_iv);
+	private void bindDefaultView(BaseRecyclerViewHolder viewHolder,int position) {
+		UserModel data = getItemByPosition(position);
+		if (data == null) return;
+		TextView mDailyTitleTv = viewHolder.findViewById(R.id.daily_title_tv);
+		TextView mDailyDateTv = viewHolder.findViewById(R.id.daily_date_tv);
+		ImageView mDailyIv = viewHolder.findViewById(R.id.daily_iv);
 
-        mDailyTitleTv.setText("测试内容" + position + ": 这脑洞太大我无力承受。[笑cry]");
-        mDailyDateTv.setText(DateUtils.date2yyyyMMdd(new Date()));
+		mDailyTitleTv.setText("测试内容" + position + ": 这脑洞太大我无力承受。[笑cry]");
+		mDailyDateTv.setText(DateUtils.date2yyyyMMdd(new Date()));
 
-        mDailyIv.setScaleX(0.f);
-        mDailyIv.setScaleY(0.f);
+		mDailyIv.setScaleX(0.f);
+		mDailyIv.setScaleY(0.f);
 
-        Glide.with(context)
-                .load(drawableIcons[(int) (Math.random() * 5)])
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.mipmap.ic_launcher)
-                .into(mDailyIv);
+		Glide.with(context)
+				 .load(drawableIcons[(int)(Math.random() * 5)])
+				 .diskCacheStrategy(DiskCacheStrategy.ALL)
+				 .error(R.mipmap.ic_launcher)
+				 .into(mDailyIv);
 
-        mDailyIv.animate()
-                .scaleX(1.f).scaleY(1.f)
-                .setInterpolator(new OvershootInterpolator())
-                .setDuration(1000);
+		mDailyIv.animate()
+						.scaleX(1.f)
+						.scaleY(1.f)
+						.setInterpolator(new OvershootInterpolator())
+						.setDuration(1000);
 
-            mDailyIv.setOnClickListener(new OnNoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClickListener(View v) {
-//                Glide.get(context).clearMemory();
-            }
-        });
-    }
+		mDailyIv.setOnClickListener(new OnNoDoubleClickListener() {
+			@Override protected void onNoDoubleClickListener(View v) {
+				//                Glide.get(context).clearMemory();
+			}
+		});
+	}
 }

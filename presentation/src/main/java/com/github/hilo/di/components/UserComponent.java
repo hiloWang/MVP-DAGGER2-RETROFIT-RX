@@ -8,8 +8,8 @@ import com.github.hilo.view.fragment.UserListFragment;
 import dagger.Component;
 
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, UserModule.class})
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class,UserModule.class})
 public interface UserComponent extends ActivityComponent {
 
-    void inject(UserListFragment fragment);
+	void inject(UserListFragment fragment);
 }

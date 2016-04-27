@@ -8,27 +8,28 @@ import java.util.List;
  */
 public class User implements Serializable {
 
-    public User(){}
-    public User(boolean error){this.error = error;}
+	public User() {}
 
-    private boolean error;
-    private List<String> results;
+	public User(boolean error) {this.error = error;}
 
-    public boolean isError() {
-        return error;
-    }
+	private boolean error;
+	private List<String> results;
 
-    public void setError(boolean error) {
-        this.error = error;
-    }
+	public boolean isError() {
+		return error;
+	}
 
-    public List<String> getResults() {
-        return results;
-    }
+	public void setError(boolean error) {
+		this.error = error;
+	}
 
-    public void setResults(List<String> results) {
-        this.results = results;
-    }
+	public List<String> getResults() {
+		return results;
+	}
+
+	public void setResults(List<String> results) {
+		this.results = results;
+	}
 
   /*  private final int userId;
 

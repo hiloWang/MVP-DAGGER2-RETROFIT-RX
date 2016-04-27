@@ -34,55 +34,51 @@ import rx.Observable;
 @Singleton
 public class UserDataRepository implements UserRepository {
 
-    private final UserEntityDataMapper userEntityDataMapper;
-    private final UserDataStoreFactory userDataStoreFactory;
+	private final UserEntityDataMapper userEntityDataMapper;
+	private final UserDataStoreFactory userDataStoreFactory;
 
-    /**
-     * Constructs a {@link UserRepository}.
-     *
-     * @param dataStoreFactory     A factory to construct different data source implementations.
-     * @param userEntityDataMapper {@link UserEntityDataMapper}.
-     */
-    @Inject
-    public UserDataRepository(UserDataStoreFactory dataStoreFactory,
-                              UserEntityDataMapper userEntityDataMapper) {
-        this.userDataStoreFactory = dataStoreFactory;
-        this.userEntityDataMapper = userEntityDataMapper;
-    }
+	/**
+	 * Constructs a {@link UserRepository}.
+	 *
+	 * @param dataStoreFactory     A factory to construct different data source implementations.
+	 * @param userEntityDataMapper {@link UserEntityDataMapper}.
+	 */
+	@Inject public UserDataRepository(UserDataStoreFactory dataStoreFactory,
+					UserEntityDataMapper userEntityDataMapper) {
+		this.userDataStoreFactory = dataStoreFactory;
+		this.userEntityDataMapper = userEntityDataMapper;
+	}
 
-    @Override
-    public Observable<List<User>> users() {
-        return null;
-    }
+	@Override public Observable<List<User>> users() {
+		return null;
+	}
 
-    @Override
-    public Observable<User> user(int userId) {
-        return null;
-    }
+	@Override public Observable<User> user(int userId) {
+		return null;
+	}
 
-    @SuppressWarnings("Convert2MethodRef")
-    @Override
-    public Observable<User> user() {
-        //we always get all users from the cloud
-        final UserDataStore userDataStore = this.userDataStoreFactory.createCloudDataStore();
-        return userDataStore.userEntity().map(userEntity -> userEntityDataMapper.transform(userEntity));
-    }
+	@SuppressWarnings("Convert2MethodRef") @Override public Observable<User> user() {
+		//we always get all users from the cloud
+		final UserDataStore userDataStore = this.userDataStoreFactory.createCloudDataStore();
+		return userDataStore.userEntity().map(userEntity -> userEntityDataMapper.transform(userEntity));
+	}
 
-//    @SuppressWarnings("Convert2MethodRef")
-//    @Override
-//    public Observable<List<User>> users() {
-//        //we always get all users from the cloud
-//        final UserDataStore userDataStore = this.userDataStoreFactory.createCloudDataStore();
-//        // userEntity转User
-//        return userDataStore.userEntity()
-//                .map((Func1<UserEntity, List<User>>) userEntity -> userEntityDataMapper.transform(userEntity));
-//    }
+	//    @SuppressWarnings("Convert2MethodRef")
+	//    @Override
+	//    public Observable<List<User>> users() {
+	//        //we always get all users from the cloud
+	//        final UserDataStore userDataStore = this.userDataStoreFactory.createCloudDataStore();
+	//        // userEntity转User
+	//        return userDataStore.userEntity()
+	//                .map((Func1<UserEntity, List<User>>) userEntity -> userEntityDataMapper
+    // .transform(userEntity));
+	//    }
 
-//  @SuppressWarnings("Convert2MethodRef")
-//  @Override
-//  public Observable<User> user(int userId) {
-//    final UserDataStore userDataStore = this.userDataStoreFactory.create(userId);
-//    return userDataStore.userEntityDetails(userId)
-//        .map(userEntity -> this.userEntityDataMapper.transform(userEntity));
-//  }
+	//  @SuppressWarnings("Convert2MethodRef")
+	//  @Override
+	//  public Observable<User> user(int userId) {
+	//    final UserDataStore userDataStore = this.userDataStoreFactory.create(userId);
+	//    return userDataStore.userEntityDetails(userId)
+	//        .map(userEntity -> this.userEntityDataMapper.transform(userEntity));
+	//  }
 }

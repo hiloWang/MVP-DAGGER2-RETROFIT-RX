@@ -27,30 +27,26 @@ import rx.Observable;
  */
 public class DiskUserDataStore implements UserDataStore {
 
-    private final UserCacheImpl userCache;
+	private final UserCacheImpl userCache;
 
-    /**
-     * Construct a {@link UserDataStore} based file system data store.
-     *
-     * @param userCache A {@link UserCacheImpl} to cache data retrieved from the api.
-     */
-    public DiskUserDataStore(UserCacheImpl userCache) {
-        this.userCache = userCache;
-    }
+	/**
+	 * Construct a {@link UserDataStore} based file system data store.
+	 *
+	 * @param userCache A {@link UserCacheImpl} to cache data retrieved from the api.
+	 */
+	public DiskUserDataStore(UserCacheImpl userCache) {
+		this.userCache = userCache;
+	}
 
-    @Override
-    public Observable<List<UserEntity>> userEntityList() {
-        //TODO: implement simple cache for storing/retrieving collections of users.
-        throw new UnsupportedOperationException("Operation is not available!!!");
-    }
+	@Override public Observable<List<UserEntity>> userEntityList() {
+		throw new UnsupportedOperationException("Operation is not available!!!");
+	}
 
-    @Override
-    public Observable<UserEntity> userEntityDetails(final int userId) {
-        return /*this.userCache.get(userId);*/ null;
-    }
+	@Override public Observable<UserEntity> userEntityDetails(final int userId) {
+		return /*this.userCache.get(userId);*/ null;
+	}
 
-    @Override
-    public Observable<UserEntity> userEntity() {
-        return null;
-    }
+	@Override public Observable<UserEntity> userEntity() {
+		return null;
+	}
 }

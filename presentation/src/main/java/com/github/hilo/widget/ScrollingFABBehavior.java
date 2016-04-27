@@ -12,39 +12,36 @@ import android.view.View;
  */
 public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
 
-    private AppBarLayout mAppBarLayout;
+	private AppBarLayout mAppBarLayout;
 
-    public ScrollingFABBehavior(Context context, AttributeSet attrs) {
-        super();
-    }
+	public ScrollingFABBehavior(Context context,AttributeSet attrs) {
+		super();
+	}
 
+	public boolean onStartNestedScroll(CoordinatorLayout parent,FloatingActionButton child,
+					View directTargetChild,View target,int nestedScrollAxes) {
+		return true;
+	}
 
-    public boolean onStartNestedScroll(CoordinatorLayout parent,
-                                       FloatingActionButton child, View directTargetChild,
-                                       View target, int nestedScrollAxes) {
-        return true;
-    }
+	@Override public boolean layoutDependsOn(CoordinatorLayout parent,FloatingActionButton child,
+					View dependency) {
+		if (dependency instanceof AppBarLayout) {
+			mAppBarLayout = (AppBarLayout)dependency;
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
-        if (dependency instanceof AppBarLayout) {
-            mAppBarLayout = (AppBarLayout) dependency;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public void onNestedScroll(CoordinatorLayout coordinatorLayout,
-                               FloatingActionButton child, View target, int dxConsumed,
-                               int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
-                dxUnconsumed, dyUnconsumed);
-        if (mAppBarLayout.getY() < 0) {
-            child.hide();
-        } else {
-            child.show();
-        }
-    }
+	@Override public void onNestedScroll(CoordinatorLayout coordinatorLayout,
+					FloatingActionButton child,View target,int dxConsumed,int dyConsumed,int dxUnconsumed,
+					int dyUnconsumed) {
+		super.onNestedScroll(coordinatorLayout,child,target,dxConsumed,dyConsumed,dxUnconsumed,
+												 dyUnconsumed);
+		if (mAppBarLayout.getY() < 0) {
+			child.hide();
+		} else {
+			child.show();
+		}
+	}
 }

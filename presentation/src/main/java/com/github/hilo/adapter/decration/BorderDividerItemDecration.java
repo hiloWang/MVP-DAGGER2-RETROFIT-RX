@@ -22,55 +22,52 @@ import android.view.View;
  */
 public class BorderDividerItemDecration extends RecyclerView.ItemDecoration {
 
-    private final int verticalItemSpacingInPx;
-    private final int horizontalItemSpacingInPx;
+	private final int verticalItemSpacingInPx;
+	private final int horizontalItemSpacingInPx;
 
-    public BorderDividerItemDecration(int verticalItemSpacingInPx, int horizontalItemSpacingInPx) {
-        this.verticalItemSpacingInPx = verticalItemSpacingInPx;
-        this.horizontalItemSpacingInPx = horizontalItemSpacingInPx;
-    }
+	public BorderDividerItemDecration(int verticalItemSpacingInPx,int horizontalItemSpacingInPx) {
+		this.verticalItemSpacingInPx = verticalItemSpacingInPx;
+		this.horizontalItemSpacingInPx = horizontalItemSpacingInPx;
+	}
 
-    /**
-     * 正确计算每个条目视图的大小
-     *
-     * @param outRect
-     * @param view
-     * @param parent
-     * @param state
-     */
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
-        int itemPosition = layoutParams.getViewLayoutPosition();
-        int itemCount = parent.getAdapter().getItemCount();
+	/**
+	 * 正确计算每个条目视图的大小
+	 *
+	 * @param outRect
+	 * @param view
+	 * @param parent
+	 * @param state
+	 */
+	@Override public void getItemOffsets(Rect outRect,View view,RecyclerView parent,
+					RecyclerView.State state) {
+		RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams)view.getLayoutParams();
+		int itemPosition = layoutParams.getViewLayoutPosition();
+		int itemCount = parent.getAdapter().getItemCount();
 
-        int left = horizontalItemSpacingInPx;
-        int right = horizontalItemSpacingInPx;
-        int top = getItemTopSpacing(itemPosition);
-        int bottom = getItemBottomSpacing(itemPosition, itemCount);
+		int left = horizontalItemSpacingInPx;
+		int right = horizontalItemSpacingInPx;
+		int top = getItemTopSpacing(itemPosition);
+		int bottom = getItemBottomSpacing(itemPosition,itemCount);
 
-        // 高效率，复用机制；
-        outRect.set(left, top, right, bottom);
-    }
+		// 高效率，复用机制；
+		outRect.set(left,top,right,bottom);
+	}
 
-    private int getItemTopSpacing(int itemPosition) {
-        if (isFirstItem(itemPosition))
-            return verticalItemSpacingInPx;
-        return verticalItemSpacingInPx / 2;
+	private int getItemTopSpacing(int itemPosition) {
+		if (isFirstItem(itemPosition)) return verticalItemSpacingInPx;
+		return verticalItemSpacingInPx / 2;
+	}
 
-    }
+	private int getItemBottomSpacing(int itemPosition,int itemCount) {
+		if (isLastItem(itemPosition,itemCount)) return verticalItemSpacingInPx;
+		return verticalItemSpacingInPx / 2;
+	}
 
-    private int getItemBottomSpacing(int itemPosition, int itemCount) {
-        if (isLastItem(itemPosition, itemCount))
-            return verticalItemSpacingInPx;
-        return verticalItemSpacingInPx / 2;
-    }
+	private boolean isFirstItem(int itemPosition) {
+		return itemPosition == 0;
+	}
 
-    private boolean isFirstItem(int itemPosition) {
-        return itemPosition == 0;
-    }
-
-    private boolean isLastItem(int itemPosition, int itemCount) {
-        return itemPosition == itemCount - 1;
-    }
+	private boolean isLastItem(int itemPosition,int itemCount) {
+		return itemPosition == itemCount - 1;
+	}
 }
