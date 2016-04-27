@@ -134,22 +134,26 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
         FeedContextMenuManager.getInstance().toggleContextMenuFromView(view, -1, new FeedContextMenu.OnFeedContextMenuClickListener() {
             @Override
             public void onReportClick(int position) {
-
+                showToast("Report");
+                FeedContextMenuManager.getInstance().hideContextMenu();
             }
 
             @Override
             public void onSharePhotoClick(int position) {
-
+                showToast("Share");
+                FeedContextMenuManager.getInstance().hideContextMenu();
             }
 
             @Override
             public void onCopyShareUrlClick(int position) {
-
+                showToast("CopyShareUrl");
+                FeedContextMenuManager.getInstance().hideContextMenu();
             }
 
             @Override
             public void onCancelClick(int position) {
-
+                showToast("nCancel");
+                FeedContextMenuManager.getInstance().hideContextMenu();
             }
         });
     }
