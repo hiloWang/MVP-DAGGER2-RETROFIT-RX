@@ -10,7 +10,6 @@ import rx.Observable;
  */
 public interface RestApi {
 
-    @GET("api/day/history")
-    Observable<UserEntity> requestUserEntityFromApi();
+	@GET("api/day/history") Observable<UserEntity> requestUserEntityFromApi();
 
 }

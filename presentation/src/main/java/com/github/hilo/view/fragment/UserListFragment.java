@@ -27,9 +27,8 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class UserListFragment extends BaseFragment implements UserListView,
-				BaseRecyclerViewHolder.OnItemClickListener, BaseRecyclerViewHolder
-								.OnItemLongClickListener {
+public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder.OnItemClickListener, BaseRecyclerViewHolder
+				.OnItemLongClickListener {
 
 	private static final String FRAGMENT_SAVED_STATE_KEY = UserListFragment.class.getSimpleName();
 	@Bind(R.id.recyclerView) RecyclerView recyclerView;
@@ -43,15 +42,14 @@ public class UserListFragment extends BaseFragment implements UserListView,
 	private boolean loadingMoreData;
 	private UserListAdapter adapter;
 	private ArrayList<UserModel> usersLists;
-	/**
-	 * 屏幕旋转,或者其他事件,导致fragment重走生命周期方法,那么recycler的decration将会变形,要重新设置;
-	 */
+	/** 屏幕旋转,或者其他事件,导致fragment重走生命周期方法,那么recycler的decration将会变形,要重新设置; */
 	private boolean resestTheLifeCycle;
 
 	public UserListFragment() {
 		setRetainInstance(true);
 	}
 
+	/** 是吗 */
 	@Override protected void initInjector() {
 		getComponent(UserComponent.class).inject(this);
 	}
@@ -75,12 +73,10 @@ public class UserListFragment extends BaseFragment implements UserListView,
 	}
 
 	private void setSwipeRefreshLayout() {
-		dataDecration = new BorderDividerItemDecration(
-						getResources().getDimensionPixelOffset(R.dimen.data_border_divider_height),
-						getResources().getDimensionPixelOffset(R.dimen.data_border_padding_infra_spans));
+		dataDecration = new BorderDividerItemDecration(getResources().getDimensionPixelOffset(R.dimen.data_border_divider_height),
+																									 getResources().getDimensionPixelOffset(R.dimen.data_border_padding_infra_spans));
 		recyclerView.addItemDecoration(dataDecration);
-		linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,
-																									false);
+		linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
 
 		recyclerView.setLayoutManager(linearLayoutManager);
 	}
@@ -100,8 +96,7 @@ public class UserListFragment extends BaseFragment implements UserListView,
 				if (layoutManager instanceof LinearLayoutManager) {
 					LinearLayoutManager manager = (LinearLayoutManager)layoutManager;
 					if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-						if (moveToDown && manager.findLastCompletelyVisibleItemPosition() == (manager
-										.getItemCount() - 1)) {
+						if (moveToDown && manager.findLastCompletelyVisibleItemPosition() == (manager.getItemCount() - 1)) {
 							loadingMoreData = true;
 							// 当滚动到最后一条时的逻辑处理
 							progressBar.setVisibility(View.VISIBLE);
@@ -135,10 +130,8 @@ public class UserListFragment extends BaseFragment implements UserListView,
 		presenter.detachView();
 	}
 
-	@SuppressWarnings("unchecked") @Override protected void mOnViewStateRestored(
-					Bundle savedInstanceState) {
-		usersLists = (ArrayList<UserModel>)savedInstanceState.getSerializable
-						(FRAGMENT_SAVED_STATE_KEY);
+	@SuppressWarnings("unchecked") @Override protected void mOnViewStateRestored(Bundle savedInstanceState) {
+		usersLists = (ArrayList<UserModel>)savedInstanceState.getSerializable(FRAGMENT_SAVED_STATE_KEY);
 		resestTheLifeCycle = true;
 		renderUserList(usersLists);
 	}
@@ -151,9 +144,7 @@ public class UserListFragment extends BaseFragment implements UserListView,
 		feedAdapter(userModelCollection);
 	}
 
-	@Override public void viewUser(UserModel userModel) {
-
-	}
+	@Override public void viewUser(UserModel userModel) {}
 
 	@Override public void showLoading() {
 		progressBar.setVisibility(View.VISIBLE);
@@ -166,17 +157,14 @@ public class UserListFragment extends BaseFragment implements UserListView,
 	}
 
 	@Override public void showError(String message) {
-		((MainActivity)getActivity()).showToastApplication(
-						"ErrorMessage: please check out your network is good");
+		((MainActivity)getActivity()).showToastApplication("ErrorMessage: please check out your network is good");
 	}
 
 	@Override public Context context() {
-		return null;
+		return getActivity();
 	}
 
-	@Override public void onFailure(Throwable e) {
-
-	}
+	@Override public void onFailure(Throwable e) {}
 
 	private void feedAdapter(Collection<UserModel> usersCollection) {
 		this.validateIfNullThrowsException(usersCollection,adapter);
@@ -214,8 +202,7 @@ public class UserListFragment extends BaseFragment implements UserListView,
 		if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(refreshing);
 	}
 
-	private void validateIfNullThrowsException(Collection<UserModel> usersCollection,
-					UserListAdapter adapter) {
+	private void validateIfNullThrowsException(Collection<UserModel> usersCollection,UserListAdapter adapter) {
 		if (usersCollection == null) {
 			throw new IllegalArgumentException("The list cannot be null");
 		} else if (adapter == null) {
@@ -227,7 +214,5 @@ public class UserListFragment extends BaseFragment implements UserListView,
 		showToast(position + "");
 	}
 
-	@Override public void onItemLongClick(View convertView,int position) {
-
-	}
+	@Override public void onItemLongClick(View convertView,int position) {}
 }

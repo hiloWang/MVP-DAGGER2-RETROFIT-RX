@@ -22,7 +22,8 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	public static final int VIEW_TYPE_DEFAULT = 1;
 	private Context context;
-	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable.center_4,R.drawable.center_5};
+	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable.center_4,R.drawable
+					.center_5};
 	@Inject ToastUtils toastUtils;
 
 	public UserListAdapter(Context context) {
@@ -66,11 +67,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 				 .error(R.mipmap.ic_launcher)
 				 .into(mDailyIv);
 
-		mDailyIv.animate()
-						.scaleX(1.f)
-						.scaleY(1.f)
-						.setInterpolator(new OvershootInterpolator())
-						.setDuration(1000);
+		mDailyIv.animate().scaleX(1.f).scaleY(1.f).setInterpolator(new OvershootInterpolator()).setDuration(1000);
 
 		mDailyIv.setOnClickListener(new OnNoDoubleClickListener() {
 			@Override protected void onNoDoubleClickListener(View v) {

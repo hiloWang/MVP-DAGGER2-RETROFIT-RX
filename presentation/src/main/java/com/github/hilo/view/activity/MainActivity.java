@@ -17,8 +17,7 @@ import com.github.hilo.widget.FeedContextMenuManager;
 
 import butterknife.OnClick;
 
-public class MainActivity extends BaseDrawerLayoutActivity implements
-				HasComponent<UserComponent>, BaseFragment.Callbacks {
+public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent>, BaseFragment.Callbacks {
 
 	private UserComponent userComponent;
 
@@ -27,10 +26,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements
 	}
 
 	@Override protected void initInjector() {
-		userComponent = DaggerUserComponent.builder()
-																			 .activityModule(getActivityModule())
-																			 .applicationComponent(getApplicationComponent())
-																			 .build();
+		userComponent = DaggerUserComponent.builder().activityModule(getActivityModule()).applicationComponent(getApplicationComponent()).build();
 	}
 
 	@Override protected void initViews(Bundle savedInstanceState) {
@@ -40,9 +36,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements
 
 	@Override protected void initData() {}
 
-	@Override protected void initListeners() {
-
-	}
+	@Override protected void initListeners() {}
 
 	@Override protected void onResume() {
 		super.onResume();
@@ -53,8 +47,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements
 		System.gc();
 	}
 
-	@Override protected NavigationView.OnNavigationItemSelectedListener
-	getNavigationItemSelectedListener() {
+	@Override protected NavigationView.OnNavigationItemSelectedListener getNavigationItemSelectedListener() {
 		return item -> MainActivity.this.menuItemChecked(item.getItemId());
 	}
 
@@ -93,8 +86,10 @@ public class MainActivity extends BaseDrawerLayoutActivity implements
 	}
 
 	/**
-	 * 点击了后退键,主动关闭当前页面时，onSaveInstanceState() 并不会被调用.
-	 * onSaveInstanceState() 只有在系统即将要自动清理销毁Activity（Fragment）前才会被触发回调；
+	 * 点击了后退键,主动关闭当前页面时，onSaveInstanceState()
+	 * 并不会被调用.
+	 * onSaveInstanceState()
+	 * 只有在系统即将要自动清理销毁Activity（Fragment）前才会被触发回调；
 	 * 以下几种情况必触发：
 	 * 1, 由于重力感应 手机从竖屏变为横屏
 	 * 2, 手机点击Home键和长按Home键
@@ -102,46 +97,39 @@ public class MainActivity extends BaseDrawerLayoutActivity implements
 	 * 4, 从当前Activity跳到另一个Activity
 	 * 5, 应用内存不足即将自动销毁时等情况
 	 * <p>
-	 * 综上所述，这个方法适合临时保存一些非永久性的数据.如果要持久化保存数据,就要将操作放在onStop(), onDestroy()方法里，并调用onSaveInstanceState()
+	 * 综上所述，这个方法适合临时保存一些非永久性的数据.如果要持久化保存数据,
+	 * 就要将操作放在onStop(), onDestroy()
+	 * 方法里，并调用onSaveInstanceState()
 	 * <p>
-	 * *去掉super，不保存回收前状态， 防止被系统回收时，重新走onCreate生命周期时，savedInstanceBundle不为null，引发的crash问题。*
+	 * 去掉super，不保存回收前状态，
+	 * 防止被系统回收时，重新走onCreate
+	 * 生命周期时，savedInstanceBundle不为null，引发的crash问题。
 	 *
 	 * @param outState savedInstanceBundile
 	 */
 	@Override protected void onSaveInstanceState(Bundle outState) {}
 
 	@OnClick(R.id.fab) public void onClick(View view) {
-		FeedContextMenuManager.getInstance()
-													.toggleContextMenuFromView(view,-1,
-																										 new FeedContextMenu
-																														 .OnFeedContextMenuClickListener() {
-																											 @Override public void onReportClick(
-																															 int position) {
-																												 showToast("Report");
-																												 FeedContextMenuManager.getInstance()
-																																							 .hideContextMenu();
-																											 }
+		FeedContextMenuManager.getInstance().toggleContextMenuFromView(view,-1,new FeedContextMenu.OnFeedContextMenuClickListener() {
+			@Override public void onReportClick(int position) {
+				showToast("Report");
+				FeedContextMenuManager.getInstance().hideContextMenu();
+			}
 
-																											 @Override public void onSharePhotoClick(
-																															 int position) {
-																												 showToast("Share");
-																												 FeedContextMenuManager.getInstance()
-																																							 .hideContextMenu();
-																											 }
+			@Override public void onSharePhotoClick(int position) {
+				showToast("Share");
+				FeedContextMenuManager.getInstance().hideContextMenu();
+			}
 
-																											 @Override public void onCopyShareUrlClick(
-																															 int position) {
-																												 showToast("CopyShareUrl");
-																												 FeedContextMenuManager.getInstance()
-																																							 .hideContextMenu();
-																											 }
+			@Override public void onCopyShareUrlClick(int position) {
+				showToast("CopyShareUrl");
+				FeedContextMenuManager.getInstance().hideContextMenu();
+			}
 
-																											 @Override public void onCancelClick(
-																															 int position) {
-																												 showToast("nCancel");
-																												 FeedContextMenuManager.getInstance()
-																																							 .hideContextMenu();
-																											 }
-																										 });
+			@Override public void onCancelClick(int position) {
+				showToast("nCancel");
+				FeedContextMenuManager.getInstance().hideContextMenu();
+			}
+		});
 	}
 }
