@@ -12,9 +12,6 @@ import android.view.View;
  */
 public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
 
-    private static final String TAG = "ReverseScrollingFABBehavior";
-
-    private int mStartAppBarBottom;
     private AppBarLayout mAppBarLayout;
 
     public ScrollingFABBehavior(Context context, AttributeSet attrs) {
@@ -42,20 +39,12 @@ public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
     public void onNestedScroll(CoordinatorLayout coordinatorLayout,
                                FloatingActionButton child, View target, int dxConsumed,
                                int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
-
-        maybeInitProperties();
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
                 dxUnconsumed, dyUnconsumed);
-        if (mStartAppBarBottom != mAppBarLayout.getBottom()) {
+        if (mAppBarLayout.getY() < 0) {
             child.hide();
         } else {
             child.show();
-        }
-    }
-
-    private void maybeInitProperties() {
-        if (mStartAppBarBottom == 0) {
-            mStartAppBarBottom = mAppBarLayout.getBottom();
         }
     }
 }

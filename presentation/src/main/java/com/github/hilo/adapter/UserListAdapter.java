@@ -1,7 +1,6 @@
 package com.github.hilo.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
@@ -9,14 +8,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.github.hilo.R;
 import com.github.hilo.interfaces.OnNoDoubleClickListener;
 import com.github.hilo.model.UserModel;
 import com.github.hilo.util.DateUtils;
 import com.github.hilo.util.ToastUtils;
 
-import java.io.File;
 import java.util.Date;
 
 import javax.inject.Inject;
