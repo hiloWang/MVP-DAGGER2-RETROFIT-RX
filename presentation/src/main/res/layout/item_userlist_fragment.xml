@@ -60,7 +60,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/daily_android_tag_tv"
+                android:id="@+id/android_tag_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
@@ -72,7 +72,7 @@
                 android:textSize="@dimen/item_tag_tv" />
 
             <TextView
-                android:id="@+id/daily_ios_tag_tv"
+                android:id="@+id/ios_tag_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"

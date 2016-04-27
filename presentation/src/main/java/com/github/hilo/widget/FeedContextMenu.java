@@ -14,7 +14,7 @@ import butterknife.OnClick;
 
 public class FeedContextMenu extends LinearLayout {
 
-    private static final int CONTEXT_MENU_WIDTH = UIUtils.dpToPx(240);
+    private static final int CONTEXT_MENU_WIDTH = UIUtils.dpToPx(180);
     private int position = -1;
     private OnFeedContextMenuClickListener onFeedContextMenuClickListener;
 

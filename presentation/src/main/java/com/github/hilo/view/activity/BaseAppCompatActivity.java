@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Toast;
 
 import com.github.hilo.App;
@@ -20,11 +19,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            this.onCreateRestoryState(savedInstanceState);
-        }
-
         this.setContentView(this.getLayoutId());
         ButterKnife.bind(this);
 
@@ -36,27 +30,12 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         this.initData();
     }
 
-    protected void onCreateRestoryState(Bundle savedInstanceState) {
-    }
-
     /**
      * Fill in layout id
      *
      * @return layout id
      */
     protected abstract int getLayoutId();
-
-    /**
-     * Find the view by id
-     *
-     * @param id  id
-     * @param <V> V
-     * @return V
-     */
-    @SuppressWarnings("unchecked")
-    protected <V extends View> V findView(int id) {
-        return (V) this.findViewById(id);
-    }
 
     /**
      * Initialize the toolbar in the layout
@@ -130,7 +109,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * Get the Main Application component for dependency injection.
      *
-     * @return
+     * @return ApplicationComponent
      */
     public ApplicationComponent getApplicationComponent() {
         return ((App) getApplication()).getApplicationComponent();
@@ -139,7 +118,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * Get an Activity module for dependency injection.
      *
-     * @return
+     * @return Activity Module
      */
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);

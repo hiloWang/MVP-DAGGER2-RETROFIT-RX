@@ -3,6 +3,7 @@ package com.github.hilo.view.activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.github.hilo.R;
 import com.github.hilo.di.components.DaggerUserComponent;
@@ -11,6 +12,10 @@ import com.github.hilo.di.interfaces.HasComponent;
 import com.github.hilo.util.UIUtils;
 import com.github.hilo.view.fragment.BaseFragment;
 import com.github.hilo.view.fragment.UserListFragment;
+import com.github.hilo.widget.FeedContextMenu;
+import com.github.hilo.widget.FeedContextMenuManager;
+
+import butterknife.OnClick;
 
 public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent>, BaseFragment.Callbacks {
 
@@ -101,7 +106,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
         addFragment(R.id.fragmentContainer, userListFragment);
     }
 
-    public void showToast(String msg) {
+    public void showToastApplication(String msg) {
         showToast(msg);
     }
 
@@ -119,10 +124,33 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
      * <p>
      * *去掉super，不保存回收前状态， 防止被系统回收时，重新走onCreate生命周期时，savedInstanceBundle不为null，引发的crash问题。*
      *
-     * @param outState
+     * @param outState savedInstanceBundile
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {}
 
+    @OnClick(R.id.fab)
+    public void onClick(View view) {
+        FeedContextMenuManager.getInstance().toggleContextMenuFromView(view, -1, new FeedContextMenu.OnFeedContextMenuClickListener() {
+            @Override
+            public void onReportClick(int position) {
+
+            }
+
+            @Override
+            public void onSharePhotoClick(int position) {
+
+            }
+
+            @Override
+            public void onCopyShareUrlClick(int position) {
+
+            }
+
+            @Override
+            public void onCancelClick(int position) {
+
+            }
+        });
     }
 }

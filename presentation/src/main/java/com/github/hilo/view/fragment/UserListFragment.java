@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -16,6 +17,7 @@ import com.github.hilo.model.UserModel;
 import com.github.hilo.presenter.UserListPresenter;
 import com.github.hilo.view.UserListView;
 import com.github.hilo.view.activity.MainActivity;
+import com.github.hilo.widget.FeedContextMenuManager;
 import com.github.hilo.widget.pulltorefresh.PullRefreshLayout;
 
 import java.util.ArrayList;
@@ -112,7 +114,7 @@ public class UserListFragment extends BaseFragment implements UserListView,
                             progressBar.setVisibility(View.VISIBLE);
                             loadUserList();
                         } else if (linearLayoutManager.findFirstVisibleItemPosition() == 0) {
-
+                            Log.i("","");
                         }
                     }
                 }
@@ -120,13 +122,10 @@ public class UserListFragment extends BaseFragment implements UserListView,
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) {
-                    // 正在向下滑动
-                    this.moveToDown = true;
-                } else {
-                    // 停止滑动或者向上滑动
-                    this.moveToDown = false;
-                }
+                this.moveToDown = dy > 0;
+                // 弹出的ContextMenu 跟随之前的窗体滚动及消失
+//                FeedContextMenuManager.getInstance().onScrolled(recyclerView, dx, dy);
+                FeedContextMenuManager.getInstance().hideContextMenu();
             }
         });
     }
@@ -146,6 +145,7 @@ public class UserListFragment extends BaseFragment implements UserListView,
         presenter.detachView();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void mOnViewStateRestored(Bundle savedInstanceState) {
         usersLists = (ArrayList<UserModel>) savedInstanceState.getSerializable(FRAGMENT_SAVED_STATE_KEY);
@@ -192,7 +192,7 @@ public class UserListFragment extends BaseFragment implements UserListView,
 
     @Override
     public void showError(String message) {
-        ((MainActivity) getActivity()).showToast("ErrorMessage: " + message);
+        ((MainActivity) getActivity()).showToastApplication("ErrorMessage: " + message);
     }
 
     @Override

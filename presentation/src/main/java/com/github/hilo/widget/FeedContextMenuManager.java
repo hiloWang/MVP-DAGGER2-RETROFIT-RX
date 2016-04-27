@@ -9,13 +9,13 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-import com.github.hilo.util.UIUtils;
-
 public class FeedContextMenuManager extends RecyclerView.OnScrollListener implements View.OnAttachStateChangeListener {
 
     private FeedContextMenu mFeedContextMenu;
     private static FeedContextMenuManager instance;
-    private FeedContextMenuManager() {}
+
+    private FeedContextMenuManager() {
+    }
 
     private boolean isContextMenuShowing;
     private boolean isContextMenuDismissing;
@@ -48,7 +48,7 @@ public class FeedContextMenuManager extends RecyclerView.OnScrollListener implem
             mFeedContextMenu.addOnAttachStateChangeListener(this);
             mFeedContextMenu.setOnFeedContextMenuClickListener(listener);
 
-            ((ViewGroup)openingView.getRootView().findViewById(android.R.id.content)).addView(mFeedContextMenu);
+            ((ViewGroup) openingView.getRootView().findViewById(android.R.id.content)).addView(mFeedContextMenu);
             // 当一个视图树将要绘制时，所要调用的回调函数的接口类
             mFeedContextMenu.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
@@ -65,9 +65,9 @@ public class FeedContextMenuManager extends RecyclerView.OnScrollListener implem
     private void setupContextMenuInitalPostion(View openingView) {
         final int[] openingViewLocation = new int[2];
         openingView.getLocationOnScreen(openingViewLocation);
-        int additionalBottomMargin = UIUtils.dpToPx(16);
-        mFeedContextMenu.setTranslationX(openingViewLocation[0] - mFeedContextMenu.getWidth() / 3);
-        mFeedContextMenu.setTranslationY(openingViewLocation[1] - mFeedContextMenu.getHeight() - additionalBottomMargin);
+//        int additionalBottomMargin = UIUtils.dpToPx(16);
+        mFeedContextMenu.setTranslationX((float) (openingViewLocation[0] - mFeedContextMenu.getWidth() / 1.6));
+        mFeedContextMenu.setTranslationY(openingViewLocation[1] - mFeedContextMenu.getHeight());
     }
 
     private void perforShowAnimation() {
@@ -108,7 +108,7 @@ public class FeedContextMenuManager extends RecyclerView.OnScrollListener implem
     }
 
     public void hideContextMenu() {
-        if (!isContextMenuDismissing) {
+        if (!isContextMenuDismissing && !isContextMenuShowing && mFeedContextMenu != null) {
             isContextMenuDismissing = true;
             perforDismissAnimation();
         }
