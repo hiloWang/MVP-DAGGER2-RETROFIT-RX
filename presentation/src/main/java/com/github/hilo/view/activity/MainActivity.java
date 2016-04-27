@@ -69,10 +69,6 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 
 	@Override public void onFragmentItemSelectedCallback(int position,String text) {}
 
-	@Override public void controlFabBehaviorCallback(boolean scrollingDown) {
-
-	}
-
 	private void setupAnimations() {
 		int actionBarSize = UIUtils.dpToPx(56,getResources());
 		toolbar.setTranslationY(-actionBarSize);

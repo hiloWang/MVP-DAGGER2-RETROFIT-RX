@@ -263,21 +263,11 @@ public abstract class BaseFragment extends Fragment {
 	 */
 	public interface Callbacks {
 		void onFragmentItemSelectedCallback(int position,String text);
-
-		void controlFabBehaviorCallback(boolean scrollingDown);
 	}
 
 	/**
 	 * A dummy implementation of the {@link Callbacks} interface that does
 	 * nothing. Used only when this fragment is not attached to an activity.
 	 */
-	private static Callbacks sDummyCallbacks = new Callbacks() {
-		@Override public void onFragmentItemSelectedCallback(int position,String text) {
-
-		}
-
-		@Override public void controlFabBehaviorCallback(boolean scrollingDown) {
-
-		}
-	};
+	private static Callbacks sDummyCallbacks = (position,text) -> {};
 }
