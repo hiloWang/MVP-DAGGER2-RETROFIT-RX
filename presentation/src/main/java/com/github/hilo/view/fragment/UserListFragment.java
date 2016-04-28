@@ -102,7 +102,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		loadUserList();
 	}
 
-	@Override protected void afterOnDetach() {
+	@Override protected void afterOnDetachView() {
 		presenter.detachView();
 	}
 

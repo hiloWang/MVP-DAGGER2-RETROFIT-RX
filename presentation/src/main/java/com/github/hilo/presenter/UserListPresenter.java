@@ -1,5 +1,7 @@
 package com.github.hilo.presenter;
 
+import android.widget.Toast;
+
 import com.github.hilo.di.scope.PerActivity;
 import com.github.hilo.domain.User;
 import com.github.hilo.domain.interactor.DefaultSubscriber;
@@ -81,6 +83,7 @@ public class UserListPresenter extends BasePresenter<UserListView> {
 		}
 
 		@Override public void onNext(User user) {
+			Toast.makeText(getMvpView().context(), "111", Toast.LENGTH_LONG);
 			UserListPresenter.this.showUsersInView(user);
 		}
 	}

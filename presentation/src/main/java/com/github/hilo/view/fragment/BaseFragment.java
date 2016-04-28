@@ -105,6 +105,7 @@ public abstract class BaseFragment extends Fragment {
 		 */
 		saveInstanceState();
 		ButterKnife.unbind(this);
+		afterOnDetachView();
 	}
 
 	@Override public void onDestroy() {
@@ -116,10 +117,9 @@ public abstract class BaseFragment extends Fragment {
 		super.onDetach();
 		// Reset the active callbacks interface to the dummy implementation.
 		mCallbacks = sDummyCallbacks;
-		afterOnDetach();
 	}
 
-	protected void afterOnDetach() {}
+	protected void afterOnDetachView() {}
 
 	protected void afterResume() {}
 

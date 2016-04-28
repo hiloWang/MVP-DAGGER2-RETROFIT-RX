@@ -8,9 +8,7 @@ import com.github.hilo.data.net.ApiConnection;
 import java.util.List;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * {@link UserDataStore} implementation based on connections to the api (Cloud).
@@ -40,10 +38,6 @@ public class CloudUserDataStore implements UserDataStore {
 	}
 
 	@Override public Observable<UserEntity> userEntity() {
-		return apiConnection.requestSyncCall()
-												.requestUserEntityFromApi()
-												.subscribeOn(Schedulers.io())
-												.unsubscribeOn(Schedulers.computation())
-												.observeOn(AndroidSchedulers.mainThread());
+		return apiConnection.requestSyncCall().requestUserEntityFromApi();
 	}
 }
