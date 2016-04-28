@@ -2,6 +2,7 @@ package com.github.hilo.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.github.hilo.view.UserListView;
 import com.github.hilo.view.activity.MainActivity;
 import com.github.hilo.widget.FeedContextMenuManager;
 import com.github.hilo.widget.pulltorefresh.PullRefreshLayout;
+import com.jakewharton.rxbinding.support.design.widget.RxSnackbar;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +29,8 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
+import static com.github.hilo.util.Preconditions.checkNotNull;
+
 public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder
 				.OnItemClickListener, BaseRecyclerViewHolder.OnItemLongClickListener {
 
@@ -34,6 +38,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Bind(R.id.swipe_refresh_layout) PullRefreshLayout swipeRefreshLayout;
 	@Bind(R.id.progressBar) RelativeLayout progressBar;
 	@Inject UserListPresenter presenter;
+	private UserComponent userComponent;
 
 	private static final String FRAGMENT_SAVED_STATE_KEY = UserListFragment.class.getSimpleName();
 	private BorderDividerItemDecration dataDecration;
@@ -49,7 +54,8 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override protected void initInjector() {
-		getComponent(UserComponent.class).inject(this);
+		userComponent = getComponent(UserComponent.class);
+		userComponent.inject(this);
 	}
 
 	@Override protected int getLayoutId() {
@@ -57,15 +63,15 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override protected void initViews(View rootView,Bundle savedInstanceState) {
+		presenter.attachView(this);
 		setAdapter();
 		setSwipeRefreshLayout();
 	}
 
 	@Override protected void initListeners() {
-		if (swipeRefreshLayout != null) {
-			swipeRefreshLayout.setOnRefreshListener(() -> presenter.initialize());
-			swipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
-		}
+		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
+		swipeRefreshLayout.setOnRefreshListener(() -> presenter.initialize());
+		swipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			private boolean moveToDown = false;
@@ -98,11 +104,11 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override protected void initData() {
-		presenter.attachView(this);
 		loadUserList();
 	}
 
-	@Override protected void afterOnDetachView() {
+	@Override public void onDestroyView() {
+		super.onDestroyView();
 		presenter.detachView();
 	}
 
@@ -133,8 +139,14 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override public void showError(String message) {
-		((MainActivity)getActivity()).showToastApplication("ErrorMessage: please check out your network is good");
+		Snackbar snackbar = Snackbar.make(recyclerView,"please check out your network is good",Snackbar.LENGTH_INDEFINITE);
+		snackbar.setAction("WELL",v -> {
+			RxSnackbar.dismisses(snackbar).subscribe(this::onSnackbarDismissed);
+		}).show();
+
 	}
+
+	public void onSnackbarDismissed(int e) {}
 
 	@Override public Context context() {
 		return getActivity();
@@ -171,10 +183,12 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	private void feedAdapter(Collection<UserModel> usersCollection) {
-		this.validateIfNullThrowsException(usersCollection,adapter);
+		if (usersCollection == null) return;
+		checkNotNull(adapter,"adapter == null");
 		this.usersLists = (ArrayList<UserModel>)usersCollection;
 		this.hideLoading();
 		this.setRefreshing(false);
+		((MainActivity)getActivity()).getApplicationComponent().rxBus().send(usersLists.get(0));
 
 		if (loadingMoreData) {
 			loadingMoreData = false;
@@ -203,14 +217,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	private void setRefreshing(boolean refreshing) {
-		if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(refreshing);
-	}
-
-	private void validateIfNullThrowsException(Collection<UserModel> usersCollection,UserListAdapter adapter) {
-		if (usersCollection == null) {
-			throw new IllegalArgumentException("The list cannot be null");
-		} else if (adapter == null) {
-			throw new IllegalArgumentException("The adapter cannot be null");
-		}
+		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
+		swipeRefreshLayout.setRefreshing(refreshing);
 	}
 }

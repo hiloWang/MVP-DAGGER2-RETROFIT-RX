@@ -1,6 +1,5 @@
 package com.github.hilo.view.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,24 +29,12 @@ public abstract class BaseFragment extends Fragment {
 		super();
 	}
 
-	@Override public void onAttach(Activity activity) {
-		super.onAttach(activity);
-
-		// Activities containing this fragment must implement its callbacks.
-		if (!(activity instanceof Callbacks)) {
-			throw new IllegalStateException(
-							"Activity must be implement BaseFragment of callbacks method.");
-		}
-		mCallbacks = (Callbacks)activity;
-	}
-
 	@Override public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.initInjector();
 	}
 
-	@Override public View onCreateView(LayoutInflater inflater,ViewGroup container,
-					Bundle savedInstanceState) {
+	@Override public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
 		super.onCreateView(inflater,container,savedInstanceState);
 		/**
 		 * 避免同一个activity有多个fragment切换时，多次调用onCreateView，将rootView做成成员变量实现缓存rootView
@@ -65,7 +52,6 @@ public abstract class BaseFragment extends Fragment {
 
 		this.initViews(this.rootView,savedInstanceState);
 		this.initListeners();
-		this.initData();
 		return this.rootView;
 	}
 
@@ -79,7 +65,7 @@ public abstract class BaseFragment extends Fragment {
 		// Restore State Here
 		if (!viewStateRestoredFromArguments()) {
 			// First Time, Initialize something here
-			initData();
+			this.initData();
 		}
 	}
 
@@ -89,13 +75,11 @@ public abstract class BaseFragment extends Fragment {
 	}
 
 	@Override public void onPause() {
-		beforePause();
 		super.onPause();
 	}
 
 	@Override public void onResume() {
 		super.onResume();
-		afterResume();
 	}
 
 	@Override public void onDestroyView() {
@@ -105,27 +89,15 @@ public abstract class BaseFragment extends Fragment {
 		 */
 		saveInstanceState();
 		ButterKnife.unbind(this);
-		afterOnDetachView();
 	}
 
 	@Override public void onDestroy() {
-		beforeDestroy();
 		super.onDestroy();
 	}
 
 	@Override public void onDetach() {
 		super.onDetach();
-		// Reset the active callbacks interface to the dummy implementation.
-		mCallbacks = sDummyCallbacks;
 	}
-
-	protected void afterOnDetachView() {}
-
-	protected void afterResume() {}
-
-	protected void beforePause() {}
-
-	protected void beforeDestroy() {}
 
 	/**
 	 * Fill in layout id
@@ -214,8 +186,7 @@ public abstract class BaseFragment extends Fragment {
 
 
 	private Bundle validateArguments(Bundle argumentsBundle) {
-		if (argumentsBundle == null)
-			throw new IllegalArgumentException("The Activity must be setArguments to Fragment");
+		if (argumentsBundle == null) throw new IllegalArgumentException("The Activity must be setArguments to Fragment");
 		return argumentsBundle;
 	}
 
@@ -238,36 +209,4 @@ public abstract class BaseFragment extends Fragment {
 			showToast(msg);
 		}
 	}
-
-	/**
-	 * Find the view by id
-	 *
-	 * @param id  id
-	 * @param <V> V
-	 * @return V
-	 */
-	@SuppressWarnings("unchecked") protected <V extends View> V findView(int id) {
-		return (V)this.rootView.findViewById(id);
-	}
-
-	/**
-	 * The fragment's current callback object, which is notified of list item
-	 * clicks.
-	 */
-	protected Callbacks mCallbacks = sDummyCallbacks;
-
-	/**
-	 * A callback interface that all activities containing this fragment must
-	 * implement. This mechanism allows activities to be notified of item
-	 * selections.
-	 */
-	public interface Callbacks {
-		void onFragmentItemSelectedCallback(int position,String text);
-	}
-
-	/**
-	 * A dummy implementation of the {@link Callbacks} interface that does
-	 * nothing. Used only when this fragment is not attached to an activity.
-	 */
-	private static Callbacks sDummyCallbacks = (position,text) -> {};
 }

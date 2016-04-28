@@ -4,6 +4,7 @@ import com.github.hilo.di.modules.ApplicationModule;
 import com.github.hilo.domain.executor.PostExecutionThread;
 import com.github.hilo.domain.executor.ThreadExecutor;
 import com.github.hilo.domain.repository.UserRepository;
+import com.github.hilo.util.RxBus;
 import com.github.hilo.util.RxUtils;
 import com.github.hilo.util.ToastUtils;
 import com.github.hilo.view.activity.BaseAppCompatActivity;
@@ -27,4 +28,6 @@ public interface ApplicationComponent {
 	PostExecutionThread postExecutionThread();
 
 	UserRepository userRepository();
+
+	RxBus rxBus();
 }

@@ -39,6 +39,7 @@ public class ApiConnectionImpl implements ApiConnection {
 		RxJavaPlugins.getInstance().registerErrorHandler(new RxJavaErrorHandler() {
 			@Override public void handleError(Throwable e) {
 				Log.w("Error",e);
+				System.out.println("HILO2");
 			}
 		});
 

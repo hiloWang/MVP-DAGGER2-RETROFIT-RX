@@ -12,6 +12,7 @@ import com.github.hilo.domain.executor.PostExecutionThread;
 import com.github.hilo.domain.executor.ThreadExecutor;
 import com.github.hilo.domain.repository.UserRepository;
 import com.github.hilo.executor.UIThread;
+import com.github.hilo.util.RxBus;
 import com.github.hilo.util.RxUtils;
 import com.github.hilo.util.ToastUtils;
 
@@ -49,8 +50,7 @@ public class ApplicationModule {
 		return uiThread;
 	}
 
-	@Provides @Singleton UserRepository provideUserRepository(UserDataRepository
-					userDataRepository) {
+	@Provides @Singleton UserRepository provideUserRepository(UserDataRepository userDataRepository) {
 		return userDataRepository;
 	}
 
@@ -60,5 +60,9 @@ public class ApplicationModule {
 
 	@Provides @Singleton public ApiConnection provideApiConnection(ApiConnectionImpl apiConnection) {
 		return apiConnection;
+	}
+
+	@Provides @Singleton public RxBus provideRxBus() {
+		return new RxBus();
 	}
 }

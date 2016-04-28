@@ -1,25 +1,26 @@
 package com.github.hilo.view.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.github.hilo.R;
 import com.github.hilo.di.components.DaggerUserComponent;
 import com.github.hilo.di.components.UserComponent;
 import com.github.hilo.di.interfaces.HasComponent;
+import com.github.hilo.model.UserModel;
 import com.github.hilo.util.UIUtils;
-import com.github.hilo.view.fragment.BaseFragment;
 import com.github.hilo.view.fragment.UserListFragment;
 import com.github.hilo.widget.FeedContextMenu;
 import com.github.hilo.widget.FeedContextMenuManager;
+import com.jakewharton.rxbinding.view.RxView;
 
-import butterknife.OnClick;
+import butterknife.Bind;
 
-public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent>, BaseFragment
-				.Callbacks {
+public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent> {
 
+	@Bind(R.id.fab) FloatingActionButton fab;
 	private UserComponent userComponent;
 
 	@Override protected int getLayoutId() {
@@ -38,9 +39,15 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		setupFragment();
 	}
 
-	@Override protected void initData() {}
+	@Override protected void initData() {
+		getApplicationComponent().rxBus().toObserverable().subscribe(o -> {
+			if (o instanceof UserModel) {
+				// do something
+			}
+		});
+	}
 
-	@Override protected void initListeners() {}
+	@Override protected void initListeners() { RxView.clicks(fab).subscribe(this::onFabClicked);}
 
 	@Override protected void onResume() {
 		super.onResume();
@@ -66,8 +73,6 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	@Override public UserComponent getComponent() {
 		return userComponent;
 	}
-
-	@Override public void onFragmentItemSelectedCallback(int position,String text) {}
 
 	private void setupAnimations() {
 		int actionBarSize = UIUtils.dpToPx(56,getResources());
@@ -109,9 +114,9 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	 */
 	@Override protected void onSaveInstanceState(Bundle outState) {}
 
-	@OnClick(R.id.fab) public void onClick(View view) {
+	public void onFabClicked(Void view) {
 		FeedContextMenuManager.getInstance()
-													.toggleContextMenuFromView(view,-1,new FeedContextMenu.OnFeedContextMenuClickListener() {
+													.toggleContextMenuFromView(fab,-1,new FeedContextMenu.OnFeedContextMenuClickListener() {
 														@Override public void onReportClick(int position) {
 															showToast("Report");
 															FeedContextMenuManager.getInstance().hideContextMenu();

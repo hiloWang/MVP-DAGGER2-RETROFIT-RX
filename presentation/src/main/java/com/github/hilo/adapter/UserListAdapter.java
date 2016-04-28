@@ -2,7 +2,6 @@ package com.github.hilo.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,14 +9,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.hilo.R;
-import com.github.hilo.interfaces.OnNoDoubleClickListener;
 import com.github.hilo.model.UserModel;
 import com.github.hilo.util.DateUtils;
 import com.github.hilo.util.ToastUtils;
+import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+
+import static com.github.hilo.util.Preconditions.checkNotNull;
 
 public class UserListAdapter extends BaseRecyclerViewAdapter {
 
@@ -51,7 +53,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	@SuppressLint("SetTextI18n") private void bindDefaultView(BaseRecyclerViewHolder viewHolder,int position) {
 		UserModel data = getItemByPosition(position);
-		if (data == null) return;
+		checkNotNull(data,"data == null");
 		TextView mDailyTitleTv = viewHolder.findViewById(R.id.daily_title_tv);
 		TextView mDailyDateTv = viewHolder.findViewById(R.id.daily_date_tv);
 		ImageView mDailyIv = viewHolder.findViewById(R.id.daily_iv);
@@ -69,11 +71,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 				 .into(mDailyIv);
 
 		mDailyIv.animate().scaleX(1.f).scaleY(1.f).setInterpolator(new OvershootInterpolator()).setDuration(1000);
-
-		mDailyIv.setOnClickListener(new OnNoDoubleClickListener() {
-			@Override protected void onNoDoubleClickListener(View v) {
-				//                Glide.get(context).clearMemory();
-			}
-		});
+		// ImageView onClicked event
+		RxView.clicks(mDailyIv).throttleFirst(1,TimeUnit.SECONDS).subscribe(aVoid -> {});
 	}
 }

@@ -13,8 +13,7 @@ import dagger.Provides;
 @Module
 public class UserModule {
 
-	@Provides @PerActivity @Named("userList") public UseCase provideGetUserList(
-					GetUserList getUserList) {
+	@Provides @PerActivity @Named("userList") public UseCase provideGetUserList(GetUserList getUserList) {
 		return getUserList;
 	}
 }

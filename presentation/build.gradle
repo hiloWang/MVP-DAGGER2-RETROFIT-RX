@@ -105,6 +105,10 @@ dependencies {
     compile presentationDependencies.design
     compile presentationDependencies.appcompat
     compile presentationDependencies.recyclerAnimation
+    compile presentationDependencies.rxBinding
+    compile presentationDependencies.rxBindingV7
+    compile presentationDependencies.rxBindingDesign
+    compile presentationDependencies.rxBindingRecycler
 
     androidTestCompile presentationTestDependencies.mockito
     androidTestCompile presentationTestDependencies.dexmaker
