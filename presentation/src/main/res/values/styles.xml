@@ -15,7 +15,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <!-- CusomLight 使用material主题的时候，必须设定targetSdkVersion = 21，否则界面看起来是模糊的 -->
-    <style name="CusomLight" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Hilo.Light.NoActionBar" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!-- Actionbar color -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!--Status bar color-->
@@ -35,6 +35,15 @@
         <!--正常状态下字体颜色和icon颜色-->
         <item name="android:textColorPrimary">@color/cpb_white</item>
         <item name="colorControlHighlight">@color/design_write_disable</item>
+        <!-- actionmode 弹出时覆盖部分布局, 若 false 则不符盖，将原有布局下移。-->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/Widget.AppCompat.Light.PopupMenu.Overflow</item>
+        <item name="textAppearanceLargePopupMenu">
+            @style/Theme.Hilo.PopupMenuTextAppearanceLarge
+        </item>
+        <item name="android:textAppearanceLargePopupMenu">
+            @style/Theme.Hilo.PopupMenuTextAppearanceLarge
+        </item>
         <!-- Activity 自定义过渡动画-->
         <!--<item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>-->
         <!--<item name="android:windowEnterTransition" tools:targetApi="lollipop">@android:transition/explode</item>-->
@@ -44,7 +53,7 @@
         <!--<item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/slide_bottom</item>-->
     </style>
 
-    <style name="CusomTranspatentLight" parent="CusomLight">
+    <style name="CusomTranspatentLight" parent="Theme.Hilo.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
@@ -59,7 +68,7 @@
     </style>
     <!-- toolbar菜单文字尺寸 -->
     <style name="ToolbarMenuTextSize" parent="@style/TextAppearance.AppCompat.Menu">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
     <style name="ContextMenuButton">
         <item name="android:layout_width">match_parent</item>

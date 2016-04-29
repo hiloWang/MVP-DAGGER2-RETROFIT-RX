@@ -11,6 +11,8 @@
         android:normalScreens="true"
         android:smallScreens="true" />
 
+    <!-- android:alwaysRetainTaskState="true" 默认情况下，如果一个应用在后台呆的太久例如30分钟，用户从主选单再次选择该应用时，系统就会对该应用的task进行清理，
+    除了根Activity，其他Activity都会被清除出栈，但是如果在根Activity中设置了此属性之后，用户再次启动应用时，仍然可以看到上一次操作的界面。-->
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -18,7 +20,8 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/CusomLight">
+        android:alwaysRetainTaskState="true"
+        android:theme="@style/Theme.Hilo.Light.NoActionBar">
         <activity
             android:name=".view.activity.MainActivity"
             android:configChanges="orientation|screenLayout|screenSize">

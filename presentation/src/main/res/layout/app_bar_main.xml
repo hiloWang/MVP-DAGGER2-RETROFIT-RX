@@ -17,7 +17,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/btn_fab_margins"
         android:layout_marginRight="@dimen/btn_fab_margins"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@android:drawable/ic_menu_add"
         app:borderWidth="0dp"
         app:elevation="6dp"
         app:layout_behavior="com.github.hilo.widget.ScrollingFABBehavior"

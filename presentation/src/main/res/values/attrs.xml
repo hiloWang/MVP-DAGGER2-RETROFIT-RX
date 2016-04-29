@@ -12,9 +12,10 @@
     </declare-styleable>
     <!-- pullToRefresh colors -->
     <integer-array name="google_colors">
-        <item>@color/pulltorefresh_yellow</item>
-        <!--  <item>@color/pulltorefresh_red</item>
-          <item>@color/pulltorefresh_blue</item>
-          <item>@color/pulltorefresh_green</item>-->
+        <item>@color/pulltorefresh_blue</item>
     </integer-array>
+
+    <declare-styleable name="WrapSwipeRefreshLayout">
+        <attr name="foreground" format="reference" />
+    </declare-styleable>
 </resources>

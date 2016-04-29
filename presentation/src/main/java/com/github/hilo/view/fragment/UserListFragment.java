@@ -3,6 +3,7 @@ package com.github.hilo.view.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +20,7 @@ import com.github.hilo.presenter.UserListPresenter;
 import com.github.hilo.view.UserListView;
 import com.github.hilo.view.activity.MainActivity;
 import com.github.hilo.widget.FeedContextMenuManager;
-import com.github.hilo.widget.pulltorefresh.PullRefreshLayout;
+import com.github.hilo.widget.WrapSwipeRefreshLayout;
 import com.jakewharton.rxbinding.support.design.widget.RxSnackbar;
 
 import java.util.ArrayList;
@@ -32,10 +33,10 @@ import butterknife.Bind;
 import static com.github.hilo.util.Preconditions.checkNotNull;
 
 public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder.OnItemClickListener,
-				BaseRecyclerViewHolder.OnItemLongClickListener {
+				BaseRecyclerViewHolder.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 	@Bind(R.id.recyclerView) RecyclerView recyclerView;
-	@Bind(R.id.swipe_refresh_layout) PullRefreshLayout swipeRefreshLayout;
+	@Bind(R.id.swipe_refresh_layout) WrapSwipeRefreshLayout swipeRefreshLayout;
 	@Inject UserListPresenter presenter;
 	private UserComponent userComponent;
 
@@ -69,8 +70,8 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	@Override protected void initListeners() {
 		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
+		swipeRefreshLayout.setColorSchemeResources(R.color.pulltorefresh_blue);
 		swipeRefreshLayout.setOnRefreshListener(() -> presenter.initialize());
-		swipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			private boolean moveToDown = false;
@@ -221,7 +222,11 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	private void setRefreshing(boolean refreshing) {
 		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
-		if (refreshing) swipeRefreshLayout.setRefreshing(true,true);
+		if (refreshing) this.onRefresh();
 		else swipeRefreshLayout.setRefreshing(false);
+	}
+
+	@Override public void onRefresh() {
+
 	}
 }

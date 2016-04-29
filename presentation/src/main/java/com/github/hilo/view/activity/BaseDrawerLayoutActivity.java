@@ -19,11 +19,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 
-/**
- * Description：BaseDrawerLayoutActivity
- * Created by：CaMnter
- * Time：2016-01-06 00:29
- */
 public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 
 	private final int DRAWER_CLOSED_DELAY_MILLIS = 20;
@@ -40,8 +35,7 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 		super.onCreate(savedInstanceState);
 		if (delayHandler == null) delayHandler = new DelayHandler(this);
 		if (this.getNavigationItemSelectedListener() != null)
-			this.mNavigationView.setNavigationItemSelectedListener(
-							this.getNavigationItemSelectedListener());
+			this.mNavigationView.setNavigationItemSelectedListener(this.getNavigationItemSelectedListener());
 
 		this.mDrawerLayout.setDrawerListener(new DrawerListener());
 
@@ -55,10 +49,8 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 			}
 		}
 
-		this.mDrawerToggle = new ActionBarDrawerToggle(this,this.mDrawerLayout,
-																									 R.string.navigation_drawer_open,
+		this.mDrawerToggle = new ActionBarDrawerToggle(this,this.mDrawerLayout,R.string.navigation_drawer_open,
 																									 R.string.navigation_drawer_close);
-
 	}
 
 	/**
@@ -97,7 +89,7 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 		if (this.mMenuItems.containsKey(itemId)) {
 			for (Map.Entry<Integer, MenuItem> entry : this.mMenuItems.entrySet()) {
 				MenuItem menuItem = entry.getValue();
-                /*
+								/*
                  * 先找这个item是否之前被选过
                  * 不影响下面的设置选中
                  */
@@ -121,7 +113,6 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 				} else {
 					menuItem.setChecked(false);
 				}
-
 			}
 			this.mDrawerLayout.closeDrawer(this.mNavigationView);
 			return true;

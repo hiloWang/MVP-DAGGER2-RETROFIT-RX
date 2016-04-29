@@ -5,33 +5,43 @@
             <item name="android:windowDrawsSystemBarBackgrounds">true</item>
             <item name="android:statusBarColor">@android:color/transparent</item>
         </style>
-    <style name="CusomLight" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Hilo.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Actionbar color -->
-        <item name="colorPrimary">@color/cpb_white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <!--Status bar color-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!-- Status bar color API 21 -->
-        <!--<item name="android:statusBarColor">#FF80AB</item>-->
         <!--Window color-->
         <!--<item name="android:windowBackground">@color/dim_foreground_material_dark</item>-->
         <!-- colorAccent: 各控制元件(如：check box、switch 或是 radoi) 被勾选 (checked) 或是选定 (selected) 的颜色。-->
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/design_write_text</item>
-        <!-- Remove the change account button 注释后则开启 navigation账号 button 按钮, 点击切换账号 -->
-        <!--<item name="singleAccount">true</item>-->
         <!-- colorControlNormal: 各控制元件的预设颜色。-->
         <!--<item name="android:colorControlNormal"></item>-->
         <!-- navigationBarColor: 导航栏的背景色，但只能用在 API Level 21 (Android 5) 以上的版本-->
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <!--正常状态下字体颜色和icon颜色-->
         <item name="android:textColorPrimary">@color/cpb_white</item>
+        <!-- actionmode 弹出时覆盖部分布局, 若 false 则不符盖，将原有布局下移。-->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/Widget.AppCompat.Light.PopupMenu.Overflow</item>
+        <item name="textAppearanceLargePopupMenu">
+            @style/Theme.Hilo.PopupMenuTextAppearanceLarge
+        </item>
+        <item name="android:textAppearanceLargePopupMenu">
+            @style/Theme.Hilo.PopupMenuTextAppearanceLarge
+        </item>
         <!-- nav bar 悬浮在status bar 上面, 加入下面这俩行代码即可 -->
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="CusomTranspatentLight" parent="CusomLight">
+    <style name="CusomTranspatentLight" parent="Theme.Hilo.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.Hilo.PopupMenuTextAppearanceLarge"
+           parent="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large">
+        <item name="android:textColor">@android:color/black</item>
     </style>
 </resources>

@@ -63,7 +63,8 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	@Override protected int[] getMenuItemIds() {
-		return new int[] {R.id.nav_home,R.id.nav_slidelist,R.id.nav_share,R.id.nav_send};
+		return new int[] {R.id.nav_home,R.id.nav_explore,R.id.nav_follow,R.id.nav_collect,R.id.nav_draft,R.id.nav_register,R.id
+						.nav_share,R.id.nav_settings};
 	}
 
 	@Override protected void onMenuItemOnClick(MenuItem now) {

@@ -26,4 +26,10 @@
     <string name="login_toolbar_title">登录界面</string>
     <string name="daily_android_tag_tv">Android</string>
     <string name="daily_ios_tag_tv">iOS</string>
+    <string name="nav_home_title">首页</string>
+    <string name="nav_explore_title">发现</string>
+    <string name="nav_follow_title">关注</string>
+    <string name="nav_collect_title">收藏</string>
+    <string name="nav_draft_title">圆桌</string>
+    <string name="nav_register_title">私信</string>
 </resources>
