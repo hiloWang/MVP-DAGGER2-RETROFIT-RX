@@ -2,6 +2,7 @@ package com.github.hilo.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,14 +20,18 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 import static com.github.hilo.util.Preconditions.checkNotNull;
 
 public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	public static final int VIEW_TYPE_DEFAULT = 1;
 	private Context context;
-	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R
-					.drawable.center_4,R.drawable.center_5};
+	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable
+					.center_4,R.drawable.center_5};
 	@Inject ToastUtils toastUtils;
 
 	public UserListAdapter(Context context) {
@@ -64,6 +69,9 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		mDailyIv.setScaleX(0.f);
 		mDailyIv.setScaleY(0.f);
 
+		Log.e("HILO","当前内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" + Glide.getPhotoCacheDir(context)
+																																														.getFreeSpace());
+
 		Glide.with(context)
 				 .load(drawableIcons[(int)(Math.random() * 5)])
 				 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -71,7 +79,25 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 				 .into(mDailyIv);
 
 		mDailyIv.animate().scaleX(1.f).scaleY(1.f).setInterpolator(new OvershootInterpolator()).setDuration(1000);
+
 		// ImageView onClicked event
-		RxView.clicks(mDailyIv).throttleFirst(1,TimeUnit.SECONDS).subscribe(aVoid -> {});
+		RxView.clicks(mDailyIv)
+					.throttleFirst(1,TimeUnit.SECONDS)
+					.observeOn(Schedulers.newThread())
+					.map((Func1<Void, Void>)aVoid -> {
+
+						Glide.get(context).clearDiskCache();
+						Log.e("HILO","清理后disk： 总空间(" + Glide.getPhotoCacheDir(context).getTotalSpace() + ")" +
+										":: 可用空间（" + Glide.getPhotoCacheDir(context).getUsableSpace() + ")");
+						return null;
+					})
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(aVoid -> {
+
+						Glide.get(context).clearMemory();
+						Log.e("HILO",
+									"清理后内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" +
+													Glide.getPhotoCacheDir(context).getFreeSpace());
+					});
 	}
 }

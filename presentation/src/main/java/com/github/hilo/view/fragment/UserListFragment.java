@@ -31,8 +31,8 @@ import butterknife.Bind;
 
 import static com.github.hilo.util.Preconditions.checkNotNull;
 
-public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder
-				.OnItemClickListener, BaseRecyclerViewHolder.OnItemLongClickListener {
+public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder.OnItemClickListener,
+				BaseRecyclerViewHolder.OnItemLongClickListener {
 
 	@Bind(R.id.recyclerView) RecyclerView recyclerView;
 	@Bind(R.id.swipe_refresh_layout) PullRefreshLayout swipeRefreshLayout;
