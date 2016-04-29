@@ -28,7 +28,7 @@
 
     <!-- pulltorefresh -->
     <color name="pulltorefresh_red">#FFC93437</color>
-    <color name="pulltorefresh_blue">#00B0FF</color>
+    <color name="pulltorefresh_blue">#2196f3</color>
     <color name="pulltorefresh_yellow">#FFF7D23E</color>
     <color name="pulltorefresh_green">#FF34A350</color>
 

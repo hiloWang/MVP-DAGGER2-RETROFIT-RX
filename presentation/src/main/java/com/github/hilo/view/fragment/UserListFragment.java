@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.hilo.R;
 import com.github.hilo.adapter.BaseRecyclerViewHolder;
@@ -36,7 +36,6 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	@Bind(R.id.recyclerView) RecyclerView recyclerView;
 	@Bind(R.id.swipe_refresh_layout) PullRefreshLayout swipeRefreshLayout;
-	@Bind(R.id.progressBar) RelativeLayout progressBar;
 	@Inject UserListPresenter presenter;
 	private UserComponent userComponent;
 
@@ -85,7 +84,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 						if (moveToDown && manager.findLastCompletelyVisibleItemPosition() == (manager.getItemCount() - 1)) {
 							loadingMoreData = true;
 							// 当滚动到最后一条时的逻辑处理
-							progressBar.setVisibility(View.VISIBLE);
+							setRefreshing(true);
 							loadUserList();
 						} else if (linearLayoutManager.findFirstVisibleItemPosition() == 0) {
 							Log.i("","");
@@ -129,24 +128,28 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Override public void viewUser(UserModel userModel) {}
 
 	@Override public void showLoading() {
-		progressBar.setVisibility(View.VISIBLE);
-		this.getActivity().setProgressBarIndeterminateVisibility(true);
+		setRefreshing(true);
 	}
 
 	@Override public void hideLoading() {
-		progressBar.setVisibility(View.GONE);
-		this.getActivity().setProgressBarIndeterminateVisibility(false);
+		setRefreshing(false);
 	}
 
 	@Override public void showError(String message) {
 		Snackbar snackbar = Snackbar.make(recyclerView,"please check out your network is good",Snackbar.LENGTH_INDEFINITE);
+		Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout)snackbar.getView();
+		snackbarLayout.setBackgroundColor(getResources().getColor(R.color.background_layout));
+		((TextView)snackbarLayout.findViewById(R.id.snackbar_text)).setTextColor(
+						getResources().getColor(R.color.design_black_text));
 		snackbar.setAction("WELL",v -> {
 			RxSnackbar.dismisses(snackbar).subscribe(this::onSnackbarDismissed);
 		}).show();
-
 	}
 
-	public void onSnackbarDismissed(int e) {}
+	public void onSnackbarDismissed(int e) {
+		setRefreshing(false);
+		hideLoading();
+	}
 
 	@Override public Context context() {
 		return getActivity();
@@ -218,6 +221,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	private void setRefreshing(boolean refreshing) {
 		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
-		swipeRefreshLayout.setRefreshing(refreshing);
+		if (refreshing) swipeRefreshLayout.setRefreshing(true,true);
+		else swipeRefreshLayout.setRefreshing(false);
 	}
 }

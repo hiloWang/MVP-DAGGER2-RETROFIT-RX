@@ -13,3 +13,4 @@ public interface RestApi {
 	@GET("api/day/history") Observable<UserEntity> requestUserEntityFromApi();
 
 }
+

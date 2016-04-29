@@ -7,6 +7,4 @@
 
     <include layout="@layout/view_recyclerview_refresh"/>
 
-    <include layout="@layout/view_progress"/>
-
 </FrameLayout>

@@ -359,7 +359,7 @@ public class PullRefreshLayout extends ViewGroup {
 		}
 	}
 
-	private void setRefreshing(boolean refreshing,final boolean notify) {
+	public void setRefreshing(boolean refreshing,final boolean notify) {
 		if (mRefreshing != refreshing) {
 			mNotify = notify;
 			ensureTarget();
