@@ -23,12 +23,13 @@ import android.view.View;
 public class BorderDividerItemDecration extends RecyclerView.ItemDecoration {
 
 	private final int verticalItemSpacingInPx;
-	private final int horizontalItemSpacingInPx;
+//	private final int horizontalItemSpacingInPx;
 
-	public BorderDividerItemDecration(int verticalItemSpacingInPx,int horizontalItemSpacingInPx) {
+	public BorderDividerItemDecration(int verticalItemSpacingInPx/*,int horizontalItemSpacingInPx*/) {
 		this.verticalItemSpacingInPx = verticalItemSpacingInPx;
-		this.horizontalItemSpacingInPx = horizontalItemSpacingInPx;
+//		this.horizontalItemSpacingInPx = horizontalItemSpacingInPx;
 	}
+
 
 	/**
 	 * 正确计算每个条目视图的大小
@@ -44,13 +45,13 @@ public class BorderDividerItemDecration extends RecyclerView.ItemDecoration {
 		int itemPosition = layoutParams.getViewLayoutPosition();
 		int itemCount = parent.getAdapter().getItemCount();
 
-		int left = horizontalItemSpacingInPx;
-		int right = horizontalItemSpacingInPx;
+//		int left = horizontalItemSpacingInPx;
+//		int right = horizontalItemSpacingInPx;
 		int top = getItemTopSpacing(itemPosition);
 		int bottom = getItemBottomSpacing(itemPosition,itemCount);
 
 		// 高效率，复用机制；
-		outRect.set(left,top,right,bottom);
+		outRect.set(0,top,0,bottom);
 	}
 
 	private int getItemTopSpacing(int itemPosition) {

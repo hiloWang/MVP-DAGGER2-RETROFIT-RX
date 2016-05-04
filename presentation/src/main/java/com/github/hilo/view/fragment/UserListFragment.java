@@ -178,9 +178,9 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	private void setSwipeRefreshLayout() {
-		dataDecration = new BorderDividerItemDecration(
-						getResources().getDimensionPixelOffset(R.dimen.data_border_divider_height),
-						getResources().getDimensionPixelOffset(R.dimen.data_border_padding_infra_spans));
+		dataDecration = new BorderDividerItemDecration(getResources().getDimensionPixelOffset(R.dimen
+																																																	.data_border_divider_height)
+						/*getResources().getDimensionPixelOffset(R.dimen.data_border_padding_infra_spans)*/);
 		recyclerView.addItemDecoration(dataDecration);
 		linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
 		recyclerView.setLayoutManager(linearLayoutManager);

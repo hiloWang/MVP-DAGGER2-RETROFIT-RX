@@ -52,8 +52,8 @@ public abstract class BaseToolbarActivity extends BaseAppCompatActivity {
 	}
 
 	/**
-	 * @param item The menu item that was selected.
-	 * @return boolean Return false to allow normal menu processing to
+	 * @param item The main item that was selected.
+	 * @return boolean Return false to allow normal main processing to
 	 * proceed, true to consume it here.
 	 * @see #onCreateOptionsMenu
 	 */

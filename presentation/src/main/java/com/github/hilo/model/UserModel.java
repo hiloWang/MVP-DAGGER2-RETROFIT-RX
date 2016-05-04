@@ -8,6 +8,14 @@ import java.util.List;
  */
 public class UserModel implements Serializable {
 
+	public UserModel() {
+	}
+
+	public UserModel(boolean error,List<String> results) {
+		this.error = error;
+		this.results = results;
+	}
+
 	private boolean error;
 	private List<String> results;
 

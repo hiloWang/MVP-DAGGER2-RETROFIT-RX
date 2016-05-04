@@ -133,5 +133,7 @@
 
     <color name="common_android_tag_bg">#ff388E3C</color>
     <color name="common_ios_tag_bg">#ff0377BC</color>
+    <color name="search_view_hint_color">#e3f2fd</color>
+    <color name="background_fab_tint">#ffca28</color>
 
 </resources>

@@ -68,7 +68,7 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 	protected abstract int[] getMenuItemIds();
 
 	/**
-	 * Fill in your menu operation on click
+	 * Fill in your main operation on click
 	 * <p>
 	 * 走到这，就不会有两次点击都一样的情况
 	 * Come to this, there would be no two clicks are all the same
@@ -78,7 +78,7 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 	protected abstract void onMenuItemOnClick(MenuItem now);
 
 	/**
-	 * set menu item check status
+	 * set main item check status
 	 *
 	 * @param itemId itemId
 	 * @return true to display the item as the selected item
@@ -137,8 +137,8 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 	}
 
 	/**
-	 * @param item The menu item that was selected.
-	 * @return boolean Return false to allow normal menu processing to
+	 * @param item The main item that was selected.
+	 * @return boolean Return false to allow normal main processing to
 	 * proceed, true to consume it here.
 	 * @see #onCreateOptionsMenu
 	 */

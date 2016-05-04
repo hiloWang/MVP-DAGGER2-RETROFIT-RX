@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/selector_item_clickable"
-        android:paddingTop="@dimen/item_content_padding"
-        android:paddingBottom="@dimen/item_content_padding">
+        android:padding="@dimen/item_content_padding">
 
         <ImageView
             android:id="@+id/daily_iv"

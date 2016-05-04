@@ -13,12 +13,12 @@
         <!--Window color-->
         <!--<item name="android:windowBackground">@color/dim_foreground_material_dark</item>-->
         <!-- colorAccent: 各控制元件(如：check box、switch 或是 radoi) 被勾选 (checked) 或是选定 (selected) 的颜色。-->
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/ripple</item>
         <item name="colorControlHighlight">@color/design_write_text</item>
         <!-- colorControlNormal: 各控制元件的预设颜色。-->
         <!--<item name="android:colorControlNormal"></item>-->
         <!-- navigationBarColor: 导航栏的背景色，但只能用在 API Level 21 (Android 5) 以上的版本-->
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/design_write_secondary</item>
         <!--正常状态下字体颜色和icon颜色-->
         <item name="android:textColorPrimary">@color/cpb_white</item>
         <!-- actionmode 弹出时覆盖部分布局, 若 false 则不符盖，将原有布局下移。-->

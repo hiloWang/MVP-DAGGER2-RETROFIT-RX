@@ -18,7 +18,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
 	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(this.getLayoutId());
+		if (this.getLayoutId() != -1)
+			setContentView(getLayoutId());
 		ButterKnife.bind(this);
 
 		this.getApplicationComponent().inject(this);

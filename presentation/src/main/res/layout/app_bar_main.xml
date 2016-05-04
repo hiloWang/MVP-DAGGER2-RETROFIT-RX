@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordiNatorContent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:fab="http://schemas.android.com/tools"
+                                                 android:id="@+id/coordiNatorContent"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
 
-    <include layout="@layout/view_toolbar" />
+    <include layout="@layout/view_toolbar"/>
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_main"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -17,10 +18,49 @@
         android:layout_margin="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/btn_fab_margins"
         android:layout_marginRight="@dimen/btn_fab_margins"
-        android:src="@android:drawable/ic_menu_add"
+        android:src="@drawable/fab_add"
+        app:backgroundTint="@color/background_fab_tint"
         app:borderWidth="0dp"
         app:elevation="6dp"
         app:layout_behavior="com.github.hilo.widget.ScrollingFABBehavior"
-        app:pressedTranslationZ="12dp" />
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="#33728dff"/>
+
+  <!--  <com.github.hilo.widget.fab.FloatingActionsMenu
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/btn_fab_margins"
+        android:layout_marginRight="@dimen/btn_fab_margins"
+        app:backgroundTint="@color/background_fab_tint"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:layout_behavior="com.github.hilo.widget.ScrollingFABBehavior"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="#33728dff"
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_labelStyle="@style/menu_labels_style">
+
+        <com.github.hilo.widget.fab.FloatingActionButton
+            android:id="@+id/action_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Action A"/>
+
+        <com.github.hilo.widget.fab.FloatingActionButton
+            android:id="@+id/action_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_title="Action with a very long name that won\'t fit on the screen"/>
+
+    </com.github.hilo.widget.fab.FloatingActionsMenu>-->
 
 </android.support.design.widget.CoordinatorLayout>

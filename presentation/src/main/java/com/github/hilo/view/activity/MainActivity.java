@@ -1,9 +1,15 @@
 package com.github.hilo.view.activity;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
 import com.github.hilo.R;
 import com.github.hilo.di.components.DaggerUserComponent;
@@ -12,8 +18,6 @@ import com.github.hilo.di.interfaces.HasComponent;
 import com.github.hilo.model.UserModel;
 import com.github.hilo.util.UIUtils;
 import com.github.hilo.view.fragment.UserListFragment;
-import com.github.hilo.widget.FeedContextMenu;
-import com.github.hilo.widget.FeedContextMenuManager;
 import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.Bind;
@@ -21,7 +25,9 @@ import butterknife.Bind;
 public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent> {
 
 	@Bind(R.id.fab) FloatingActionButton fab;
+	@Bind(R.id.cloud) TextView tvCloud;
 	private UserComponent userComponent;
+	private boolean fabOpened;
 
 	@Override protected int getLayoutId() {
 		return R.layout.activity_main;
@@ -47,7 +53,10 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		});
 	}
 
-	@Override protected void initListeners() { RxView.clicks(fab).subscribe(this::onFabClicked);}
+	@Override protected void initListeners() {
+		RxView.clicks(fab).subscribe(this::onFabClicked);
+		RxView.clicks(tvCloud).subscribe(this::onTvCloudClicked);
+	}
 
 	@Override protected void onResume() {
 		super.onResume();
@@ -63,8 +72,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	@Override protected int[] getMenuItemIds() {
-		return new int[] {R.id.nav_home,R.id.nav_explore,R.id.nav_follow,R.id.nav_collect,R.id.nav_draft,R.id.nav_register,R.id
-						.nav_share,R.id.nav_settings};
+		return new int[] {R.id.nav_home,R.id.nav_explore,R.id.nav_follow,R.id.nav_collect,R.id.nav_register,R.id.nav_settings};
 	}
 
 	@Override protected void onMenuItemOnClick(MenuItem now) {
@@ -73,6 +81,19 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 
 	@Override public UserComponent getComponent() {
 		return userComponent;
+	}
+
+	@Override public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main,menu);
+		return true;
+	}
+
+	@Override public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void setupAnimations() {
@@ -85,10 +106,6 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		UserListFragment userListFragment = new UserListFragment();
 		userListFragment.setArguments(new Bundle());
 		addFragment(R.id.fragmentContainer,userListFragment);
-	}
-
-	public void showToastApplication(String msg) {
-		showToast(msg);
 	}
 
 	/**
@@ -115,28 +132,35 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	 */
 	@Override protected void onSaveInstanceState(Bundle outState) {}
 
+	public void onTvCloudClicked(Void view) {closeMenu(fab);}
+
 	public void onFabClicked(Void view) {
-		FeedContextMenuManager.getInstance()
-													.toggleContextMenuFromView(fab,-1,new FeedContextMenu.OnFeedContextMenuClickListener() {
-														@Override public void onReportClick(int position) {
-															showToast("Report");
-															FeedContextMenuManager.getInstance().hideContextMenu();
-														}
+		if (!fabOpened) openMenu(fab);
+		else closeMenu(fab);
+	}
 
-														@Override public void onSharePhotoClick(int position) {
-															showToast("Share");
-															FeedContextMenuManager.getInstance().hideContextMenu();
-														}
+	private void openMenu(View view) {
+		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view,"rotation",0,-155,-135);
+		objectAnimator.setDuration(300);
+		objectAnimator.setInterpolator(new DecelerateInterpolator());
+		objectAnimator.start();
+		tvCloud.setVisibility(View.VISIBLE);
+		AlphaAnimation alphaAnimation = new AlphaAnimation(0,0.85f);
+		alphaAnimation.setDuration(250);
+		alphaAnimation.setFillAfter(true);
+		tvCloud.startAnimation(alphaAnimation);
+		fabOpened = true;
+	}
 
-														@Override public void onCopyShareUrlClick(int position) {
-															showToast("CopyShareUrl");
-															FeedContextMenuManager.getInstance().hideContextMenu();
-														}
-
-														@Override public void onCancelClick(int position) {
-															showToast("nCancel");
-															FeedContextMenuManager.getInstance().hideContextMenu();
-														}
-													});
+	private void closeMenu(View view) {
+		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view,"rotation",-135,-175,0);
+		objectAnimator.setDuration(300);
+		objectAnimator.setInterpolator(new DecelerateInterpolator());
+		objectAnimator.start();
+		AlphaAnimation alphaAnimation = new AlphaAnimation(0.85f,0);
+		alphaAnimation.setDuration(250);
+		tvCloud.startAnimation(alphaAnimation);
+		tvCloud.setVisibility(View.GONE);
+		fabOpened = false;
 	}
 }

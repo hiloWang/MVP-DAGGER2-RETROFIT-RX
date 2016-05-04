@@ -10,4 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:id="@+id/cloud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffff"
+        android:filterTouchesWhenObscured="false"
+        android:focusableInTouchMode="false"
+        android:visibility="gone"/>
+
 </FrameLayout>
