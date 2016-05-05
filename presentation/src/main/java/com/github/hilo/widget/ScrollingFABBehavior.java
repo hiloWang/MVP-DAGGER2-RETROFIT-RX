@@ -38,11 +38,16 @@ public class ScrollingFABBehavior extends /*FloatingActionButton*/CoordinatorLay
 
 	@Override public boolean onDependentViewChanged(CoordinatorLayout parent,LinearLayout child,View dependency) {
 		// 植入判断条件，当已经处于hide状态的fab，就不需要再走隐藏动画了；
-		startAnimation = !startAnimation;
-		if (mAppBarLayout.getY() < 0 && startAnimation) { // hide
-			child.animate().translationY(350f).setDuration(400).setInterpolator(DECELERATE_INTERPOLATOR).start();
-		} else { // show
-			child.animate().translationY(0f).setDuration(400).setInterpolator(DECELERATE_INTERPOLATOR).start();
+		if (mAppBarLayout.getY() < 0) { // hide
+			if (startAnimation) {
+				startAnimation = !startAnimation;
+				child.animate().translationY(350f).setDuration(400).setInterpolator(DECELERATE_INTERPOLATOR).start();
+			}
+		} else { // show 第一次一定会先走这里逻辑
+			if (!startAnimation) {
+				startAnimation = !startAnimation;
+				child.animate().translationY(0f).setDuration(400).setInterpolator(DECELERATE_INTERPOLATOR).start();
+			}
 		}
 
 		return super.onDependentViewChanged(parent,child,dependency);
