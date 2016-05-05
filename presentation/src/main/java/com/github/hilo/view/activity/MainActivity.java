@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.hilo.R;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	@Override protected void initViews(Bundle savedInstanceState) {
 		setupAnimations();
 		setupFragment();
+		setupFloatingActionButton();
 	}
 
 	@Override protected void initData() {
@@ -55,7 +57,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 
 	@Override protected void initListeners() {
 		RxView.clicks(fab).subscribe(this::onFabClicked);
-		RxView.clicks(tvCloud).subscribe(this::onTvCloudClicked);
+		tvCloud.setOnClickListener(v -> {if (fabOpened) closeMenu(fab);});
 	}
 
 	@Override protected void onResume() {
@@ -108,6 +110,13 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		addFragment(R.id.fragmentContainer,userListFragment);
 	}
 
+	private void setupFloatingActionButton() {
+		ImageView icon = new ImageView(this);
+		icon.setImageDrawable(getResources().getDrawable(R.drawable.fab_add));
+
+		FloatingActionButton actionButton = new FloatingActionButton(this);
+	}
+
 	/**
 	 * 点击了后退键,主动关闭当前页面时，onSaveInstanceState()
 	 * 并不会被调用.
@@ -131,8 +140,6 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	 * @param outState savedInstanceBundile
 	 */
 	@Override protected void onSaveInstanceState(Bundle outState) {}
-
-	public void onTvCloudClicked(Void view) {closeMenu(fab);}
 
 	public void onFabClicked(Void view) {
 		if (!fabOpened) openMenu(fab);
