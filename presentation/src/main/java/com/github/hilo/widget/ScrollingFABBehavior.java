@@ -6,25 +6,28 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 
 /**
  * 随可滑动内容隐藏显示的 FAB
  */
-public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
+public class ScrollingFABBehavior extends /*FloatingActionButton*/CoordinatorLayout.Behavior<LinearLayout> {
 
 	private AppBarLayout mAppBarLayout;
+	private static final DecelerateInterpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
+	private boolean startAnimation;
 
 	public ScrollingFABBehavior(Context context,AttributeSet attrs) {
 		super();
 	}
 
-	public boolean onStartNestedScroll(CoordinatorLayout parent,FloatingActionButton child,
-					View directTargetChild,View target,int nestedScrollAxes) {
+	public boolean onStartNestedScroll(CoordinatorLayout parent,FloatingActionButton child,View directTargetChild,View target,
+					int nestedScrollAxes) {
 		return true;
 	}
 
-	@Override public boolean layoutDependsOn(CoordinatorLayout parent,FloatingActionButton child,
-					View dependency) {
+	@Override public boolean layoutDependsOn(CoordinatorLayout parent,LinearLayout child,View dependency) {
 		if (dependency instanceof AppBarLayout) {
 			mAppBarLayout = (AppBarLayout)dependency;
 			return true;
@@ -33,6 +36,21 @@ public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
 		}
 	}
 
+	@Override public boolean onDependentViewChanged(CoordinatorLayout parent,LinearLayout child,View dependency) {
+		// 植入判断条件，当已经处于hide状态的fab，就不需要再走隐藏动画了；
+		startAnimation = !startAnimation;
+		if (mAppBarLayout.getY() < 0 && startAnimation) { // hide
+			child.animate().translationY(350f).setDuration(400).setInterpolator(DECELERATE_INTERPOLATOR).start();
+		} else { // show
+			child.animate().translationY(0f).setDuration(400).setInterpolator(DECELERATE_INTERPOLATOR).start();
+		}
+
+		return super.onDependentViewChanged(parent,child,dependency);
+	}
+
+	/**
+	 * extends FloatingActionButton.Behavior
+	 *//*
 	@Override public void onNestedScroll(CoordinatorLayout coordinatorLayout,
 					FloatingActionButton child,View target,int dxConsumed,int dyConsumed,int dxUnconsumed,
 					int dyUnconsumed) {
@@ -43,5 +61,6 @@ public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
 		} else {
 			child.show();
 		}
-	}
+	}*/
+
 }

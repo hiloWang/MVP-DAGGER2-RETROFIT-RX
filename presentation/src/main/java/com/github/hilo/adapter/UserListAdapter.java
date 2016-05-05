@@ -2,7 +2,6 @@ package com.github.hilo.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,8 +68,8 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		mDailyIv.setScaleX(0.f);
 		mDailyIv.setScaleY(0.f);
 
-		Log.e("HILO","当前内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" + Glide.getPhotoCacheDir(context)
-																																														.getFreeSpace());
+		/*Log.e("HILO","当前内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" + Glide.getPhotoCacheDir(context)
+																																														.getFreeSpace());*/
 
 		Glide.with(context)
 				 .load(drawableIcons[(int)(Math.random() * 5)])
@@ -87,17 +86,17 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 					.map((Func1<Void, Void>)aVoid -> {
 
 						Glide.get(context).clearDiskCache();
-						Log.e("HILO","清理后disk： 总空间(" + Glide.getPhotoCacheDir(context).getTotalSpace() + ")" +
-										":: 可用空间（" + Glide.getPhotoCacheDir(context).getUsableSpace() + ")");
+						/*Log.e("HILO","清理后disk： 总空间(" + Glide.getPhotoCacheDir(context).getTotalSpace() + ")" +
+										":: 可用空间（" + Glide.getPhotoCacheDir(context).getUsableSpace() + ")");*/
 						return null;
 					})
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(aVoid -> {
 
 						Glide.get(context).clearMemory();
-						Log.e("HILO",
+						/*Log.e("HILO",
 									"清理后内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" +
-													Glide.getPhotoCacheDir(context).getFreeSpace());
+													Glide.getPhotoCacheDir(context).getFreeSpace());*/
 					});
 	}
 }

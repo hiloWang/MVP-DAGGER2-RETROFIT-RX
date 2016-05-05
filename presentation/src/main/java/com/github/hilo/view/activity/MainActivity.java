@@ -1,15 +1,22 @@
 package com.github.hilo.view.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.hilo.R;
@@ -25,8 +32,13 @@ import butterknife.Bind;
 
 public class MainActivity extends BaseDrawerLayoutActivity implements HasComponent<UserComponent> {
 
+	private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4.0f);
+	private static final DecelerateInterpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
 	@Bind(R.id.fab) FloatingActionButton fab;
 	@Bind(R.id.cloud) TextView tvCloud;
+	@Bind(R.id.llFabMenuContainerFirst) LinearLayout llFabMenuContainerFirst;
+	@Bind(R.id.tvFabMenuActionFirst) CardView tvFabMenuActionFirst;
+	@Bind(R.id.ivFabMenuActionFirst) ImageView ivFabMenuActionFirst;
 	private UserComponent userComponent;
 	private boolean fabOpened;
 
@@ -44,20 +56,22 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	@Override protected void initViews(Bundle savedInstanceState) {
 		setupAnimations();
 		setupFragment();
-		setupFloatingActionButton();
 	}
 
 	@Override protected void initData() {
 		getApplicationComponent().rxBus().toObserverable().subscribe(o -> {
 			if (o instanceof UserModel) {
-				// do something
+				// fragment callback with this rxBus, may be you can do something in this
 			}
 		});
 	}
 
 	@Override protected void initListeners() {
 		RxView.clicks(fab).subscribe(this::onFabClicked);
-		tvCloud.setOnClickListener(v -> {if (fabOpened) closeMenu(fab);});
+		RxView.clicks(llFabMenuContainerFirst).subscribe(this::onFabMenuClicked);
+		tvCloud.setOnClickListener(v -> {
+			if (fabOpened) closeMenu();
+		});
 	}
 
 	@Override protected void onResume() {
@@ -110,13 +124,6 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		addFragment(R.id.fragmentContainer,userListFragment);
 	}
 
-	private void setupFloatingActionButton() {
-		ImageView icon = new ImageView(this);
-		icon.setImageDrawable(getResources().getDrawable(R.drawable.fab_add));
-
-		FloatingActionButton actionButton = new FloatingActionButton(this);
-	}
-
 	/**
 	 * 点击了后退键,主动关闭当前页面时，onSaveInstanceState()
 	 * 并不会被调用.
@@ -141,33 +148,132 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	 */
 	@Override protected void onSaveInstanceState(Bundle outState) {}
 
-	public void onFabClicked(Void view) {
-		if (!fabOpened) openMenu(fab);
-		else closeMenu(fab);
+	private void onFabClicked(Void view) {
+		if (!fabOpened) openMenu();
+		else closeMenu();
 	}
 
-	private void openMenu(View view) {
-		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view,"rotation",0,-155,-135);
+	private void onFabMenuClicked(Void view) {
+		showSnackbar();
+		closeMenu();
+	}
+
+	private void openMenu() {
+		// the menu is opening about fab
+		fabOpened = true;
+		fab.setEnabled(false);
+		// fab animation
+		OpenFabAnimation(fab);
+		// background cloud animation
+		OpenFogEffectAnimation();
+		// fabMenu action animation
+		OpenFabMenuAnimation();
+	}
+
+	private void closeMenu() {
+		// the menu is closing about fab
+		fabOpened = false;
+		fab.setEnabled(false);
+
+		// fab animation
+		CloseFabAnimation(fab);
+		// background cloud animation
+		CloseFogEffectAnimation();
+		// fabMenu action animation
+		CloseFabMenuAnimation();
+	}
+
+	private void CloseFabMenuAnimation() {
+		AnimatorSet animatorSet = new AnimatorSet();
+		ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(ivFabMenuActionFirst,"scaleX",1.0f,0.8f);
+		bounceAnimX.setDuration(300);
+		bounceAnimX.setInterpolator(DECELERATE_INTERPOLATOR);
+		ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(ivFabMenuActionFirst,"scaleY",1.0f,0.3f);
+		bounceAnimY.setDuration(300);
+		bounceAnimY.setInterpolator(DECELERATE_INTERPOLATOR);
+		ObjectAnimator alphaBounce = ObjectAnimator.ofFloat(ivFabMenuActionFirst,"alpha",1.f,0.f);
+		alphaBounce.setDuration(300);
+
+		ObjectAnimator translationX = ObjectAnimator.ofFloat(tvFabMenuActionFirst,"translationX",0f,90f);
+		translationX.setDuration(200);
+		ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(tvFabMenuActionFirst,"alpha",1.f,0.f);
+		alphaAnim.setInterpolator(DECELERATE_INTERPOLATOR);
+		alphaAnim.setDuration(300);
+
+		animatorSet.playTogether(translationX,alphaAnim,bounceAnimX,bounceAnimY,alphaBounce);
+		animatorSet.addListener(new AnimatorListenerAdapter() {
+			@Override public void onAnimationEnd(Animator animation) {
+				tvFabMenuActionFirst.setVisibility(View.INVISIBLE);
+				ivFabMenuActionFirst.setVisibility(View.INVISIBLE);
+				fab.setEnabled(true);
+			}
+		});
+		animatorSet.setDuration(200);
+		animatorSet.start();
+	}
+
+	private void CloseFogEffectAnimation() {
+		AlphaAnimation alphaAnimation = new AlphaAnimation(0.85f,0);
+		alphaAnimation.setDuration(250);
+		tvCloud.startAnimation(alphaAnimation);
+		tvCloud.setVisibility(View.GONE);
+	}
+
+	private void CloseFabAnimation(View fab) {
+		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(fab,"rotation",-135,-175,0);
 		objectAnimator.setDuration(300);
-		objectAnimator.setInterpolator(new DecelerateInterpolator());
+		objectAnimator.setInterpolator(DECELERATE_INTERPOLATOR);
 		objectAnimator.start();
+	}
+
+	private void OpenFabMenuAnimation() {
+		AnimatorSet animatorSet = new AnimatorSet();
+		tvFabMenuActionFirst.setVisibility(View.VISIBLE);
+		ivFabMenuActionFirst.setVisibility(View.VISIBLE);
+		tvFabMenuActionFirst.setAlpha(1.f);
+		ivFabMenuActionFirst.setAlpha(1.f);
+
+		ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(ivFabMenuActionFirst,"scaleX",0.8f,1.f);
+		bounceAnimX.setDuration(300);
+		bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+		ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(ivFabMenuActionFirst,"scaleY",0.8f,1.f);
+		bounceAnimY.setDuration(300);
+		bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+		ObjectAnimator translateAnimX = ObjectAnimator.ofFloat(tvFabMenuActionFirst,"translationX",170f,-15f,0f);
+		translateAnimX.setDuration(300);
+
+		animatorSet.playTogether(bounceAnimX,bounceAnimY,translateAnimX);
+		animatorSet.addListener(new AnimatorListenerAdapter() {
+			@Override public void onAnimationEnd(Animator animation) {
+				fab.setEnabled(true);
+			}
+		});
+		animatorSet.setDuration(200);
+		animatorSet.start();
+	}
+
+	private void OpenFogEffectAnimation() {
 		tvCloud.setVisibility(View.VISIBLE);
 		AlphaAnimation alphaAnimation = new AlphaAnimation(0,0.85f);
 		alphaAnimation.setDuration(250);
 		alphaAnimation.setFillAfter(true);
 		tvCloud.startAnimation(alphaAnimation);
-		fabOpened = true;
 	}
 
-	private void closeMenu(View view) {
-		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view,"rotation",-135,-175,0);
+	private void OpenFabAnimation(View fab) {
+		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(fab,"rotation",0,-155,-135);
 		objectAnimator.setDuration(300);
 		objectAnimator.setInterpolator(new DecelerateInterpolator());
 		objectAnimator.start();
-		AlphaAnimation alphaAnimation = new AlphaAnimation(0.85f,0);
-		alphaAnimation.setDuration(250);
-		tvCloud.startAnimation(alphaAnimation);
-		tvCloud.setVisibility(View.GONE);
-		fabOpened = false;
+	}
+
+	private void showSnackbar() {
+		Snackbar snackbar = Snackbar.make(fab,"the fab menu clicked :)",Snackbar.LENGTH_SHORT);
+		Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout)snackbar.getView();
+		snackbarLayout.setBackgroundColor(getResources().getColor(R.color.background_layout));
+		((TextView)snackbarLayout.findViewById(R.id.snackbar_text)).setTextColor(
+						getResources().getColor(R.color.design_black_text));
+		snackbar.show();
 	}
 }
