@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -90,7 +89,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 							loadingMoreData = true;
 							loadUserList();
 						} else if (linearLayoutManager.findFirstVisibleItemPosition() == 0) {
-							Log.i("","");
+
 						}
 					}
 				}
@@ -131,7 +130,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Override public void viewUser(UserModel userModel) {}
 
 	@Override public void showLoading() {
-		setRefreshing(true);
+		setRefreshing(false);
 	}
 
 	@Override public void hideLoading() {

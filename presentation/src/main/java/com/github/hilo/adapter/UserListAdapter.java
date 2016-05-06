@@ -39,7 +39,6 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	public static final int VIEW_TYPE_DEFAULT = 1;
 	public static final int VIEW_TYPE_FOOTERVIEW = 2;
-	public static final int VIEW_TYPE_ERROR = 3;
 	private Context context;
 	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable
 					.center_4,R.drawable.center_5};
