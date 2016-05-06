@@ -1,7 +1,5 @@
 package com.github.hilo.adapter;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -110,7 +108,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	private void bindFooterView(BaseRecyclerViewHolder viewHolder,int position) {
 		CardView cvFooterView = viewHolder.findViewById(R.id.cvFooterView);
-		if (position != 0) {
+		if (position != 0 && cvFooterView.getVisibility() == View.GONE) {
 			cvFooterView.setVisibility(View.VISIBLE);
 		}
 	}
