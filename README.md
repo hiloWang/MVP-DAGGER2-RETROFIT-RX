@@ -23,11 +23,7 @@ a simple demo about MVP + DAGGER2 + RETROFIT + RX
     
     解决： 将project下的gradle2.0.0 修改成1.5.0即可，
   
-    例：`classpath 'com.android.tools.build:gradle:2.0.0'` 
+    例：`classpath 'com.android.tools.build:gradle:2.0.0'` 替换成 `classpath 'com.android.tools.build:gradle:1.5.0'`
         
-        替换成
-        `classpath 'com.android.tools.build:gradle:1.5.0'`
-        
-        并将2.10 修改成2.8
-        `gradleVersion '2.8'`
+        并将2.10 修改成2.8 `gradleVersion '2.8'`
       
