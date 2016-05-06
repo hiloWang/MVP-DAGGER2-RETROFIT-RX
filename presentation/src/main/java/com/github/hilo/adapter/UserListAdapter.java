@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,7 +12,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +20,8 @@ import com.github.hilo.R;
 import com.github.hilo.model.UserModel;
 import com.github.hilo.util.DateUtils;
 import com.github.hilo.util.ToastUtils;
+import com.github.hilo.util.Utils;
+import com.github.hilo.view.activity.MainActivity;
 import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.Date;
@@ -114,20 +116,23 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 	}
 
 	private FrameLayout footerViewContainer;
-	private LinearLayout errorFooterView;
+	private CardView errorFooterView;
+	private int position;
 
 	private void bindFooterView(BaseRecyclerViewHolder viewHolder,int position) {
+		this.position = position;
 		errorFooterView = viewHolder.findViewById(R.id.errorFooterView);
 		footerViewContainer = viewHolder.findViewById(R.id.footerViewContainer);
 		ImageView footerViewIcon = viewHolder.findViewById(R.id.footerViewIcon);
 
-		errorFooterView.setVisibility(View.GONE);
-		if (position != 0 && footerViewContainer.getVisibility() == View.GONE) {
-			footerViewContainer.setVisibility(View.VISIBLE);
-		}
-
 		footerViewContainer.setTranslationY(0f);
 		startLoadingAnimation(footerViewIcon);
+		RxView.clicks(errorFooterView).throttleFirst(1,TimeUnit.SECONDS).observeOn(Schedulers.io()).subscribe(aVoid -> {
+			((MainActivity)context).getApplicationComponent().rxBus().send(null);
+		});
+
+		if (Utils.isNetworkConnected(context)) errorFooterView.setVisibility(View.GONE);
+
 	}
 
 	private void startLoadingAnimation(View view) {
@@ -138,12 +143,10 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		view.startAnimation(loadingAnimation);
 	}
 
-	public FrameLayout getFooterView() {
-		return footerViewContainer;
-	}
-
-	public void setFooterViewDismiss() {
+	public void setFooterViewLoadingDismiss() {
 		if (footerViewContainer != null) {
+			if (errorFooterView.getVisibility() == View.VISIBLE) errorFooterView.setVisibility(View.GONE);
+			footerViewContainer.setVisibility(View.VISIBLE);
 			footerViewContainer.animate().translationY(400f).setDuration(350).setListener(new AnimatorListenerAdapter() {
 				@Override public void onAnimationEnd(Animator animation) {
 					notifyItemChanged(getItemCount());
@@ -154,8 +157,8 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	public void setFooterViewError() {
 		if (errorFooterView != null) {
-			errorFooterView.setVisibility(View.VISIBLE);
-			footerViewContainer.setVisibility(View.GONE);
+			if (position != 0) errorFooterView.setVisibility(View.VISIBLE);
+			footerViewContainer.setVisibility(View.INVISIBLE);
 		}
 	}
 }

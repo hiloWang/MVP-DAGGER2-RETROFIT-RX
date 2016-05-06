@@ -28,6 +28,7 @@ import java.util.Collection;
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import rx.schedulers.Schedulers;
 
 import static com.github.hilo.util.Preconditions.checkNotNull;
 
@@ -71,6 +72,10 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
 		swipeRefreshLayout.setColorSchemeResources(R.color.pulltorefresh_blue);
 		swipeRefreshLayout.setOnRefreshListener(() -> presenter.initialize());
+		// footerView error callback
+		((MainActivity)context()).getApplicationComponent().rxBus().toObserverable().observeOn(Schedulers.io()).subscribe(o -> {
+			if (null == o) loadUserList();
+		});
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			private boolean moveToDown = false;
@@ -162,7 +167,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	@Override public void onItemLongClick(View convertView,int position) {}
 
-	private void loadUserList() {
+	public void loadUserList() {
 		presenter.initialize();
 	}
 
@@ -195,7 +200,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		if (loadingMoreData) {
 			loadingMoreData = false;
 			adapter.addAll(usersLists);
-			adapter.setFooterViewDismiss();
+			adapter.setFooterViewLoadingDismiss();
 		} else {
 			checkTheLifeCycleIsChanging(resestTheLifeCycle);
 			adapter.setList(usersLists);
