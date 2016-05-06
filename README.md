@@ -18,9 +18,9 @@ a simple demo about MVP + DAGGER2 + RETROFIT + RX
             compileSdkVersion 2
             
             buildToolsVersion '23.0.0'
-        }
+        }``
     
-        dependencies {}``
+        ``dependencies {}``
   
 3. 有些人会报 java.lang.VerifyError 错误
     
