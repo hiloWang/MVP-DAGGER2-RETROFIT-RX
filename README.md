@@ -2,6 +2,7 @@
 a simple demo about MVP + DAGGER2 + RETROFIT + RX
 
 **导入项目时，注意事项**
+
 1. 项目需要JAVA8支持，如果报java8... no value 1错误
   解决：配置jdk8 环境变量：
   例：新建 JAVA8_HOME 值为C:\Program Files\Java\jdk1.8.0_77；
