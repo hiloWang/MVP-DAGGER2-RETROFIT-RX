@@ -33,7 +33,7 @@
     <FrameLayout
         android:id="@+id/footerViewContainer"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         android:visibility="visible">
 
@@ -42,7 +42,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_menu_follow"
+            android:background="@drawable/ic_cached_blue_600_18dp"
             android:scaleType="center"/>
     </FrameLayout>
 

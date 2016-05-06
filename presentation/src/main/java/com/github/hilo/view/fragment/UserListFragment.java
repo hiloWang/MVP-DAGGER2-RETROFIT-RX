@@ -69,8 +69,10 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	@Override protected void initListeners() {
 		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
+
 		swipeRefreshLayout.setColorSchemeResources(R.color.pulltorefresh_blue);
 		swipeRefreshLayout.setOnRefreshListener(() -> presenter.initialize());
+
 		// footerView error callback
 		((MainActivity)context()).getApplicationComponent().rxBus().toObserverable().observeOn(Schedulers.io()).subscribe(o -> {
 			if (null == o) loadUserList();
@@ -147,6 +149,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		snackbar.setAction("WELL",v -> {
 			RxSnackbar.dismisses(snackbar).subscribe(this::onSnackbarDismissed);
 		}).show();
+		recyclerView.smoothScrollToPosition(adapter.getItemCount() + 1);
 	}
 
 	public void onSnackbarDismissed(int e) {
@@ -199,7 +202,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		if (loadingMoreData) {
 			loadingMoreData = false;
 			adapter.addAll(usersLists);
-			adapter.setFooterViewLoadingDismiss();
+			adapter.dismissFooterViewLoading();
 		} else {
 			checkTheLifeCycleIsChanging(resestTheLifeCycle);
 			adapter.setList(usersLists);

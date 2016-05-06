@@ -125,16 +125,15 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		ImageView footerViewIcon = viewHolder.findViewById(R.id.footerViewIcon);
 
 		footerViewContainer.setTranslationY(0f);
-		startLoadingAnimation(footerViewIcon);
+		startFooterViewLoading(footerViewIcon);
 		RxView.clicks(errorFooterView).throttleFirst(1,TimeUnit.SECONDS).observeOn(Schedulers.io()).subscribe(aVoid -> {
 			((MainActivity)context).getApplicationComponent().rxBus().send(null);
 		});
 
 		if (Utils.isNetworkConnected(context)) errorFooterView.setVisibility(View.GONE);
-
 	}
 
-	private void startLoadingAnimation(View view) {
+	private void startFooterViewLoading(View view) {
 		Animation loadingAnimation = AnimationUtils.loadAnimation(context,R.anim.rotate_view_footer);
 		// 保持匀速旋转的interpolator
 		LinearInterpolator interpolator = new LinearInterpolator();
@@ -142,7 +141,11 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		view.startAnimation(loadingAnimation);
 	}
 
-	public void setFooterViewLoadingDismiss() {
+	public void startFooterViewLoading() {
+		if (footerViewContainer != null) footerViewContainer.setVisibility(View.VISIBLE);
+	}
+
+	public void dismissFooterViewLoading() {
 		if (footerViewContainer != null) {
 			if (errorFooterView.getVisibility() == View.VISIBLE) errorFooterView.setVisibility(View.GONE);
 			footerViewContainer.setVisibility(View.VISIBLE);
