@@ -6,9 +6,9 @@ import retrofit.http.GET;
 import rx.Observable;
 
 /**
- * RestApiA for retrieving data from the network.
+ * RestApi for retrieving data from the network.
  */
-public interface RestApiA {
+public interface RestApi {
 
 	@GET("api/day/history") Observable<UserEntity> requestUserEntityFromApi();
 
