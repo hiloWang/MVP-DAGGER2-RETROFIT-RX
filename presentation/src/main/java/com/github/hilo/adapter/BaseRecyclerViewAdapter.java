@@ -11,6 +11,7 @@ import java.util.List;
 
 public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+	private View rootView;
 	private ArrayList mList;
 	private BaseRecyclerViewHolder.OnItemClickListener onItemClickListener;
 	private BaseRecyclerViewHolder.OnItemLongClickListener onItemLongClickListener;
@@ -27,11 +28,11 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 
 		int itemLayoutId;
 		if (layoutIds.length == 1) itemLayoutId = layoutIds[0];
-		else itemLayoutId = layoutIds[viewType];
-		View view = LayoutInflater.from(parent.getContext()).inflate(itemLayoutId,null);
-		view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-																										ViewGroup.LayoutParams.WRAP_CONTENT));
-		return new BaseRecyclerViewHolder(view);
+		else itemLayoutId = layoutIds[viewType-1];
+		rootView = LayoutInflater.from(parent.getContext()).inflate(itemLayoutId,null);
+		rootView.setLayoutParams(
+						new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+		return new BaseRecyclerViewHolder(rootView);
 	}
 
 	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder,int position) {
@@ -46,7 +47,7 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 	}
 
 	@Override public int getItemCount() {
-		return mList.size();
+		return mList.size() + 1;
 	}
 
 	public <T> T getItemByPosition(int position) {
@@ -77,6 +78,10 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 
 	public List getList() {
 		return mList;
+	}
+
+	public View getRootView() {
+		return rootView;
 	}
 
 	/**
@@ -126,8 +131,7 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 	 *
 	 * @param onItemClickListener onItemClickListener
 	 */
-	public void setOnItemClickListener(
-					BaseRecyclerViewHolder.OnItemClickListener onItemClickListener) {
+	public void setOnItemClickListener(BaseRecyclerViewHolder.OnItemClickListener onItemClickListener) {
 		this.onItemClickListener = onItemClickListener;
 	}
 
@@ -137,8 +141,7 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 	 *
 	 * @param onItemLongClickListener onItemLongClickListener
 	 */
-	public void setOnItemLongClickListener(
-					BaseRecyclerViewHolder.OnItemLongClickListener onItemLongClickListener) {
+	public void setOnItemLongClickListener(BaseRecyclerViewHolder.OnItemLongClickListener onItemLongClickListener) {
 		this.onItemLongClickListener = onItemLongClickListener;
 	}
 }

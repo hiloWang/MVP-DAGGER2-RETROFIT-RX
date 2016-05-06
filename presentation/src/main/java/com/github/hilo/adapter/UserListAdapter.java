@@ -1,7 +1,11 @@
 package com.github.hilo.adapter;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v7.widget.CardView;
+import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +32,7 @@ import static com.github.hilo.util.Preconditions.checkNotNull;
 public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 	public static final int VIEW_TYPE_DEFAULT = 1;
+	public static final int VIEW_TYPE_FOOTER = 2;
 	private Context context;
 	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable
 					.center_4,R.drawable.center_5};
@@ -39,7 +44,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 	}
 
 	@Override public int[] getItemLayouts() {
-		return new int[] {R.layout.item_userlist_fragment};
+		return new int[] {R.layout.item_userlist_fragment,R.layout.view_rv_footer};
 	}
 
 	@Override public void onBindRecycleViewHolder(BaseRecyclerViewHolder viewHolder,int position) {
@@ -48,10 +53,14 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		case VIEW_TYPE_DEFAULT:
 			bindDefaultView(viewHolder,position);
 			break;
+		case VIEW_TYPE_FOOTER:
+			bindFooterView(viewHolder,position);
+			break;
 		}
 	}
 
 	@Override public int getRecycleViewItemType(int position) {
+		if (position == getListSize()) return VIEW_TYPE_FOOTER;
 		return VIEW_TYPE_DEFAULT;
 	}
 
@@ -70,7 +79,6 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 
 		/*Log.e("HILO","当前内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" + Glide.getPhotoCacheDir(context)
 																																														.getFreeSpace());*/
-
 		Glide.with(context)
 				 .load(drawableIcons[(int)(Math.random() * 5)])
 				 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -98,5 +106,12 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 									"清理后内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" +
 													Glide.getPhotoCacheDir(context).getFreeSpace());*/
 					});
+	}
+
+	private void bindFooterView(BaseRecyclerViewHolder viewHolder,int position) {
+		CardView cvFooterView = viewHolder.findViewById(R.id.cvFooterView);
+		if (position != 0) {
+			cvFooterView.setVisibility(View.VISIBLE);
+		}
 	}
 }
