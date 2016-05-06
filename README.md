@@ -14,11 +14,13 @@ a simple demo about MVP + DAGGER2 + RETROFIT + RX
     解决：找到project下的gradle 删除有关android{}和dependencies{}下所有;
 
     例：``android {
+            
             compileSdkVersion 2
+            
             buildToolsVersion '23.0.0'
-        }``
-        
-        dependencies {}
+        }
+    
+        dependencies {}``
   
 3. 有些人会报 java.lang.VerifyError 错误
     
