@@ -19,7 +19,6 @@ import com.github.hilo.model.UserModel;
 import com.github.hilo.presenter.UserListPresenter;
 import com.github.hilo.view.UserListView;
 import com.github.hilo.view.activity.MainActivity;
-import com.github.hilo.widget.FeedContextMenuManager;
 import com.github.hilo.widget.WrapSwipeRefreshLayout;
 import com.jakewharton.rxbinding.support.design.widget.RxSnackbar;
 
@@ -84,8 +83,6 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 					if (newState == RecyclerView.SCROLL_STATE_IDLE) {
 						if (moveToDown && manager.findLastCompletelyVisibleItemPosition() == (manager.getItemCount() - 1)) {
 							loadingMoreData = true;
-							// 当滚动到最后一条时的逻辑处理
-							setRefreshing(true);
 							loadUserList();
 						} else if (linearLayoutManager.findFirstVisibleItemPosition() == 0) {
 							Log.i("","");
@@ -98,7 +95,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 				this.moveToDown = dy > 0;
 				// 弹出的ContextMenu 跟随之前的窗体滚动及消失
 				//                FeedContextMenuManager.getInstance().onScrolled(recyclerView, dx, dy);
-				FeedContextMenuManager.getInstance().hideContextMenu();
+				//				FeedContextMenuManager.getInstance().hideContextMenu();
 			}
 		});
 	}
@@ -137,6 +134,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override public void showError(String message) {
+		adapter.setFooterViewError();
 		Snackbar snackbar = Snackbar.make(recyclerView,"please check out your network is good",Snackbar.LENGTH_INDEFINITE);
 		Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout)snackbar.getView();
 		snackbarLayout.setBackgroundColor(getResources().getColor(R.color.background_layout));
@@ -196,10 +194,8 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 		if (loadingMoreData) {
 			loadingMoreData = false;
-			int smoothScrollToPosition = adapter.getItemCount();
 			adapter.addAll(usersLists);
-			recyclerView.scrollToPosition(smoothScrollToPosition);
-			adapter.notifyItemChanged(adapter.getItemCount());
+			adapter.setFooterViewDismiss();
 		} else {
 			checkTheLifeCycleIsChanging(resestTheLifeCycle);
 			adapter.setList(usersLists);
