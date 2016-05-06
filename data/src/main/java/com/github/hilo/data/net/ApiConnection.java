@@ -2,10 +2,11 @@ package com.github.hilo.data.net;
 
 import java.util.concurrent.Callable;
 
-public interface ApiConnection extends Callable<RestApi> {
+public interface ApiConnection extends Callable<RestApiA> {
 
-	@Override RestApi call() throws Exception;
+	@Override
+	RestApiA call() throws Exception;
 
-	RestApi requestSyncCall();
+	RestApiA requestSyncCall();
 
 }

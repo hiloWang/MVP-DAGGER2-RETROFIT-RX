@@ -63,17 +63,17 @@ public class ApiConnectionImpl implements ApiConnection {
 	 *
 	 * @return A string response
 	 */
-	@Nullable @Override public RestApi requestSyncCall() {
+	@Nullable @Override public RestApiA requestSyncCall() {
 		return connectToApi();
 	}
 
-	@Override public RestApi call() throws Exception {
+	@Override public RestApiA call() throws Exception {
 		return requestSyncCall();
 	}
 
-	private RestApi connectToApi() {
+	private RestApiA connectToApi() {
 		try {
-			RestApi restApi = retrofit.create(RestApi.class);
+			RestApiA restApi = retrofit.create(RestApiA.class);
 			return restApi;
 		} catch (Exception e) {
 			e.printStackTrace();
