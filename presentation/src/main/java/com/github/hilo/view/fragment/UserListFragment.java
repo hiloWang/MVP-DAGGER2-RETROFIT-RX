@@ -140,7 +140,8 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override public void showError(String message) {
-		adapter.setFooterViewError();
+		adapter.setFooterViewErrorVisible();
+		adapter.setFooterViewLoadingInvisible();
 		Snackbar snackbar = Snackbar.make(recyclerView,"please check out your network is good",Snackbar.LENGTH_INDEFINITE);
 		Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout)snackbar.getView();
 		snackbarLayout.setBackgroundColor(getResources().getColor(R.color.background_layout));

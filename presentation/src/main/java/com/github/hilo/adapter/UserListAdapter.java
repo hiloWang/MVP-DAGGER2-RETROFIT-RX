@@ -37,11 +37,17 @@ import static com.github.hilo.util.Preconditions.checkNotNull;
 
 public class UserListAdapter extends BaseRecyclerViewAdapter {
 
+	private Context context;
 	public static final int VIEW_TYPE_DEFAULT = 1;
 	public static final int VIEW_TYPE_FOOTERVIEW = 2;
-	private Context context;
+
 	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable
 					.center_4,R.drawable.center_5};
+
+	private FrameLayout footerViewContainer;
+	private CardView errorFooterView;
+	private int position;
+
 	@Inject ToastUtils toastUtils;
 
 	public UserListAdapter(Context context) {
@@ -114,10 +120,6 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 					});
 	}
 
-	private FrameLayout footerViewContainer;
-	private CardView errorFooterView;
-	private int position;
-
 	private void bindFooterView(BaseRecyclerViewHolder viewHolder,int position) {
 		this.position = position;
 		errorFooterView = viewHolder.findViewById(R.id.errorFooterView);
@@ -133,23 +135,19 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		if (Utils.isNetworkConnected(context)) errorFooterView.setVisibility(View.GONE);
 	}
 
-	private void startFooterViewLoading(View view) {
+	private void startFooterViewLoading(View loadingView) {
 		Animation loadingAnimation = AnimationUtils.loadAnimation(context,R.anim.rotate_view_footer);
 		// 保持匀速旋转的interpolator
 		LinearInterpolator interpolator = new LinearInterpolator();
 		loadingAnimation.setInterpolator(interpolator);
-		view.startAnimation(loadingAnimation);
-	}
-
-	public void startFooterViewLoading() {
-		if (footerViewContainer != null) footerViewContainer.setVisibility(View.VISIBLE);
+		loadingView.startAnimation(loadingAnimation);
 	}
 
 	public void dismissFooterViewLoading() {
 		if (footerViewContainer != null) {
-			if (errorFooterView.getVisibility() == View.VISIBLE) errorFooterView.setVisibility(View.GONE);
-			footerViewContainer.setVisibility(View.VISIBLE);
-			footerViewContainer.animate().translationY(400f).setDuration(350).setListener(new AnimatorListenerAdapter() {
+			this.setFooterViewErrorGone();
+			this.setFooterViewVisible();
+			footerViewContainer.animate().translationY(400f).setDuration(300).setListener(new AnimatorListenerAdapter() {
 				@Override public void onAnimationEnd(Animator animation) {
 					notifyItemChanged(getItemCount());
 				}
@@ -157,10 +155,29 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		}
 	}
 
-	public void setFooterViewError() {
+	public void setFooterViewVisible() {
+		if (footerViewContainer != null) {
+			if (footerViewContainer.getVisibility() == View.INVISIBLE) footerViewContainer.setVisibility(View.VISIBLE);
+		}
+	}
+
+	public void setFooterViewLoadingInvisible() {
+		if (footerViewContainer != null) {
+			if (errorFooterView.getVisibility() == View.VISIBLE) footerViewContainer.setVisibility(View.INVISIBLE);
+		}
+	}
+
+	public void setFooterViewErrorVisible() {
 		if (errorFooterView != null) {
-			if (position != 0) errorFooterView.setVisibility(View.VISIBLE);
-			footerViewContainer.setVisibility(View.INVISIBLE);
+			if (position != 0) {
+				if (errorFooterView.getVisibility() == View.GONE) errorFooterView.setVisibility(View.VISIBLE);
+			}
+		}
+	}
+
+	public void setFooterViewErrorGone() {
+		if (errorFooterView != null) {
+			if (errorFooterView.getVisibility() == View.VISIBLE) errorFooterView.setVisibility(View.GONE);
 		}
 	}
 }
