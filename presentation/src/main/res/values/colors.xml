@@ -22,15 +22,9 @@
     <color name="ldrawer_color">#FFFFFF</color>
 
     <!-- MultiSwipeRefreshLayout -->
-    <color name="refresh_progress_1">#00b0ff</color>
+    <color name="refresh_progress_1">#2196f3</color>
     <color name="refresh_progress_2">#e91e63</color>
     <color name="refresh_progress_3">#3f51b5</color>
-
-    <!-- pulltorefresh -->
-    <color name="pulltorefresh_red">#FFC93437</color>
-    <color name="pulltorefresh_blue">#2196f3</color>
-    <color name="pulltorefresh_yellow">#FFF7D23E</color>
-    <color name="pulltorefresh_green">#FF34A350</color>
 
     <!-- PorgressButton -->
     <color name="cpb_grey">#ffdedede</color>

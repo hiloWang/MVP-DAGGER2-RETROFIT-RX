@@ -70,7 +70,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Override protected void initListeners() {
 		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
 
-		swipeRefreshLayout.setColorSchemeResources(R.color.pulltorefresh_blue);
+		swipeRefreshLayout.setColorSchemeResources(R.color.refresh_progress_1);
 		swipeRefreshLayout.setOnRefreshListener(() -> presenter.initialize());
 
 		// footerView error callback
@@ -106,9 +106,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		});
 	}
 
-	@Override protected void initData() {
-		loadUserList();
-	}
+	@Override protected void initData() {loadUserList();}
 
 	@Override public void onDestroyView() {
 		super.onDestroyView();

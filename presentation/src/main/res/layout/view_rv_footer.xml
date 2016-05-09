@@ -9,12 +9,13 @@
         android:id="@+id/errorFooterView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="gone"
         card_view:cardBackgroundColor="@color/design_bgcolor"
         card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="4dp"
-        android:visibility="gone">
+        card_view:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text= "@string/checkNetWork"
+                android:text="@string/checkNetWork"
                 android:textColor="@color/design_black_text_real"
                 android:textSize="@dimen/text_size_16"/>
         </LinearLayout>
@@ -37,13 +38,20 @@
         android:layout_gravity="center"
         android:visibility="visible">
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/footerViewIcon"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/ic_cached_blue_600_18dp"
-            android:scaleType="center"/>
+            android:scaleType="center"/>-->
+
+        <com.github.hilo.widget.MaterialFooterView
+            android:id="@+id/footerViewIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
     </FrameLayout>
 
 </FrameLayout>

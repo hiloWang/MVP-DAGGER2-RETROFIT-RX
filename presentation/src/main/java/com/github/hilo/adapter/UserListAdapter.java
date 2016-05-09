@@ -22,6 +22,7 @@ import com.github.hilo.util.DateUtils;
 import com.github.hilo.util.ToastUtils;
 import com.github.hilo.util.Utils;
 import com.github.hilo.view.activity.MainActivity;
+import com.github.hilo.widget.MaterialFooterView;
 import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.Date;
@@ -124,7 +125,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		this.position = position;
 		errorFooterView = viewHolder.findViewById(R.id.errorFooterView);
 		footerViewContainer = viewHolder.findViewById(R.id.footerViewContainer);
-		ImageView footerViewIcon = viewHolder.findViewById(R.id.footerViewIcon);
+		MaterialFooterView footerViewIcon = viewHolder.findViewById(R.id.footerViewIcon);
 
 		footerViewContainer.setTranslationY(0f);
 		startFooterViewLoading(footerViewIcon);
@@ -147,7 +148,7 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		if (footerViewContainer != null) {
 			this.setFooterViewErrorGone();
 			this.setFooterViewVisible();
-			footerViewContainer.animate().translationY(400f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+			footerViewContainer.animate().translationY(400f).setDuration(260).setListener(new AnimatorListenerAdapter() {
 				@Override public void onAnimationEnd(Animator animation) {
 					notifyItemChanged(getItemCount());
 				}

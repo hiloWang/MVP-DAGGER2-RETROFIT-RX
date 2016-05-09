@@ -32,14 +32,12 @@ public class ApiConnectionImpl implements ApiConnection {
 		// setup Retrofit
 		retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
 																		 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-																		 .addConverterFactory(GsonConverterFactory.create(
-																						 userEntityGsonMapper.getGson()))
+																		 .addConverterFactory(GsonConverterFactory.create(userEntityGsonMapper.getGson()))
 																		 .build();
 
 		RxJavaPlugins.getInstance().registerErrorHandler(new RxJavaErrorHandler() {
 			@Override public void handleError(Throwable e) {
 				Log.w("Error",e);
-				System.out.println("HILO2");
 			}
 		});
 
