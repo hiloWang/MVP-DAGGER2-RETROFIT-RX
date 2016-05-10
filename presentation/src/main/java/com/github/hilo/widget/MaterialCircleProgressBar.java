@@ -43,7 +43,6 @@ public class MaterialCircleProgressBar extends ImageView {
 	private static final float SHADOW_RADIUS = 3.5f;
 	private static final float SHADOW_ELEVATION = 0f;
 
-
 	public static final int DEFAULT_CIRCLE_BG_LIGHT = 0xFFFAFAFA;
 	private static final int DEFAULT_CIRCLE_DIAMETER = 40;
 	private static final int STROKE_WIDTH_LARGE = 2;
@@ -65,20 +64,17 @@ public class MaterialCircleProgressBar extends ImageView {
 	public MaterialCircleProgressBar(Context context) {
 		super(context);
 		init(context,null,0);
-
 	}
 
 	public MaterialCircleProgressBar(Context context,AttributeSet attrs) {
 		super(context,attrs);
 		init(context,attrs,0);
-
 	}
 
 	public MaterialCircleProgressBar(Context context,AttributeSet attrs,int defStyleAttr) {
 		super(context,attrs,defStyleAttr);
 		init(context,attrs,defStyleAttr);
 	}
-
 
 	private void init(Context context,AttributeSet attrs,int defStyleAttr) {
 		final TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.MaterialCircleProgressBar,defStyleAttr,0);
@@ -90,7 +86,6 @@ public class MaterialCircleProgressBar extends ImageView {
 		mCircleBackgroundEnabled = a.getBoolean(R.styleable.MaterialCircleProgressBar_enable_circle_background,true);
 		mArrowColor = a.getColor(R.styleable.MaterialCircleProgressBar_arrow_color,DEFAULT_CIRCLE_BG_LIGHT);
 		mColors = new int[] {mArrowColor};
-
 		mArrowStokeWidth = a.getDimensionPixelOffset(R.styleable.MaterialCircleProgressBar_circle_progress_stoke_width,
 																								 (int)(STROKE_WIDTH_LARGE * density));
 
@@ -142,7 +137,7 @@ public class MaterialCircleProgressBar extends ImageView {
 			mShadowRadius = (int)(density * SHADOW_RADIUS);
 
 			if (elevationSupported()) {
-				mBgCircle = new ShapeDrawable(new OvalShadow(10,160));
+				mBgCircle = new ShapeDrawable(new OvalShadow(1,80));
 				ViewCompat.setElevation(this,SHADOW_ELEVATION * density);
 			} else {
 				OvalShape oval = new OvalShadow(mShadowRadius,mDiameter - mShadowRadius * 2);
@@ -184,7 +179,6 @@ public class MaterialCircleProgressBar extends ImageView {
 		this.mShowArrow = showArrow;
 		invalidate();
 	}
-
 
 	@Override final public void setImageURI(Uri uri) {
 		super.setImageURI(uri);
