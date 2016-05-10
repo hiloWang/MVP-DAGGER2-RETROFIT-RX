@@ -1,6 +1,9 @@
 package com.github.hilo.view.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +20,7 @@ import com.github.hilo.di.components.UserComponent;
 import com.github.hilo.model.UserModel;
 import com.github.hilo.presenter.UserListPresenter;
 import com.github.hilo.view.UserListView;
+import com.github.hilo.view.activity.DetailsActivity;
 import com.github.hilo.view.activity.MainActivity;
 import com.github.hilo.widget.WrapSwipeRefreshLayout;
 import com.jakewharton.rxbinding.support.design.widget.RxSnackbar;
@@ -163,7 +167,10 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Override public void onFailure(Throwable e) {}
 
 	@Override public void onItemClick(View convertView,int position) {
-		showToast(position + "");
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			startActivity(new Intent(getActivity(),DetailsActivity.class),
+										ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+		}
 	}
 
 	@Override public void onItemLongClick(View convertView,int position) {}

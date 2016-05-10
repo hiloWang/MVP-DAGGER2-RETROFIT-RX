@@ -1,5 +1,7 @@
 package com.github.hilo.view.activity;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +35,12 @@ public abstract class BaseDrawerLayoutActivity extends BaseToolbarActivity {
 
 	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// 动态修改statusBarColor，为了实现当Drawer弹出时，悬浮在statusBar上方；
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setStatusBarColor(Color.TRANSPARENT);
+		}
+
 		if (delayHandler == null) delayHandler = new DelayHandler(this);
 		if (this.getNavigationItemSelectedListener() != null)
 			this.mNavigationView.setNavigationItemSelectedListener(this.getNavigationItemSelectedListener());

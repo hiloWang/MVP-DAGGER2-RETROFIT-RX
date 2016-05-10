@@ -4,11 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
+import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,8 +57,9 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	@Override protected void initViews(Bundle savedInstanceState) {
-		setupAnimations();
-		setupFragment();
+		this.setupExitActivityAnimation();
+		this.setupAnimations();
+		this.setupFragment();
 	}
 
 	@Override protected void initData() {
@@ -275,5 +279,11 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		((TextView)snackbarLayout.findViewById(R.id.snackbar_text)).setTextColor(
 						getResources().getColor(R.color.design_black_text));
 		snackbar.show();
+	}
+
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP) private void setupExitActivityAnimation() {
+		Explode actAnimation = new Explode();
+		actAnimation.setDuration(500);
+		getWindow().setExitTransition(actAnimation);
 	}
 }

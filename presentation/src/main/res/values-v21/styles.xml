@@ -1,11 +1,11 @@
 <resources>
-            <style name="AppTheme.NoActionBar">
-            <item name="windowActionBar">false</item>
-            <item name="windowNoTitle">true</item>
-            <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-            <item name="android:statusBarColor">@android:color/transparent</item>
-        </style>
-    <style name="Theme.Hilo.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Hilo.Light.NoActionBar" parent="AppTheme.NoActionBar">
         <!-- Actionbar color -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!--Status bar color-->
@@ -30,9 +30,11 @@
         <item name="android:textAppearanceLargePopupMenu">
             @style/Theme.Hilo.PopupMenuTextAppearanceLarge
         </item>
-        <!-- nav bar 悬浮在status bar 上面, 加入下面这俩行代码即可 -->
+        <!-- 允许使用transitions过渡动画 -->
+        <item name="android:windowContentTransitions">true</item>
+        <!-- nav bar 悬浮在status bar 上面, 加入下面这俩行代码即可, 但是statusbar 会变成白色，所以最好的做法是写上下面这一句，然后在代码中动态修改statubar颜色 getWindow().setStatusBarColor(Color.TRANSPARENT); -->
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
 
     <style name="CusomTranspatentLight" parent="Theme.Hilo.Light.NoActionBar">
@@ -43,5 +45,24 @@
     <style name="Theme.Hilo.PopupMenuTextAppearanceLarge"
            parent="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large">
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="AA" parent="android:Theme.Material">
+        <!-- 允许使用transitions过渡动画 -->
+        <item name="android:windowContentTransitions">true</item>
+        <!-- 指定进入和退出transitions -->
+        <item name="android:windowEnterTransition">@transition/explode</item>
+        <item name="android:windowExitTransition">@transition/explode</item>
+    </style>
+
+    <style name="MyTheme" parent="@android:style/Theme.Material">
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementExitTransition">@android:transition/slide_top</item>
     </style>
 </resources>

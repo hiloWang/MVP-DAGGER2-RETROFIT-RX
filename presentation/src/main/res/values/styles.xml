@@ -57,6 +57,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
     <!-- toolbar标题样式 -->
     <style name="toolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">14sp</item>

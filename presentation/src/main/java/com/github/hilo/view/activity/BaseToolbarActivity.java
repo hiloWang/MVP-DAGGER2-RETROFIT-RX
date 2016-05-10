@@ -12,11 +12,6 @@ import com.github.hilo.R;
 
 import butterknife.Bind;
 
-/**
- * Description：BaseToolbarActivity
- * Created by：CaMnter
- * Time：2016-01-05 00:32
- */
 public abstract class BaseToolbarActivity extends BaseAppCompatActivity {
 
 	@Bind(R.id.toolbar) protected Toolbar toolbar;
