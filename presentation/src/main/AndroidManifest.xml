@@ -33,6 +33,11 @@
         </activity>
 
         <activity
+            android:name=".view.activity.DailyActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|screenLayout|screenSize"/>
+
+        <activity
             android:name=".view.activity.DetailsActivity"
             android:windowSoftInputMode="stateHidden"
             android:configChanges="orientation|screenLayout|screenSize"/>

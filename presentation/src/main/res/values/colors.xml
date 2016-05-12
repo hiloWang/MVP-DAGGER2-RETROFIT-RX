@@ -75,7 +75,8 @@
     <color name="item_black_test">#202020</color>
     <color name="item_select_test">@color/colorPrimary</color>
     <color name="item_selected">#D3E5F5</color>
-    <color name="background_layout">#FAFAFA</color>
+    <color name="background_layout">#EAEEF4</color>
+    <color name="background_layout_fa">#FAFAFA</color>
     <color name="background_layout_disable">#FEFEFE</color>
 
     <!-- 蓝色姓名颜色-->

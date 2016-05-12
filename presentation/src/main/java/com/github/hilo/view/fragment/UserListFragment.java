@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.github.hilo.di.components.UserComponent;
 import com.github.hilo.model.UserModel;
 import com.github.hilo.presenter.UserListPresenter;
 import com.github.hilo.view.UserListView;
-import com.github.hilo.view.activity.DetailsActivity;
+import com.github.hilo.view.activity.DailyActivity;
 import com.github.hilo.view.activity.MainActivity;
 import com.github.hilo.widget.WrapSwipeRefreshLayout;
 import com.jakewharton.rxbinding.support.design.widget.RxSnackbar;
@@ -167,9 +168,19 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Override public void onFailure(Throwable e) {}
 
 	@Override public void onItemClick(View convertView,int position) {
+		CardView sharedCardView = (CardView)convertView.findViewById(R.id.container);
+		Intent targetActivity = new Intent(getActivity(),DailyActivity.class);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			startActivity(new Intent(getActivity(),DetailsActivity.class),
-										ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+			TextView mTvTitle = (TextView)convertView.findViewById(R.id.daily_title_tv);
+			ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(),sharedCardView,
+
+																																										 "sharedCardView");
+			Bundle bundle = activityOptions.toBundle();
+			bundle.putString("title",mTvTitle.getText().toString());
+			targetActivity.putExtras(bundle);
+			startActivity(targetActivity,bundle);
+		} else {
+			startActivity(targetActivity);
 		}
 	}
 

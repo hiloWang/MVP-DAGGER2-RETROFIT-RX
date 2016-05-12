@@ -137,7 +137,7 @@ public class MaterialCircleProgressBar extends ImageView {
 			mShadowRadius = (int)(density * SHADOW_RADIUS);
 
 			if (elevationSupported()) {
-				mBgCircle = new ShapeDrawable(new OvalShadow(1,80));
+				mBgCircle = new ShapeDrawable(new OvalShadow(1,0));
 				ViewCompat.setElevation(this,SHADOW_ELEVATION * density);
 			} else {
 				OvalShape oval = new OvalShadow(mShadowRadius,mDiameter - mShadowRadius * 2);

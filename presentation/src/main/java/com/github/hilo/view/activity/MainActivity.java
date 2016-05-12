@@ -11,7 +11,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
-import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -282,8 +281,8 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP) private void setupExitActivityAnimation() {
-		Explode actAnimation = new Explode();
-		actAnimation.setDuration(500);
-		getWindow().setExitTransition(actAnimation);
+
 	}
+
+	public FloatingActionButton getFab() { return fab; };
 }

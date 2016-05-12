@@ -6,7 +6,6 @@ import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.hilo.di.components.ApplicationComponent;
 import com.github.hilo.di.components.DaggerApplicationComponent;
 import com.github.hilo.di.modules.ApplicationModule;
-import com.squareup.leakcanary.LeakCanary;
 
 public class App extends Application {
 
@@ -48,12 +47,10 @@ public class App extends Application {
 
 	private void initializeLakCanary() {
 		// 检查内存泄露
-		LeakCanary.install(this);
+		//		LeakCanary.install(this);
 	}
 
 	private void initializeInjector() {
-		applicationComponent = DaggerApplicationComponent.builder()
-																										 .applicationModule(new ApplicationModule(this))
-																										 .build();
+		applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
 	}
 }

@@ -130,11 +130,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
 	@Override public void onBackPressed() {
 		super.onBackPressed();
-//		overridePendingTransition(true);
+		overridePendingTransition(true);
 	}
 
 	@Override public void startActivity(Intent intent) {
 		super.startActivity(intent);
-//		overridePendingTransition(false);
+		overridePendingTransition(false);
 	}
 }
