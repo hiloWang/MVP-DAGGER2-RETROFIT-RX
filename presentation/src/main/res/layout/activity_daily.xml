@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/background_layout_fa"
+              android:background="@color/design_write_text"
               android:fitsSystemWindows="true"
               android:orientation="vertical">
 
@@ -11,9 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/view_toolbar"/>
+        <android.support.design.widget.AppBarLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="6dp">
+
+            <!-- 为了保证下拉时，不显示toolbar，取消了layout_scrollFlags属性enterAlways-->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll"
+                app:theme="@style/toolbarTheme"/>
+
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -29,38 +48,71 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="110dp"
                         android:background="@color/colorPrimary">
 
                         <TextView
+                            android:id="@+id/nsTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="36dp"
-                            android:layout_marginTop="15dp"
-                            android:text="如何去除Toolbar底部黑线？"
+                            android:layout_marginTop="20dp"
                             android:textColor="@color/design_write_text"
                             android:textSize="@dimen/text_size_20"/>
                     </FrameLayout>
 
-                    <android.support.v7.widget.CardView
-                        style="@style/Md.Card"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="@dimen/margin_12dp"
-                        android:layout_marginLeft="@dimen/margin_10dp"
-                        android:layout_marginRight="@dimen/margin_10dp"
-                        android:layout_marginTop="55dp"
-                        android:transitionName="sharedCardView">
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                        style="@style/Md.Card"
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginBottom="@dimen/margin_12dp"
+                                                        android:layout_marginLeft="@dimen/margin_10dp"
+                                                        android:layout_marginRight="@dimen/margin_10dp"
+                                                        android:layout_marginTop="78dp"
+                                                        android:transitionName="sharedCardView"
+                                                        app:cardBackgroundColor="@color/design_write_text">
 
-                        <TextView
-                            android:id="@+id/tvTitle"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/margin_12dp"
-                            android:text="@string/app_name"
-                            android:textColor="@color/design_black_secondary"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:layout_height="match_parent"
+                            android:background="@drawable/selector_item_clickable"
+                            android:padding="@dimen/item_content_padding">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/daily_iv"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/img_default_gray"/>
+
+                            <TextView
+                                android:id="@+id/tvTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/daily_iv"
+                                android:layout_marginLeft="9dp"
+                                android:layout_marginStart="9dp"
+                                android:layout_toEndOf="@id/daily_iv"
+                                android:layout_toRightOf="@id/daily_iv"
+                                android:ellipsize="end"
+                                android:gravity="top|start"
+                                android:lineSpacingExtra="2dp"
+                                android:maxLines="2"
+                                android:paddingBottom="6dp"
+                                android:textColor="@color/item_title_tv"
+                                android:textSize="@dimen/item_title_tv"/>
+
+                            <TextView
+                                android:id="@+id/daily_date_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/item_date"
+                                android:textSize="@dimen/item_date_tv"/>
+
+                        </RelativeLayout>
                     </android.support.v7.widget.CardView>
                 </FrameLayout>
 
@@ -68,8 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_12dp"
-                    android:layout_marginTop="@dimen/margin_12dp"
-                    app:cardBackgroundColor="@color/background_layout_fa"
+                    app:cardBackgroundColor="@color/design_write_text"
                     app:cardCornerRadius="@dimen/card_corner_radius"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
@@ -87,7 +138,7 @@
                             android:layout_margin="@dimen/margin_12dp"
                             android:lineSpacingExtra="5dp"
                             android:text="@string/joker_1"
-                            android:textColor="@color/design_black_text"
+                            android:textColor="@color/zh_black_text_body"
                             android:textSize="@dimen/text_size_18"/>
 
                         <TextView

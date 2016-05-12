@@ -31,6 +31,7 @@ ext {
     reservoirVersion = '2.1'
     gsonVersion = '2.3'
     glideVersion = '3.7.0'
+    circleImageViewVersion = '2.0.0'
 
     //Testing
     robolectricVersion = '3.0'
@@ -59,7 +60,8 @@ ext {
             design:             "com.android.support:design:${designVersion}",
             appcompat:          "com.android.support:appcompat-v7:${appcompatVersion}",
             recyclerAnimation:  "jp.wasabeef:recyclerview-animators:${recyclerAnimatorsVersion}",
-            glide:              "com.github.bumptech.glide:glide:${glideVersion}"
+            glide:              "com.github.bumptech.glide:glide:${glideVersion}",
+            circleImageView:    "de.hdodenhof:circleimageview:${circleImageViewVersion}"
     ]
 
     presentationTestDependencies = [

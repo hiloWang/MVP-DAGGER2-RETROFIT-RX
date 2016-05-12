@@ -177,6 +177,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 																																										 "sharedCardView");
 			Bundle bundle = activityOptions.toBundle();
 			bundle.putString("title",mTvTitle.getText().toString());
+
 			targetActivity.putExtras(bundle);
 			startActivity(targetActivity,bundle);
 		} else {

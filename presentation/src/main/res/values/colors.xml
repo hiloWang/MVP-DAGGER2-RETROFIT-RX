@@ -87,6 +87,7 @@
 
     <!-- 加粗标题 -->
     <color name="design_black_bold">#202020</color>
+    <color name="zh_black_text_body">#444444</color>
     <!-- 普通文字-->
     <color name="design_black_text">#323232</color>
     <!-- 普通文字（特殊场景）-->
