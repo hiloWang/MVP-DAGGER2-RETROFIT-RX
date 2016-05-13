@@ -37,8 +37,9 @@
     <string name="search_hint">输入关键词以搜索</string>
     <string name="searching">搜索中，请稍候…</string>
     <string name="menu_preference">设置</string>
-    <string name="menu_search">分享</string>
+    <string name="share">分享</string>
     <string name="checkNetWork">PLEASE CHECK OUT YOUR NETWORK IS GOOD \n" CLICK ME TO RECONNECTING"</string>
     <string name="joker_1">黄经理和B小姐有一腿。 一日,B小姐给黄经理一幅画两只鸽子下面一只死羊, 黄经理的秘书怎么也看不懂就交给了经理,结果黄经理就大笑了起来…</string>
     <string name="joker_2">下班路过菜市场,见一妹纸站在一卖胡萝卜的摊位前来回踱步欲言又止的样子。 旁边一个卖兔子的大婶说话了:“小姑娘买只兔子吧!” 这时妹纸眼里金光一闪,走到跟前挑都不挑拿起一只就付钱。 而后一脸笑容的走到卖胡萝卜的摊前: 大叔,给我来根萝卜,我要那个大的,回去喂兔子</string>
+    <string name="test">仅供测试</string>
 </resources>

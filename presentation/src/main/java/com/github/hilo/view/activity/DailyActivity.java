@@ -3,11 +3,17 @@ package com.github.hilo.view.activity;
 import android.animation.Animator;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +39,12 @@ public class DailyActivity extends BaseToolbarActivity {
 	@Bind(R.id.daily_iv) CircleImageView dailyIv;
 	@Bind(R.id.daily_date_tv) TextView dailyDateTv;
 	@Bind(R.id.nestedScrollView) NestedScrollView nestedScrollView;
+	@Bind(R.id.coordiNatorContent) CoordinatorLayout coordiNatorContent;
+	@Bind(R.id.gmail_fab) FloatingActionButton fab;
+	private BottomSheetBehavior bottomSheetBehavior;
+	private Animation growAnimation;
+	private Animation shrinkAnimation;
+	private boolean showFAB;
 
 	@Override protected int getLayoutId() {
 		return R.layout.activity_daily;
@@ -46,6 +58,10 @@ public class DailyActivity extends BaseToolbarActivity {
 	}
 
 	@Override protected void initViews(Bundle savedInstanceState) {
+		View bottomSheet = coordiNatorContent.findViewById(R.id.bottom_sheet);
+		bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+		growAnimation = AnimationUtils.loadAnimation(DailyActivity.this,R.anim.fab_grow);
+		shrinkAnimation = AnimationUtils.loadAnimation(DailyActivity.this,R.anim.fab_shrink);
 		ViewCompat.setElevation(appBarLayout,0);
 		Bundle UserListFragmentBundle = getIntent().getExtras();
 		if (UserListFragmentBundle != null) {
@@ -74,13 +90,59 @@ public class DailyActivity extends BaseToolbarActivity {
 					animator.setInterpolator(new DecelerateInterpolator());
 					animator.start();
 				}
+
 				return true;
+			}
+		});
+
+		bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+			@Override public void onStateChanged(@NonNull View bottomSheet,int newState) {
+				switch (newState) {
+				// 被拖拽状态
+				case BottomSheetBehavior.STATE_DRAGGING:
+					fab.startAnimation(shrinkAnimation);
+					fab.setVisibility(View.GONE);
+					break;
+				// 隐藏状态。默认是false，可通过app:behavior_hideable属性设置。
+				case BottomSheetBehavior.STATE_HIDDEN:
+
+					break;
+
+				// 完全展开的状态
+				case BottomSheetBehavior.STATE_EXPANDED:
+					showFAB = true;
+					if (fab.getVisibility() == View.GONE) {
+						fab.setVisibility(View.VISIBLE);
+						fab.startAnimation(growAnimation);
+					}
+
+					break;
+
+				// 拖拽松开之后到达终点位置（collapsed or expanded）前的状态
+				case BottomSheetBehavior.STATE_SETTLING:
+
+					break;
+
+				// 折叠状态。可通过app:behavior_peekHeight来设置默认显示的高度
+				case BottomSheetBehavior.STATE_COLLAPSED:
+					if (showFAB) {
+						showFAB = false;
+						fab.setVisibility(View.GONE);
+					}
+					break;
+				}
+			}
+
+			@Override public void onSlide(@NonNull View bottomSheet,float slideOffset) {
+
 			}
 		});
 	}
 
 	@OnClick(R.id.tvTitle) public void onClick() {
-		getApplicationComponent().toast().makeText("dont click me plz :(");
+		if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED)
+			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+		else bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 	}
 
 	@Override public void onBackPressed() {
@@ -95,6 +157,9 @@ public class DailyActivity extends BaseToolbarActivity {
 	}
 
 	private void showAppbarLayout(Void aVoid) {
+		if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
 		if (appBarLayout.getY() < 0 && nestedScrollView.getScrollY() > 550) {
 			appBarLayout.setExpanded(true,false);
 			appBarLayout.setTranslationY(-UIUtils.dpToPx(56,getResources()));

@@ -72,7 +72,7 @@
 
     <!-- Material Design-->
 
-    <color name="item_black_test">#202020</color>
+    <color name="item_black_text">#202020</color>
     <color name="item_select_test">@color/colorPrimary</color>
     <color name="item_selected">#D3E5F5</color>
     <color name="background_layout">#EAEEF4</color>

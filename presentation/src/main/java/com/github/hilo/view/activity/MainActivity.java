@@ -94,9 +94,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		return new int[] {R.id.nav_home,R.id.nav_explore,R.id.nav_follow,R.id.nav_collect,R.id.nav_register,R.id.nav_settings};
 	}
 
-	@Override protected void onMenuItemOnClick(MenuItem now) {
-
-	}
+	@Override protected void onMenuItemOnClick(MenuItem now) {}
 
 	@Override public UserComponent getComponent() {
 		return userComponent;
@@ -283,6 +281,4 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP) private void setupExitActivityAnimation() {
 
 	}
-
-	public FloatingActionButton getFab() { return fab; };
 }

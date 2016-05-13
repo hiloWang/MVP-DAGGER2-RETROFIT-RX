@@ -50,4 +50,5 @@
     <dimen name="margin_left_16dp">16dp</dimen>
     <dimen name="margin_right_16dp">16dp</dimen>
     <dimen name="publish_photo_thumbnail_size">96dp</dimen>
+    <dimen name="activity_margin_half">8dp</dimen>
 </resources>

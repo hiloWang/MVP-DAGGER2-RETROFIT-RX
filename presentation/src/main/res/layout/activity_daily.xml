@@ -8,6 +8,7 @@
               android:orientation="vertical">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordiNatorContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -171,5 +172,7 @@
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <include layout="@layout/layout_bottom_sheet"/>
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>
