@@ -115,8 +115,6 @@
             android:clickable="true"
             android:src="@drawable/fab_add"
             android:visibility="gone"/>
-
-
     </FrameLayout>
 
 </android.support.v4.widget.NestedScrollView>

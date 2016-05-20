@@ -30,6 +30,5 @@ public class DetailsActivity extends BaseToolbarActivity {
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP) private void setupEnterActivityAnimation() {
 		/*getWindow().setEnterTransition(new Fade());*/
-
 	}
 }

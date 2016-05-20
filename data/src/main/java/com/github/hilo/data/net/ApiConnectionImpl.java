@@ -31,7 +31,10 @@ public class ApiConnectionImpl implements ApiConnection {
 	@Inject public ApiConnectionImpl(UserEntityGsonMapper userEntityGsonMapper) {
 		// setup Retrofit
 		retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
+																		 // 添加CallAdapter 配合Rxjava
 																		 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+																		 // 添加Converter转换，这里是GsonConverter 用Gson将原本的返回值ResponseBody转换为我们想要的返回值类型T<T> t
+																		 // addConverterFactory是有先后顺序的，如果有多个ConverterFactory都支持同一种类型，那么就是只有第一个才会被使用
 																		 .addConverterFactory(GsonConverterFactory.create(userEntityGsonMapper.getGson()))
 																		 .build();
 

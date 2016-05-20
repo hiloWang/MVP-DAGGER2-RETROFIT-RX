@@ -54,9 +54,9 @@ public abstract class BaseNoXmlToolbarActivity extends BaseAppCompatActivity {
 			mContext = context;
 			mLayoutInflater = LayoutInflater.from(mContext);
 
-			initContentView();
-			initConstomView(layoutResID);
-			initToolbar();
+			this.initContentView();
+			this.initConstomView(layoutResID);
+			this.initToolbar();
 		}
 
 		private void initContentView() {

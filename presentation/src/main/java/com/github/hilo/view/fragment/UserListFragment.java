@@ -68,8 +68,8 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	@Override protected void initViews(View rootView,Bundle savedInstanceState) {
 		presenter.attachView(this);
-		setAdapter();
-		setSwipeRefreshLayout();
+		this.setAdapter();
+		this.setSwipeRefreshLayout();
 	}
 
 	@Override protected void initListeners() {
@@ -121,7 +121,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@SuppressWarnings("unchecked") @Override protected void mOnViewStateRestored(Bundle savedInstanceState) {
 		usersLists = (ArrayList<UserModel>)savedInstanceState.getSerializable(FRAGMENT_SAVED_STATE_KEY);
 		resestTheLifeCycle = true;
-		renderUserList(usersLists);
+		this.renderUserList(usersLists);
 	}
 
 	@Override protected void mOnSaveInstanceState(Bundle savedInstanceState) {
@@ -173,7 +173,6 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			TextView mTvTitle = (TextView)convertView.findViewById(R.id.daily_title_tv);
 			ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(),sharedCardView,
-
 																																										 "sharedCardView");
 			Bundle bundle = activityOptions.toBundle();
 			bundle.putString("title",mTvTitle.getText().toString());
@@ -222,7 +221,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 			adapter.addAll(usersLists);
 			adapter.dismissFooterViewLoading();
 		} else {
-			checkTheLifeCycleIsChanging(resestTheLifeCycle);
+			this.checkTheLifeCycleIsChanging(resestTheLifeCycle);
 			adapter.setList(usersLists);
 			adapter.notifyDataSetChanged();
 		}

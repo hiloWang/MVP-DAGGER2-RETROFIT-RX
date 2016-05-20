@@ -174,5 +174,6 @@
         </android.support.v4.widget.NestedScrollView>
 
         <include layout="@layout/layout_bottom_sheet"/>
+
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

@@ -70,7 +70,7 @@ public class DailyActivity extends BaseToolbarActivity {
 	}
 
 	@Override protected void initData() {
-		setTitle("详情界面");
+		super.setTitle("详情界面");
 		nsTitle.setText("虚拟数据 内涵段子");
 		dailyIv.setImageResource(R.drawable.center_5);
 		dailyDateTv.setText(DateUtils.date2yyyyMMdd(new Date()));

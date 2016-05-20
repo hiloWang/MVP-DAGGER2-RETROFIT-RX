@@ -93,7 +93,7 @@ public class SearchView extends LinearLayout {
         });
 
         setFocusable(true);
-        updateViewsVisibility();
+        this.updateViewsVisibility();
     }
 
     static boolean isLandscapeMode(Context context) {
@@ -108,7 +108,7 @@ public class SearchView extends LinearLayout {
 
         boolean result = mQueryTextView.requestFocus(direction, previouslyFocusedRect);
         if (result) {
-            updateViewsVisibility();
+            this.updateViewsVisibility();
         }
 
         return result;
@@ -117,7 +117,7 @@ public class SearchView extends LinearLayout {
     @Override
     public void clearFocus() {
         mClearingFocus = true;
-        setImeVisibility(false);
+        this.setImeVisibility(false);
         super.clearFocus();
         mQueryTextView.clearFocus();
         mClearingFocus = false;
@@ -126,7 +126,7 @@ public class SearchView extends LinearLayout {
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
-        postUpdateFocusedState();
+        this.postUpdateFocusedState();
     }
 
     @Override
@@ -168,15 +168,15 @@ public class SearchView extends LinearLayout {
     }
 
     void onTextFocusChanged() {
-        updateViewsVisibility();
-        postUpdateFocusedState();
+        this. updateViewsVisibility();
+        this.postUpdateFocusedState();
         if (mQueryTextView.hasFocus()) {
-            forceSuggestionQuery();
+            this.forceSuggestionQuery();
         }
     }
 
     private void updateViewsVisibility() {
-        updateCloseButton();
+        this.updateCloseButton();
     }
 
     private void updateCloseButton() {
@@ -211,7 +211,7 @@ public class SearchView extends LinearLayout {
 
     public void setQueryHint(CharSequence hint) {
         mQueryHint = hint;
-        updateQueryHint();
+        this.updateQueryHint();
     }
 
     private CharSequence getDecoratedHint(CharSequence hintText) {

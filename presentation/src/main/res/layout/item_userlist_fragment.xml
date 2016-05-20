@@ -84,9 +84,6 @@
                 android:text="@string/daily_ios_tag_tv"
                 android:textColor="@color/item_tag_tv"
                 android:textSize="@dimen/item_tag_tv"/>
-
         </LinearLayout>
-
     </RelativeLayout>
-
 </android.support.v7.widget.CardView>

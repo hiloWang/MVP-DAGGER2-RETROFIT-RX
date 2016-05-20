@@ -9,19 +9,15 @@ import com.github.hilo.di.modules.ApplicationModule;
 
 public class App extends Application {
 
-	public static final long ONE_KB = 1024L;
-	public static final long ONE_MB = ONE_KB * 1024L;
-	public static final long CACHE_DATA_MAX_SIZE = ONE_MB * 3L;
-
 	private ApplicationComponent applicationComponent;
 
 	@Override public void onCreate() {
 		super.onCreate();
 
-		initializeInjector();
-		initializeLakCanary();
-		initializeExceptionHandler();
-		initializeDevMetrics();
+		this.initializeInjector();
+		this.initializeLakCanary();
+		this.initializeExceptionHandler();
+		this.initializeDevMetrics();
 	}
 
 	public ApplicationComponent getApplicationComponent() {

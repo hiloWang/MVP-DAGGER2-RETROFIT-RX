@@ -86,9 +86,9 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 	protected void showToast(String msg,int duration) {
 		if (msg == null) return;
 		if (duration == Toast.LENGTH_SHORT || duration == Toast.LENGTH_LONG) {
-			getApplicationComponent().toast().makeText(msg,duration);
+			this.getApplicationComponent().toast().makeText(msg,duration);
 		} else {
-			showToast(msg);
+			this.showToast(msg);
 		}
 	}
 
@@ -130,11 +130,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
 	@Override public void onBackPressed() {
 		super.onBackPressed();
-		overridePendingTransition(true);
+		this.overridePendingTransition(true);
 	}
 
 	@Override public void startActivity(Intent intent) {
 		super.startActivity(intent);
-		overridePendingTransition(false);
+		this.overridePendingTransition(false);
 	}
 }

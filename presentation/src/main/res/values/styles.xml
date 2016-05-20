@@ -58,6 +58,16 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!-- 透明activity 通过startActivityForResult启动并返回数据 -->
+    <style name="Theme.Transparent" parent="android:Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item> <!-- 此对话框的背景 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 对话框是否透明 -->
+        <item name="android:windowContentOverlay">@null</item> <!-- 对话框是否有遮盖 -->
+        <item name="android:windowNoTitle">true</item> <!-- 对话框无标题 -->
+        <item name="android:windowIsFloating">true</item> <!-- 对话框是否浮动 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 是否允许对话框的背景变暗 -->
+    </style>
+
     <!-- toolbar标题样式 -->
     <style name="toolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">14sp</item>

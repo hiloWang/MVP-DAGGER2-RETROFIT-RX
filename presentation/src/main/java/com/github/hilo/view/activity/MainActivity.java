@@ -62,7 +62,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	@Override protected void initData() {
-		getApplicationComponent().rxBus().toObserverable().subscribe(o -> {
+		this.getApplicationComponent().rxBus().toObserverable().subscribe(o -> {
 			if (o instanceof UserModel) {
 				// fragment callback with this rxBus, may be you can do something in this
 			}
@@ -122,7 +122,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	private void setupFragment() {
 		UserListFragment userListFragment = new UserListFragment();
 		userListFragment.setArguments(new Bundle());
-		addFragment(R.id.fragmentContainer,userListFragment);
+		this.addFragment(R.id.fragmentContainer,userListFragment);
 	}
 
 	/**
@@ -155,8 +155,8 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	private void onFabMenuClicked(Void view) {
-		showSnackbar();
-		closeMenu();
+		this.showSnackbar();
+		this.closeMenu();
 	}
 
 	private void openMenu() {
@@ -164,11 +164,11 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		fabOpened = true;
 		fab.setEnabled(false);
 		// fab animation
-		OpenFabAnimation(fab);
+		this.openFabAnimation(fab);
 		// background cloud animation
-		OpenFogEffectAnimation();
+		this.openFogEffectAnimation();
 		// fabMenu action animation
-		OpenFabMenuAnimation();
+		this.openFabMenuAnimation();
 	}
 
 	private void closeMenu() {
@@ -177,14 +177,14 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		fab.setEnabled(false);
 
 		// fab animation
-		CloseFabAnimation(fab);
+		this.closeFabAnimation(fab);
 		// background cloud animation
-		CloseFogEffectAnimation();
+		this.closeFogEffectAnimation();
 		// fabMenu action animation
-		CloseFabMenuAnimation();
+		this.closeFabMenuAnimation();
 	}
 
-	private void CloseFabMenuAnimation() {
+	private void closeFabMenuAnimation() {
 		AnimatorSet animatorSet = new AnimatorSet();
 		ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(ivFabMenuActionFirst,"scaleX",1.0f,0.8f);
 		bounceAnimX.setDuration(300);
@@ -213,21 +213,21 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		animatorSet.start();
 	}
 
-	private void CloseFogEffectAnimation() {
+	private void closeFogEffectAnimation() {
 		AlphaAnimation alphaAnimation = new AlphaAnimation(0.85f,0);
 		alphaAnimation.setDuration(250);
 		tvCloud.startAnimation(alphaAnimation);
 		tvCloud.setVisibility(View.GONE);
 	}
 
-	private void CloseFabAnimation(View fab) {
+	private void closeFabAnimation(View fab) {
 		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(fab,"rotation",-135,-175,0);
 		objectAnimator.setDuration(300);
 		objectAnimator.setInterpolator(DECELERATE_INTERPOLATOR);
 		objectAnimator.start();
 	}
 
-	private void OpenFabMenuAnimation() {
+	private void openFabMenuAnimation() {
 		AnimatorSet animatorSet = new AnimatorSet();
 		tvFabMenuActionFirst.setVisibility(View.VISIBLE);
 		ivFabMenuActionFirst.setVisibility(View.VISIBLE);
@@ -254,7 +254,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		animatorSet.start();
 	}
 
-	private void OpenFogEffectAnimation() {
+	private void openFogEffectAnimation() {
 		tvCloud.setVisibility(View.VISIBLE);
 		AlphaAnimation alphaAnimation = new AlphaAnimation(0,0.85f);
 		alphaAnimation.setDuration(250);
@@ -262,7 +262,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		tvCloud.startAnimation(alphaAnimation);
 	}
 
-	private void OpenFabAnimation(View fab) {
+	private void openFabAnimation(View fab) {
 		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(fab,"rotation",0,-155,-135);
 		objectAnimator.setDuration(300);
 		objectAnimator.setInterpolator(new DecelerateInterpolator());
