@@ -132,4 +132,10 @@
     <color name="search_view_hint_color">#e3f2fd</color>
     <color name="background_fab_tint">#75b6ff</color>
 
+    <!-- menu container-->
+    <color name="splash1">#F19BA2</color>
+    <color name="splash2">#323453</color>
+    <color name="splash3">#649692</color>
+    <color name="splash4">#C68C94</color>
+
 </resources>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.hilo.widget.DepthRendrer
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layerType="hardware">
+
+    <com.github.hilo.widget.DepthLayout
+        android:id="@+id/root_dl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cpb_white"
+        android:layerType="hardware"
+        android:paddingTop="80dp"
+        >
+
+        <!--<no.agens.depth.WaterSceneView-->
+        <!--android:id="@+id/water_scene"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="180dp"-->
+        <!--android:background="@drawable/water_scene_background"-->
+        <!--/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/center_5"/>
+    </com.github.hilo.widget.DepthLayout>
+
+
+    <com.github.hilo.widget.DepthLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary"
+        android:layerType="hardware"
+        app:edge_color="@color/design_black_text">
+
+        <ImageView
+
+            android:id="@+id/staturbar_bg"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:background="@color/colorPrimaryDark"
+            />
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_menu"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="65dp"
+            android:fitsSystemWindows="true"
+            android:text="Depth"
+            android:textColor="@color/cpb_white"
+            android:textSize="18sp"
+            />
+    </com.github.hilo.widget.DepthLayout>
+
+    <ImageView
+        android:id="@+id/actionbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:background="@drawable/actionbar_shadow"
+        />
+
+    <com.github.hilo.widget.DepthLayout
+        android:id="@+id/dl2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:background="@color/cpb_white"
+        android:layerType="hardware"
+        app:custom_elevation="1dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/sliders_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="Noise"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/cpb_blue"
+                android:textSize="16sp"
+                />
+
+            <SeekBar
+                android:id="@+id/noise_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="11dp"
+                android:padding="10dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_divider_white"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="Wave Strength"
+                android:textColor="@color/cpb_blue"
+                android:textSize="16sp"
+                />
+
+            <SeekBar
+                android:id="@+id/wave_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="11dp"
+                android:padding="10dp"
+                />
+
+
+        </LinearLayout>
+    </com.github.hilo.widget.DepthLayout>
+
+    <com.github.hilo.widget.DepthLayout
+        android:id="@+id/dl3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="450dp"
+        android:background="@color/cpb_white"
+        android:layerType="hardware"
+        app:custom_elevation="2dp"
+        >
+
+        <TextView
+            android:id="@+id/about_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="Water And Noise"
+            android:textColor="@color/design_black_text"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/about_heading"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="A water experiment developed
+by Agens in 2015, as an example of how to draw
+advanced canvas based graphics with the Android
+SDK. "
+            android:textColor="@color/design_black_secondary"
+            android:textSize="14sp"
+            />
+
+    </com.github.hilo.widget.DepthLayout>
+
+
+    <com.github.hilo.widget.DepthLayout
+        android:id="@+id/fab_container"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="232dp"
+        android:background="@drawable/circle"
+        android:layerType="hardware"
+        app:custom_elevation="6dp"
+        app:edge_color="@color/fab_color_pressed"
+        app:is_circle="true"
+        >
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layerType="hardware"
+            android:src="@drawable/ic_toggle_star"
+            app:backgroundTint="@color/background_layout_fa"
+            app:rippleColor="@color/background_fab_tint"
+            />
+    </com.github.hilo.widget.DepthLayout>
+</com.github.hilo.widget.DepthRendrer>

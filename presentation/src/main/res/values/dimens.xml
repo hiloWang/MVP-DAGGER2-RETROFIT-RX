@@ -8,6 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="status_bar_height">56dp</dimen>
+    <dimen name="dept_appbar_height">80dp</dimen>
     <dimen name="default_elevation">8dp</dimen>
 
     <!-- recyclerview item data -->
@@ -51,4 +52,6 @@
     <dimen name="margin_right_16dp">16dp</dimen>
     <dimen name="publish_photo_thumbnail_size">96dp</dimen>
     <dimen name="activity_margin_half">8dp</dimen>
+    <dimen name="menu_item_height_padding">6dp</dimen>
+    <dimen name="menu_item_height">53dp</dimen>
 </resources>

@@ -42,6 +42,11 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="Theme.DepthLayout" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
     <style name="Theme.Hilo.PopupMenuTextAppearanceLarge"
            parent="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large">
         <item name="android:textColor">@android:color/black</item>

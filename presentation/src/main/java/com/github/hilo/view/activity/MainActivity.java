@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -56,7 +54,6 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	}
 
 	@Override protected void initViews(Bundle savedInstanceState) {
-		this.setupExitActivityAnimation();
 		this.setupAnimations();
 		this.setupFragment();
 	}
@@ -73,7 +70,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		RxView.clicks(fab).subscribe(this::onFabClicked);
 		RxView.clicks(llFabMenuContainerFirst).subscribe(this::onFabMenuClicked);
 		tvCloud.setOnClickListener(v -> {
-			if (fabOpened) closeMenu();
+			if (fabOpened) closeFabMenu();
 		});
 	}
 
@@ -150,16 +147,17 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 	@Override protected void onSaveInstanceState(Bundle outState) {}
 
 	private void onFabClicked(Void view) {
-		if (!fabOpened) openMenu();
-		else closeMenu();
+		if (!fabOpened) openFabMenu();
+		else closeFabMenu();
 	}
 
 	private void onFabMenuClicked(Void view) {
 		this.showSnackbar();
-		this.closeMenu();
+		this.closeFabMenu();
 	}
 
-	private void openMenu() {
+
+	private void openFabMenu() {
 		// the menu is opening about fab
 		fabOpened = true;
 		fab.setEnabled(false);
@@ -171,7 +169,7 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		this.openFabMenuAnimation();
 	}
 
-	private void closeMenu() {
+	private void closeFabMenu() {
 		// the menu is closing about fab
 		fabOpened = false;
 		fab.setEnabled(false);
@@ -276,9 +274,5 @@ public class MainActivity extends BaseDrawerLayoutActivity implements HasCompone
 		((TextView)snackbarLayout.findViewById(R.id.snackbar_text)).setTextColor(
 						getResources().getColor(R.color.design_black_text));
 		snackbar.show();
-	}
-
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP) private void setupExitActivityAnimation() {
-
 	}
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.hilo.widget.DepthLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/app_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dept_appbar_height"
+    android:background="@color/colorPrimary"
+    android:layerType="hardware"
+    app:edge_color="#000000">
+
+    <ImageView
+        android:id="@+id/staturbar_bg"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <ImageView
+        android:id="@+id/menu"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_menu"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="65dp"
+        android:fitsSystemWindows="true"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+</com.github.hilo.widget.DepthLayout>

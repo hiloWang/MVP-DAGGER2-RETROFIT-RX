@@ -34,13 +34,19 @@
 
         <activity
             android:name=".view.activity.DailyActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:configChanges="orientation|screenLayout|screenSize"/>
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:windowSoftInputMode="stateHidden"/>
 
         <activity
             android:name=".view.activity.DetailsActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:configChanges="orientation|screenLayout|screenSize"/>
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".view.activity.CardActivity"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:theme="@style/Theme.DepthLayout"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

@@ -30,8 +30,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 import static com.github.hilo.util.Preconditions.checkNotNull;
@@ -101,24 +99,24 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 		mDailyIv.animate().scaleX(1.f).scaleY(1.f).setInterpolator(new OvershootInterpolator()).setDuration(1000);
 
 		// ImageView onClicked event
-		RxView.clicks(mDailyIv)
-					.throttleFirst(1,TimeUnit.SECONDS)
-					.observeOn(Schedulers.newThread())
-					.map((Func1<Void, Void>)aVoid -> {
-
-						Glide.get(context).clearDiskCache();
-						/*Log.e("HILO","清理后disk： 总空间(" + Glide.getPhotoCacheDir(context).getTotalSpace() + ")" +
-										":: 可用空间（" + Glide.getPhotoCacheDir(context).getUsableSpace() + ")");*/
-						return null;
-					})
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(aVoid -> {
-
-						Glide.get(context).clearMemory();
-						/*Log.e("HILO",
-									"清理后内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" +
-													Glide.getPhotoCacheDir(context).getFreeSpace());*/
-					});
+//		RxView.clicks(mDailyIv)
+//					.throttleFirst(1,TimeUnit.SECONDS)
+//					.observeOn(Schedulers.newThread())
+//					.map((Func1<Void, Void>)aVoid -> {
+//
+//						Glide.get(context).clearDiskCache();
+//						/*Log.e("HILO","清理后disk： 总空间(" + Glide.getPhotoCacheDir(context).getTotalSpace() + ")" +
+//										":: 可用空间（" + Glide.getPhotoCacheDir(context).getUsableSpace() + ")");*/
+//						return null;
+//					})
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(aVoid -> {
+//
+//						Glide.get(context).clearMemory();
+//						/*Log.e("HILO",
+//									"清理后内存： " + Glide.getPhotoCacheDir(context).getAbsolutePath() + "::" +
+//													Glide.getPhotoCacheDir(context).getFreeSpace());*/
+//					});
 	}
 
 	private void bindFooterView(BaseRecyclerViewHolder viewHolder,int position) {

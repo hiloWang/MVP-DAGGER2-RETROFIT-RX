@@ -1,4 +1,4 @@
-package com.github.hilo.view.activity;
+ package com.github.hilo.view.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;

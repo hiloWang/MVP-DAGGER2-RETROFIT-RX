@@ -1,6 +1,7 @@
 package com.github.hilo.view.activity;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -78,6 +79,7 @@ public class DailyActivity extends BaseToolbarActivity {
 
 	@Override protected void initListeners() {
 		RxView.clicks(detailContainer).throttleFirst(1,TimeUnit.SECONDS).subscribe(this::showAppbarLayout);
+		RxView.clicks(dailyIv).throttleFirst(1,TimeUnit.SECONDS).subscribe(this::bringToCardActivity);
 
 		detailContainer.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
 			@Override public boolean onPreDraw() {
@@ -86,7 +88,7 @@ public class DailyActivity extends BaseToolbarActivity {
 					Animator animator = ViewAnimationUtils.createCircularReveal(detailContainer,0,0,0,
 																																			(float)Math.hypot(detailContainer.getWidth(),
 																																												detailContainer.getHeight()));
-					animator.setDuration(1000);
+					animator.setDuration(1500);
 					animator.setInterpolator(new DecelerateInterpolator());
 					animator.start();
 				}
@@ -154,6 +156,10 @@ public class DailyActivity extends BaseToolbarActivity {
 		} else {
 			super.onBackPressed();
 		}
+	}
+
+	private void bringToCardActivity(Void aVoid) {
+		startActivity(new Intent(DailyActivity.this,CardActivity.class));
 	}
 
 	private void showAppbarLayout(Void aVoid) {
