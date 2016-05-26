@@ -89,6 +89,7 @@ public class CardActivity extends Activity implements MenuAnimation {
 		this.overridePendingTransition(true);
 		if (isMenuVisible) {
 			hideMenu();
+			this.revertFromMenu();
 		}
 		super.onBackPressed();
 	}
@@ -206,16 +207,25 @@ public class CardActivity extends Activity implements MenuAnimation {
 		return v -> {
 			if (menuIndex == curretMenuIndex) onBackPressed();
 			else if (menuIndex == 0) {
+				/*((MenuAnimation) currentFragment).exitFromMenu();
+				WaterFragment waterFragment = new WaterFragment();
+				waterFragment.setIntroAnimate(true);
+				goToFragment(waterFragment);
+				hideMenu();
+				selectMenuItem(menuIndex, color);*/
+				this.exitFromMenu();
+				TransitionHelper.startIntroAnim(rootView,showShadowListener);
 				hideMenu();
 				selectMenuItem(menuIndex,splashColor);
 			} else if (menuIndex == 1) {
+				this.exitFromMenu();
 				hideMenu();
+				TransitionHelper.startIntroAnim(rootView,showShadowListener);
 				selectMenuItem(menuIndex,splashColor);
+			} else {
+				startActivity(new Intent(CardActivity.this,CardActivity.class));
+				onBackPressed();
 			}
-			hideMenu();
-			TransitionHelper.animateMenuOut(rootView);
-			TransitionHelper.startIntroAnim(rootView,showShadowListener);
-			selectMenuItem(menuIndex,splashColor);
 		};
 	}
 
@@ -242,7 +252,5 @@ public class CardActivity extends Activity implements MenuAnimation {
 		translationY.setDuration(700);
 		translationY.setInterpolator(new ExpoIn());
 		translationY.start();
-
-		this.exitFromMenu();
 	}
 }

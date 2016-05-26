@@ -207,7 +207,8 @@ public class TransitionHelper {
 		exitAnimate((DepthLayout)root.findViewById(R.id.dl2),MOVE_Y_STEP,20f,60,230,false);
 		exitAnimate((DepthLayout)root.findViewById(R.id.dl3),MOVE_Y_STEP * 2,20f,75,250,false).addListener(onMenuAnimFinished);
 
-		ObjectAnimator translationY = ObjectAnimator.ofFloat(root,View.TRANSLATION_Y,
+		// 控制布局整体上移
+		ObjectAnimator translationY = ObjectAnimator.ofFloat(root.findViewById(R.id.fragmentContainer),View.TRANSLATION_Y,
 																												 -90f * root.getResources().getDisplayMetrics().density)
 																								.setDuration(DURATION);
 		translationY.setInterpolator(VALUEinterpolator);
@@ -236,7 +237,8 @@ public class TransitionHelper {
 		revertFromMenu((DepthLayout)root.findViewById(R.id.fab_container),20f,20,6);
 		revertFromMenu((DepthLayout)root.findViewById(R.id.dl2),20f,30,1);
 		revertFromMenu((DepthLayout)root.findViewById(R.id.dl3),20f,40,2).addListener(animatorListenerAdapter);
-		ObjectAnimator translationY = ObjectAnimator.ofFloat(root,View.TRANSLATION_Y,0).setDuration(DURATION);
+		ObjectAnimator translationY = ObjectAnimator.ofFloat(root.findViewById(R.id.fragmentContainer),View.TRANSLATION_Y,0).setDuration
+						(DURATION);
 		translationY.setInterpolator(new QuintInOut());
 		translationY.start();
 	}
