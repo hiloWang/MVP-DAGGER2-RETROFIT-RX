@@ -126,7 +126,8 @@ public class HorizontalProgressbar extends ProgressBar {
 		if (!reachedMaximumValue) {
 			paint.setColor(unReachColor);
 			paint.setStrokeWidth(unReachHeight);
-			float startX = theCurrentXpoint + textOffset / 2 + textWidth; // theCurrentXpoint(包含了字体间距的一半) + textOffSet + 字体宽度
+			// 当progress=0时，首先绘制的是unReachBar
+			float startX = theCurrentXpoint + textOffset / 2 + textWidth;
 			canvas.drawLine(startX,0,realWidth,0,paint);
 		}
 
