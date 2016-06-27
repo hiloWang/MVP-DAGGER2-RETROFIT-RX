@@ -130,7 +130,7 @@
                 android:textSize="16sp"
                 />
 
-            <SeekBar
+            <!--<SeekBar
                 android:id="@+id/wave_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,8 +138,21 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="11dp"
                 android:padding="10dp"
-                />
+                />-->
 
+            <com.github.hilo.widget.study.HorizontalProgressbar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="0"
+                android:padding="10dp"
+                app:progress_reach_color="@color/accent"
+                app:progress_reach_height="3dp"
+                app:progress_text_color="@color/design_black_text_real"
+                app:progress_text_offset="15dp"
+                app:progress_text_size="@dimen/text_size_13"
+                app:progress_unreach_color="@color/style_color_accent"
+                app:progress_unreach_height="3dp"/>
 
         </LinearLayout>
     </com.github.hilo.widget.DepthLayout>

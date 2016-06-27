@@ -231,8 +231,8 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		if (resestTheLifeCycle) {
 			this.resestTheLifeCycle = false;
 			this.clearDecoration();
-			this.recyclerView.setLayoutManager(this.linearLayoutManager);
-			this.recyclerView.addItemDecoration(this.dataDecration);
+			recyclerView.setLayoutManager(this.linearLayoutManager);
+			recyclerView.addItemDecoration(this.dataDecration);
 		}
 	}
 

@@ -26,12 +26,14 @@ import com.github.hilo.widget.circlebotton.CircularSplashView;
 import com.github.hilo.widget.circlebotton.TransitionHelper;
 import com.github.hilo.widget.interpolator.ExpoIn;
 import com.github.hilo.widget.interpolator.QuintOut;
+import com.github.hilo.widget.study.HorizontalProgressbar;
 import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
 
 public class CardActivity extends Activity implements MenuAnimation {
 
@@ -44,6 +46,8 @@ public class CardActivity extends Activity implements MenuAnimation {
 
 	private boolean isMenuVisible;
 	private int curretMenuIndex = 0;
+	@Bind(R.id.progressBar) HorizontalProgressbar progressbar;
+
 
 	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +60,7 @@ public class CardActivity extends Activity implements MenuAnimation {
 		this.setupMenuButton();
 
 		RxView.clicks(menu).throttleFirst(1,TimeUnit.SECONDS).subscribe(this::onMenuClicked);
-
+		this.startProgressBar();
 	}
 
 	@Override public void startActivity(Intent intent) {
@@ -152,6 +156,16 @@ public class CardActivity extends Activity implements MenuAnimation {
 											.withEndAction(() -> circularSplashView.setVisibility(View.INVISIBLE))
 											.start();
 		fadeColoTo(Color.BLACK,(TextView)menuItem.findViewById(R.id.item_text));
+	}
+
+	private void startProgressBar() {
+		Observable.timer(30,TimeUnit.MILLISECONDS).subscribe(aLong -> {
+			int progress = progressbar.getProgress();
+			if (progress < 100) {
+				startProgressBar();
+			}
+			progressbar.setProgress(++progress);
+		});
 	}
 
 	private void fadeColoTo(int newColor,TextView view) {

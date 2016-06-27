@@ -1,11 +1,16 @@
 package com.github.hilo;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.hilo.di.components.ApplicationComponent;
 import com.github.hilo.di.components.DaggerApplicationComponent;
 import com.github.hilo.di.modules.ApplicationModule;
+
+import java.lang.ref.WeakReference;
 
 public class App extends Application {
 
@@ -18,6 +23,7 @@ public class App extends Application {
 		this.initializeLakCanary();
 		this.initializeExceptionHandler();
 		this.initializeDevMetrics();
+		this.initializeRuntimeMemoryManager();
 	}
 
 	public ApplicationComponent getApplicationComponent() {
@@ -48,5 +54,42 @@ public class App extends Application {
 
 	private void initializeInjector() {
 		applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+	}
+
+	private void initializeRuntimeMemoryManager() {
+		if (dummyHandler == null) dummyHandler = new DummyHandler(this);
+		dummyHandler.obtainMessage().sendToTarget();
+	}
+
+	DummyHandler dummyHandler;
+
+	private Runnable dummyRunnable = new Runnable() {
+		@Override public void run() {
+//			if (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory() > Runtime.getRuntime().maxMemory() * 0.8) {
+//
+//			}
+			onTrimMemory(TRIM_MEMORY_RUNNING_LOW);
+			if(Runtime.getRuntime().totalMemory() > 25000000) {
+				Log.e("HILO","释放内存中");
+				System.gc();
+			}
+			dummyHandler.obtainMessage().sendToTarget();
+		}
+	};
+
+	private static class DummyHandler extends Handler {
+
+		private WeakReference<App> weakReference;
+
+		DummyHandler(App app) {
+			weakReference = new WeakReference<>(app);
+		}
+
+		@Override public void handleMessage(Message msg) {
+			final App mApp = weakReference.get();
+			if (mApp != null) {
+				mApp.dummyHandler.postDelayed(mApp.dummyRunnable,3000);
+			}
+		}
 	}
 }

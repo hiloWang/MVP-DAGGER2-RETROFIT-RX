@@ -10,6 +10,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
@@ -42,6 +43,7 @@ public class DailyActivity extends BaseToolbarActivity {
 	@Bind(R.id.nestedScrollView) NestedScrollView nestedScrollView;
 	@Bind(R.id.coordiNatorContent) CoordinatorLayout coordiNatorContent;
 	@Bind(R.id.gmail_fab) FloatingActionButton fab;
+	@Bind(R.id.cvTransitionView) CardView cvTransitionView;
 	private BottomSheetBehavior bottomSheetBehavior;
 	private Animation growAnimation;
 	private Animation shrinkAnimation;

@@ -54,9 +54,10 @@ android {
     }
 
     lintOptions {
-        quiet true
-        abortOnError false
-        ignoreWarnings true
+        quiet true                          //true 关闭lint报告的分析进度
+        abortOnError false                  //true 错误发生后停止gradle构建
+        ignoreWarnings true                 //true 只报告error
+        // 以下是关闭lint指定错误检查
         disable 'InvalidPackage'            //Some libraries have issues with this.
         disable 'OldTargetApi'              //Lint gives this warning but SDK 20 would be Android L Beta.
         disable 'IconDensities'             //For testing purpose. This is safe to remove.
@@ -82,7 +83,7 @@ android {
         incremental true
         javaMaxHeapSize "4g"
         //关闭预编译
-        preDexLibraries = false
+//        preDexLibraries = false
     }
 }
 

@@ -25,4 +25,8 @@ public class RxBus {
 	public Observable<Object> toObserverable() {
 		return _bus;
 	}
+
+	public <T> Observable<T> toObserverable(final Class<T> eventType) {
+		return _bus.filter(o -> eventType.isInstance(o)).cast(eventType);
+	}
 }

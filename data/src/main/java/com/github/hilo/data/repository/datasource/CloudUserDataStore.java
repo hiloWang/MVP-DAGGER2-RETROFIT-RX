@@ -38,6 +38,6 @@ public class CloudUserDataStore implements UserDataStore {
 	}
 
 	@Override public Observable<UserEntity> userEntity() {
-		return apiConnection.requestSyncCall().requestUserEntityFromApi();
+		return apiConnection.requestSyncCall().requestUserEntityFromApi().doOnNext(saveToCacheAction);
 	}
 }
