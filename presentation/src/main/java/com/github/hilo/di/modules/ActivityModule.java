@@ -9,6 +9,7 @@ import dagger.Provides;
 
 /**
  * A module to wrap the Activity state and expose it to the graph.
+ * 提供的构造方法用于注入不同的activity
  */
 @Module
 public class ActivityModule {

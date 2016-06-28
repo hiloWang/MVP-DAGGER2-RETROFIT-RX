@@ -31,6 +31,10 @@ public class GetUserList extends UseCase {
 
 	private final UserRepository userRepository;
 
+	/**
+	 * 该构造内所有的形参都是接口，且接口的所有实现类都在applicationComponent中注入了，所以只需依赖于
+	 * ApplicationComponent类即可完成该GetUserList类的注入
+	 */
 	@Inject
 	public GetUserList(UserRepository userRepository,ThreadExecutor threadExecutor,
 					PostExecutionThread postExecutionThread) {

@@ -58,6 +58,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	@Override protected void initInjector() {
+		// 拿到userComponent实例对象后，调用inject方法，绑定该fragment
 		userComponent = getComponent(UserComponent.class);
 		userComponent.inject(this);
 	}

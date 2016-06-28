@@ -192,6 +192,7 @@ public abstract class BaseFragment extends Fragment {
 
 	/**
 	 * Gets a component for dependency injection by its type.
+	 * 为了在fragment里可以拿到Component实例对象，特提供getComponent方法
 	 */
 	@SuppressWarnings("unchecked") protected <C> C getComponent(Class<C> componentType) {
 		return componentType.cast(((HasComponent<C>)getActivity()).getComponent());
