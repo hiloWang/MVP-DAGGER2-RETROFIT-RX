@@ -8,7 +8,7 @@ import com.github.hilo.di.scope.PerActivity;
 import dagger.Component;
 
 /**
- * Created by Administrator on 2016/4/20.
+ * 管理Activity类的实例，生命周期与activity生命周期一样长
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})

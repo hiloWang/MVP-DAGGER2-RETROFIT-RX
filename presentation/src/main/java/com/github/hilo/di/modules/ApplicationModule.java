@@ -21,6 +21,11 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module类，管理着其他类的实例对象(Module与Provides为了解决第三方库而生)，
+ * 这里的Provides起着建立桥梁的作用（与Component另一端目标类（@Inject）建立关系）;
+ * 注：如果是返回值的类型接口，则形参必须是接口的实现类才可以，并在实现类的构造函数上@Inject注入依赖，如果返回值并非接口，则一般通过return new X();的方式返回该实例对象
+ */
 @Module
 public class ApplicationModule {
 
