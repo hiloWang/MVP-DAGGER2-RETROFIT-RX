@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,7 +36,7 @@ import rx.schedulers.Schedulers;
 import static com.github.hilo.util.Preconditions.checkNotNull;
 
 public class UserListFragment extends BaseFragment implements UserListView, BaseRecyclerViewHolder.OnItemClickListener,
-				BaseRecyclerViewHolder.OnItemLongClickListener, SwipeRefreshLayout.OnRefreshListener {
+				BaseRecyclerViewHolder.OnItemLongClickListener {
 
 	@Bind(R.id.recyclerView) RecyclerView recyclerView;
 	@Bind(R.id.swipe_refresh_layout) WrapSwipeRefreshLayout swipeRefreshLayout;
@@ -136,11 +135,11 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	@Override public void viewUser(UserModel userModel) {}
 
 	@Override public void showLoading() {
-		setRefreshing(false);
+		stopRefreshing();
 	}
 
 	@Override public void hideLoading() {
-		setRefreshing(false);
+		stopRefreshing();
 	}
 
 	@Override public void showError(String message) {
@@ -158,7 +157,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	public void onSnackbarDismissed(int e) {
-		setRefreshing(false);
+		stopRefreshing();
 		hideLoading();
 	}
 
@@ -215,7 +214,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		checkNotNull(adapter,"adapter == null");
 		this.usersLists = (ArrayList<UserModel>)usersCollection;
 		this.hideLoading();
-		this.setRefreshing(false);
+		this.stopRefreshing();
 		((MainActivity)getActivity()).getApplicationComponent().rxBus().send(usersLists.get(0));
 
 		if (loadingMoreData) {
@@ -242,13 +241,8 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 		this.recyclerView.removeItemDecoration(this.dataDecration);
 	}
 
-	private void setRefreshing(boolean refreshing) {
+	private void stopRefreshing() {
 		checkNotNull(swipeRefreshLayout,"swipeRefreshLayout == null");
-		if (refreshing) this.onRefresh();
-		else swipeRefreshLayout.setRefreshing(false);
-	}
-
-	@Override public void onRefresh() {
-
+		swipeRefreshLayout.setRefreshing(false);
 	}
 }
