@@ -46,7 +46,7 @@ public class UserListPresenter extends BasePresenter<UserListView> {
 		// 2.通过BasePresent基类中CompositeSubscription管理，不需要处理解除订阅事件问题，当activity 生命周期结束时，会自动解除，
 		// 但是需要手动在onCompleted里remove掉该subscription对象
 		showViewLoading();
-		mCompositeSubscription.add(getUserListUseCase.execute().
+		compositeSubscription.add(getUserListUseCase.execute().
 						subscribe(new UserListSubscriber()));
 	}
 
@@ -72,7 +72,7 @@ public class UserListPresenter extends BasePresenter<UserListView> {
 
 	private final class UserListSubscriber extends DefaultSubscriber<User> {
 		@Override public void onCompleted() {
-			if (mCompositeSubscription != null) mCompositeSubscription.remove(this);
+			if (compositeSubscription != null) compositeSubscription.remove(this);
 			UserListPresenter.this.hideViewLoading();
 		}
 

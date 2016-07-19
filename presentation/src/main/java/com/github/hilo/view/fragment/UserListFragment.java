@@ -193,7 +193,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 
 	private void setAdapter() {
 		if (adapter == null) {
-			adapter = new UserListAdapter(getActivity());
+			adapter = new UserListAdapter(getActivity(), recyclerView);
 			recyclerView.setAdapter(adapter);
 			adapter.setOnItemClickListener(this);
 			adapter.setOnItemLongClickListener(this);
@@ -201,6 +201,7 @@ public class UserListFragment extends BaseFragment implements UserListView, Base
 	}
 
 	private void setSwipeRefreshLayout() {
+		// 为了保证上拉加载数据时，加载到的数据整体能全部显示在屏幕内，则必须使用自定义Decration，如果不适用则有一小部分会隐藏在屏幕下面
 		dataDecration = new BorderDividerItemDecration(getResources().getDimensionPixelOffset(R.dimen
 																																																	.data_border_divider_height)
 						/*getResources().getDimensionPixelOffset(R.dimen.data_border_padding_infra_spans)*/);

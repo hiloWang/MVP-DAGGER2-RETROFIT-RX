@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -43,15 +44,16 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 	private final int[] drawableIcons = new int[] {R.drawable.center_1,R.drawable.center_2,R.drawable.center_3,R.drawable
 					.center_4,R.drawable.center_5};
 
+	private RecyclerView recyclerView;
 	private FrameLayout footerViewContainer;
 	private CardView errorFooterView;
 	private int position;
 
 	@Inject ToastUtils toastUtils;
-
-	public UserListAdapter(Context context) {
+	public UserListAdapter(Context context, RecyclerView recyclerView) {
 		super();
 		this.context = context;
+		this.recyclerView = recyclerView;
 	}
 
 	@Override public int[] getItemLayouts() {
@@ -71,7 +73,8 @@ public class UserListAdapter extends BaseRecyclerViewAdapter {
 	}
 
 	@Override public int getRecycleViewItemType(int position) {
-		if (position == getListSize()) return VIEW_TYPE_FOOTERVIEW;
+		// 保证数据少于一个屏幕时, 不显示上拉加载icon
+		if (position != 0 && position > recyclerView.getChildCount() && position == getListSize()) return VIEW_TYPE_FOOTERVIEW;
 		return VIEW_TYPE_DEFAULT;
 	}
 

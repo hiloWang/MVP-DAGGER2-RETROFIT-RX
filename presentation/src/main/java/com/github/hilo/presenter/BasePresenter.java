@@ -6,24 +6,24 @@ import rx.subscriptions.CompositeSubscription;
 
 public abstract class BasePresenter<T extends MvpView> implements Presenter<T> {
 
-	private T mMvpView;
-	public CompositeSubscription mCompositeSubscription;
+	private T mvpView;
+	public CompositeSubscription compositeSubscription;
 
 	@Override public void attachView(T mvpView) {
-		this.mMvpView = mvpView;
-		this.mCompositeSubscription = new CompositeSubscription();
+		this.mvpView = mvpView;
+		this.compositeSubscription = new CompositeSubscription();
 	}
 
 	@Override public void detachView() {
-		this.mMvpView = null;
-		if (this.mCompositeSubscription.isUnsubscribed()) {
-			this.mCompositeSubscription.unsubscribe();
-			this.mCompositeSubscription = null;
+		this.mvpView = null;
+		if (!compositeSubscription.isUnsubscribed()) {
+			compositeSubscription.unsubscribe();
+			compositeSubscription = null;
 		}
 	}
 
 	public boolean isViewAttached() {
-		return mMvpView != null;
+		return mvpView != null;
 	}
 
 	public void checkViewAttached() {
@@ -31,7 +31,7 @@ public abstract class BasePresenter<T extends MvpView> implements Presenter<T> {
 	}
 
 	public T getMvpView() {
-		return mMvpView;
+		return mvpView;
 	}
 
 	public static class MvpViewNotAttachedException extends RuntimeException {
